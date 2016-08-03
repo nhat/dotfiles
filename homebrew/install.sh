@@ -13,8 +13,36 @@ then
 fi
 
 # Install homebrew packages
-brew install grc coreutils spark trash tmux reattach-to-user-namespace git zsh z zsh-syntax-highlighting source-highlight
+brew install grc
+brew install coreutils
+brew install spark
+brew install trash
+brew install tmux
+brew install reattach-to-user-namespace
+brew install git
+brew install zsh
+brew install z
+brew install zsh-syntax-highlighting
+brew install source-highlight
+brew install httpie
+
 # Install cask packages
 brew tap caskroom/cask
-brew cask install provisionql qlcolorcode qlimagesize qlstephen quicklook-csv quicklook-json qlmarkdown
+brew tap caskroom/versions
+
+brew cask install provisionql
+brew cask install qlcolorcode
+brew cask install qlimagesize
+brew cask install qlstephen
+brew cask install quicklook-csv
+brew cask install quicklook-json
+brew cask install qlmarkdown
+brew cask install seil
+brew cask install karabiner
+brew cask install alfred
+brew cask install dropbox
+brew cask install java
+brew cask install vlc
+brew cask install sublime-text3
+
 exit 0
