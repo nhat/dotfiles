@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# find shorthand
+function f() {
+	find . -iname "*$1*" ${@:2}
+}

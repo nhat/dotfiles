@@ -1,0 +1,33 @@
+{
+	"bold_folder_labels": true,
+	"caret_extra_width": 1,
+	"color_scheme": "Packages/User/SublimeLinter/base16-ocean.dark (SL).tmTheme",
+	"enable_tab_scrolling": false,
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		"node_modules"
+	],
+	"font_face": "Source Code Pro",
+	"font_size": 14,
+	"highlight_line": true,
+	"hot_exit": false,
+	"ignored_packages":
+	[
+	],
+	"match_brackets": false,
+	"open_files_in_new_window": false,
+	"remember_open_files": false,
+	"save_on_focus_lost": true,
+	"show_encoding": true,
+	"show_full_path": true,
+	"show_panel_on_build": false,
+	"theme": "Spacegray.sublime-theme",
+	"update_check": false,
+	"vintage_ctrl_keys": false,
+	"vintage_start_in_command_mode": true,
+	"vintage_use_clipboard": true
+}

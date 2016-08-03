@@ -1,0 +1,24 @@
+{
+	"auto_upgrade": false,
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AdvancedNewFile",
+		"BracketHighlighter",
+		"CodeFormatter",
+		"DocBlockr",
+		"Emmet",
+		"FileBrowser",
+		"LaTeXTools",
+		"Origami",
+		"Package Control",
+		"SublimeLinter",
+		"SublimeLinter-csslint",
+		"SublimeLinter-jshint",
+		"SublimeLinter-json",
+		"Theme - Spacegray"
+	]
+}

@@ -1,0 +1,9 @@
+#!/bin/sh
+# Setup a machine for Sublime Text
+set -x
+
+# symlink settings in
+sublime_dir=~/Library/Application\ Support/Sublime\ Text\ 3/Packages
+./copy
+mv "$sublime_dir/User" "$sublime_dir/User.backup"
+ln -s "$DOTFILES_ROOT/sublime/User" "$sublime_dir"
