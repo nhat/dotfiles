@@ -1,5 +1,4 @@
-alias gl='git pull --prune'
-alias glog="git log --graph --pretty=format:'%Cblue%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gl="git log --graph --pretty=format:'%Cblue%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gp='git push origin HEAD'
 alias gd='git diff'
 alias gc='git commit'
