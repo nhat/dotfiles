@@ -1,7 +1,6 @@
 # OS generated files #
 ######################
 .DS_Store
-.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
@@ -20,7 +19,7 @@ Thumbs.db
 *.swp
 *.rbc
 
-# IDE generated files #
+# IDE files #
 ######################
 **/.idea
 

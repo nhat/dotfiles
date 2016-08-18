@@ -11,7 +11,7 @@ set -g history-limit 10000
 # use vim key bindings
 setw -g mode-keys vi
 
-# disable mouse
+# enable mouse
 setw -g mouse on
 
 # decrease command delay (increases vim responsiveness)
@@ -62,7 +62,7 @@ bind C-p paste-buffer
 unbind %
 bind-key v split-window -h -c '#{pane_current_path}'
 unbind '"'
-bind-key h split-window -c '#{pane_current_path}'
+bind-key s split-window -c '#{pane_current_path}'
 bind-key c new-window -c '#{pane_current_path}'
 
 # close windows and panes
