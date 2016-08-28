@@ -1,6 +1,6 @@
 [
-    { "keys": ["super+7"], "command": "toggle_comment", "args": { "block": false } },
-    { "keys": ["super+shift+7"], "command": "toggle_comment", "args": { "block": true } },
+    { "keys": ["super+-"], "command": "toggle_comment", "args": { "block": false } },
+    { "keys": ["super+alt+-"], "command": "toggle_comment", "args": { "block": true } },
     { "keys": ["j", "j"], "command": "exit_insert_mode",
         "context":
         [
@@ -66,6 +66,7 @@
     { "keys": ["super+shift+h"], "command": "code_formatter" },
     { "keys": ["ctrl+o"], "command": "jump_back" },
     { "keys": ["ctrl+i"], "command": "jump_forward" },
+    { "keys": ["alt+super+d"], "command": "find_all_under" },
     { "keys": ["ctrl+u"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete to Hard BOL.sublime-macro"} },
     { "keys": ["super+v"], "command": "paste_and_indent" },
     { "keys": ["super+shift+v"], "command": "paste" },
