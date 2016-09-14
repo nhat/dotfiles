@@ -17,5 +17,5 @@ alias grep='grep --color=auto'               # Always highlight grep search term
 
 alias vi=nvim
 
-alias i223='sudo killall -HUP mDNSResponder; sshuttle -H --dns -r nnguyen2@10.44.223.191 10.44.0.0/16'
-alias prod='sudo killall -HUP mDNSResponder; sshuttle -H --dns -r nnguyen2@login.corp.mobile.de 10.38.0.0/16 10.46.0.0/16 10.47.0.0/16'
+alias i223='sudo killall -HUP mDNSResponder && sshuttle -H --dns -r nnguyen2@10.44.223.191 10.44.0.0/16'
+alias prod='sudo killall -HUP mDNSResponder && sshuttle -H --dns -r nnguyen2@login.corp.mobile.de 10.38.0.0/16 10.46.0.0/16 10.47.0.0/16'
