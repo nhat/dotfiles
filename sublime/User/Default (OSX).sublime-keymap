@@ -67,7 +67,6 @@
     { "keys": ["ctrl+o"], "command": "jump_back" },
     { "keys": ["ctrl+i"], "command": "jump_forward" },
     { "keys": ["alt+super+d"], "command": "find_all_under" },
-    { "keys": ["ctrl+u"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete to Hard BOL.sublime-macro"} },
     { "keys": ["super+v"], "command": "paste_and_indent" },
     { "keys": ["super+shift+v"], "command": "paste" },
     { "keys": ["super+e"], "command": "run_macro_file", "args": {"file": "Packages/Default/Delete Line.sublime-macro"}}
