@@ -1,6 +1,7 @@
 {
 	"color_scheme": "Packages/User/dired.hidden-tmTheme",
 	"dired_header": true,
+	"dired_width": 290,
 	"dired_to_copy":
 	[
 	],

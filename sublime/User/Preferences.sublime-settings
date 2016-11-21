@@ -30,5 +30,6 @@
 	"update_check": false,
 	"vintage_ctrl_keys": true,
 	"vintage_start_in_command_mode": true,
-	"vintage_use_clipboard": true
+	"vintage_use_clipboard": true,
+	"word_wrap": false
 }
