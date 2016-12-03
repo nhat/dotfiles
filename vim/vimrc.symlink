@@ -1,14 +1,15 @@
-"settings and plugins
+" settings and plugins
 
 set nocompatible
 set clipboard=unnamed
 set number                " show line numbers
 set cul                   " highlight current line
 set laststatus=2          " last window always has a statusline
-set nohlsearch            " Don't continue to highlight searched phrases.
-set incsearch             " But do highlight as you type your search.
-set ignorecase            " Make searches case-insensitive.
-set ruler                 " Always show info along bottom.
+set nohlsearch            " don't continue to highlight searched phrases
+set incsearch             " but do highlight as you type your search
+set ignorecase            " make searches case-insensitive
+set smartcase			  "  ignore case unless you uppercase a letter
+set ruler                 " always show info along bottom
 set showmatch
 set wildmenu
 set splitbelow
@@ -22,39 +23,63 @@ set expandtab             " use spaces instead of tabs
 set smarttab              " use tabs at the start of a line, spaces elsewhere
 set nowrap                " don't wrap text
 set noeb vb t_vb=
-filetype off
+set noshowmode
+set scrolloff=1
+set sidescroll=1
+set sidescrolloff=5
+set hidden
+set title                                              " enable setting title
+set titlestring=VIM:\ %-25.105F\ %a%r%m titlelen=120   " configure title to look like: VIM: /path/to/file
+
+filetype on
 syntax on
+autocmd BufEnter * silent! lcd %:p:h    " reload buffer when file changes
 
 call plug#begin('~/.vim/plugged')
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
 Plug 'matze/vim-move'
+Plug 'terryma/vim-expand-region'
+Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
 Plug 'KeitaNakamura/neodark.vim'
 call plug#end()
 
-colorscheme neodark
-
 
 " key bindings
 
+let mapleader = " "
 imap jj <Esc>
 imap kk <Esc>
-map Q :qa<CR>
-nmap U <C-R>
-nnoremap <C-W>e :e .<CR>
-nnoremap <C-N> <TAB>
+nmap Q :qa<CR>
+nmap U <C-r>
+nmap gt :bnext<CR>
+nmap gT :bprev<CR>
+nnoremap <C-n> <Tab>
+nnoremap <Leader>o :e 
+nnoremap <Leader>w :terminal<CR>
+nnoremap <Leader>W :split<CR>:terminal<CR>
+nnoremap <Leader>s <C-w>s
+nnoremap <Leader>v <C-w>v
+nnoremap <Leader>c <C-w>c
+nnoremap <Leader><Leader> :w<CR>
+nnoremap <Leader>C :bw!<CR>
+nnoremap <Leader>z :tab sp<CR>:set showtabline=0<CR>
 
 " indent with tab key
 nnoremap <Tab> >>_
 nnoremap <S-Tab> <<_
-inoremap <S-Tab> <C-D>
+inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+
+" have x (removes single character) not go into the default registry
+nnoremap x "_x
 
 " Make X an operator that removes text without placing text in the default registry
 nmap X "_d
@@ -62,36 +87,47 @@ nmap XX "_dd
 vmap X "_d
 vmap x "_d
 
-" have x (removes single character) not go into the default registry
-nnoremap x "_x
-
 
 " other
 
-if has('nvim')
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-  " Hack to get C-h working in neovim
-  nmap <BS> <C-W>h
-  tnoremap <Esc> <C-\><C-U>
-endif
+let g:neodark#use_256color = 1
+colorscheme neodark
+
+let g:buftabline_show=1
+let g:buftabline_indicators=1
+hi TabLineSel ctermfg=237 ctermbg=108 guifg=#263A45 guibg=#84B97C
+hi PmenuSel ctermfg=179 ctermbg=59 guifg=#D4B261 guibg=#475C69
+
+let g:ctrlp_show_hidden=1
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|Trash)$'
 
 let g:lightline = {
-      \ 'colorscheme': 'neodark',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component': {
-      \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
-      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
-      \ },
-      \ 'component_visible_condition': {
-      \   'readonly': '(&filetype!="help"&& &readonly)',
-      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
-      \ }
+    \ 'colorscheme': 'neodark',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component': {
+    \   'readonly': '%{&filetype=="help"?"":&readonly?"":""}',
+    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+    \ },
+    \ 'component_visible_condition': {
+    \   'readonly': '(&filetype!="help"&& &readonly)',
+    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+    \ },
+    \ 'separator': { 'left': '', 'right': '' },
+    \ 'subseparator': { 'left': '', 'right': '' }
+    \ }
+
+if has('nvim')
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    tnoremap <Esc> <C-\><C-n>
+
+    " Hack to get C-h working in neovim
+    nmap <BS> <C-h>
+endif
 

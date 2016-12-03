@@ -1,11 +1,10 @@
-# Only set this if we haven't set $EDITOR up somewhere else previously.
-if [[ "$EDITOR" == "" ]] ; then
-	# Preferred editor for local and remote sessions
-	if [[ -n $SSH_CONNECTION ]]; then
-	  export EDITOR='vim'
-	else
-	  export EDITOR='subl'
-	fi
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR='vim'
+elif [[ -n ${NVIM_LISTEN_ADDRESS+x} ]]; then
+    export EDITOR='nvr'
+else
+    export EDITOR='nvim'
 fi
 
 export LANG=en_US.UTF-8

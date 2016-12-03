@@ -31,5 +31,7 @@
 	"vintage_ctrl_keys": true,
 	"vintage_start_in_command_mode": true,
 	"vintage_use_clipboard": true,
-	"word_wrap": false
+	"word_wrap": false,
+	"fade_fold_buttons": false,
+	"caret_style": "wide"
 }
