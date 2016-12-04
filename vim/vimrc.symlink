@@ -8,7 +8,7 @@ set laststatus=2          " last window always has a statusline
 set nohlsearch            " don't continue to highlight searched phrases
 set incsearch             " but do highlight as you type your search
 set ignorecase            " make searches case-insensitive
-set smartcase			  "  ignore case unless you uppercase a letter
+set smartcase			  " ignore case unless you uppercase a letter
 set ruler                 " always show info along bottom
 set showmatch
 set wildmenu
@@ -27,13 +27,19 @@ set noshowmode
 set scrolloff=1
 set sidescroll=1
 set sidescrolloff=5
+set noswapfile
+set undofile
+set autowriteall
 set hidden
 set title                                              " enable setting title
 set titlestring=VIM:\ %-25.105F\ %a%r%m titlelen=120   " configure title to look like: VIM: /path/to/file
 
 filetype on
 syntax on
-autocmd BufEnter * silent! lcd %:p:h    " reload buffer when file changes
+autocmd BufEnter * silent! lcd %:p:h                                            " reload buffer when file changes
+autocmd TermOpen * setlocal listchars= | set nocursorline | set nocursorcolumn  " no line highlight in terminal
+autocmd FocusLost * silent! wa
+
 
 call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
@@ -45,6 +51,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
+Plug 'sjl/vitality.vim'
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
 Plug 'KeitaNakamura/neodark.vim'
@@ -62,6 +69,7 @@ nmap gt :bnext<CR>
 nmap gT :bprev<CR>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e 
+nnoremap <Leader>n :enew<CR>
 nnoremap <Leader>w :terminal<CR>
 nnoremap <Leader>W :split<CR>:terminal<CR>
 nnoremap <Leader>s <C-w>s
