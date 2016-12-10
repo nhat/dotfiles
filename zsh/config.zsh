@@ -7,10 +7,6 @@ fi
 # Enable highlighters
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
-# bind k and j for VI mode
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-
 # ZSH completions
 fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
 
@@ -28,8 +24,8 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-setopt NO_HIST_VERIFY # runs last command after enter
 unsetopt SHARE_HISTORY # don't share history between sessions
+setopt NO_HIST_VERIFY # runs last command after enter
 setopt EXTENDED_HISTORY # add timestamps to history
 setopt APPEND_HISTORY # adds history
 setopt INC_APPEND_HISTORY  # adds history incrementally

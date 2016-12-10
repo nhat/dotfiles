@@ -13,11 +13,10 @@
             { "key": "setting.is_widget", "operand": false }
         ]
     },
+    { "keys": ["u"], "command": "undo", "context": [{"key": "setting.command_mode"}]},
     { "keys": ["U"], "command": "redo", "context": [{"key": "setting.command_mode"}]},
-    { "keys": ["super+shift+j"], "command": "scroll_lines", "args": {"amount": -20.0}, "context": [{"key": "setting.command_mode"}]},
-    { "keys": ["super+shift+k"], "command": "scroll_lines", "args": {"amount": 20.0}, "context": [{ "key": "setting.command_mode" }]},
-    { "keys": ["g", "T"], "command": "prev_view" },
-    { "keys": ["g", "t"], "command": "next_view" },
+    { "keys": ["g", "T"], "command": "prev_view", "context": [{"key": "setting.command_mode"}]},
+    { "keys": ["g", "t"], "command": "next_view", "context": [{"key": "setting.command_mode"}]},
     { "keys": ["alt+j"], "command": "swap_line_down" },
     { "keys": ["alt+k"], "command": "swap_line_up" },
     { "keys": ["ctrl+shift+j"], "command": "select_lines", "args": {"forward": true} },
@@ -26,15 +25,33 @@
     { "keys": ["ctrl+j"], "command": "travel_to_pane", "args": {"direction": "down"} },
     { "keys": ["ctrl+k"], "command": "travel_to_pane", "args": {"direction": "up"} },
     { "keys": ["ctrl+l"], "command": "travel_to_pane", "args": {"direction": "right"} },
-    { "keys": [" ", "ctrl+h"], "command": "carry_file_to_pane", "args": {"direction": "left"} },
-    { "keys": [" ", "ctrl+j"], "command": "carry_file_to_pane", "args": {"direction": "down"} },
-    { "keys": [" ", "ctrl+k"], "command": "carry_file_to_pane", "args": {"direction": "up"} },
-    { "keys": [" ", "ctrl+l"], "command": "carry_file_to_pane", "args": {"direction": "right"} },
-    { "keys": [" ", "v"], "command": "create_pane", "args": {"direction": "right", "give_focus": true} },
-    { "keys": [" ", "s"], "command": "create_pane", "args": {"direction": "down", "give_focus": true} },
-    { "keys": [" ", "V"], "command": "create_pane_with_file", "args": {"direction": "right"} },
-    { "keys": [" ", "S"], "command": "create_pane_with_file", "args": {"direction": "down"} },
-    { "keys": [" ", "c"], "command": "destroy_pane", "args": {"direction": "self"} },
+    { "keys": [" ", "ctrl+h"], "command": "carry_file_to_pane", "args": {"direction": "left"},
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
+    { "keys": [" ", "ctrl+j"], "command": "carry_file_to_pane", "args": {"direction": "down"},
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
+    { "keys": [" ", "ctrl+k"], "command": "carry_file_to_pane", "args": {"direction": "up"},
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
+    { "keys": [" ", "ctrl+l"], "command": "carry_file_to_pane", "args": {"direction": "right"},
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
+    { "keys": [" ", "v"], "command": "create_pane", "args": {"direction": "right", "give_focus": true},
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
+    { "keys": [" ", "s"], "command": "create_pane", "args": {"direction": "down", "give_focus": true},
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
+    { "keys": [" ", "V"], "command": "create_pane_with_file", "args": {"direction": "right"},
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
+    { "keys": [" ", "S"], "command": "create_pane_with_file", "args": {"direction": "down"},
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
+    { "keys": [" ", "c"], "command": "destroy_pane", "args": {"direction": "self"},
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
     // tab escape parenthesis, quotes, etc.
     { "keys": ["tab"], "command": "move", "args": {"by": "characters", "forward": true},
         "context": [
@@ -45,7 +62,9 @@
             { "key": "has_next_field", "operator": "equal", "operand": false }
         ]
     },
-    { "keys": ["-"], "command": "dired", "args": {"immediate": true, "project": false } },
+    { "keys": ["-"], "command": "dired", "args": {"immediate": true, "project": false },
+        "context": [{ "key": "setting.command_mode", "operand": true } ]
+    },
     { "keys": ["enter"], "command": "dired_select", "args": {"other_group": false, "and_close": true},
         "context": [
             { "key": "selector", "operator": "equal", "operand": "text.dired" },

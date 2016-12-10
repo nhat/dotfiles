@@ -133,7 +133,7 @@ let g:lightline = {
 
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    tnoremap <Esc> <C-\><C-n>
+    tnoremap <Esc><Esc> <C-\><C-n>
 
     " Hack to get C-h working in neovim
     nmap <BS> <C-h>

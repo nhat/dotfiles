@@ -1,6 +1,4 @@
 autoload colors && colors
-# cheers, @ehrenmurdick
-# http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
 
 if (( $+commands[git] ))
 then
@@ -29,7 +27,6 @@ git_dirty() {
 
 git_prompt_info () {
  ref=$($git symbolic-ref HEAD 2>/dev/null) || return
-# echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
  echo "${ref#refs/heads/}"
 }
 
@@ -40,30 +37,9 @@ unpushed () {
 need_push () {
   if [[ $(unpushed) == "" ]]
   then
-    echo " "
+    echo ""
   else
     echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
-  fi
-}
-
-ruby_version() {
-  if (( $+commands[rbenv] ))
-  then
-    echo "$(rbenv version | awk '{print $1}')"
-  fi
-
-  if (( $+commands[rvm-prompt] ))
-  then
-    echo "$(rvm-prompt | awk '{print $1}')"
-  fi
-}
-
-rb_prompt() {
-  if ! [[ -z "$(ruby_version)" ]]
-  then
-    echo "%{$fg_bold[yellow]%}$(ruby_version)%{$reset_color%} "
-  else
-    echo ""
   fi
 }
 
@@ -77,7 +53,7 @@ directory_name() {
 }
 
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
-export PROMPT=$'\n$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)\n${ret_status} '
+export PROMPT=$'\n${ret_status} $(directory_name) $(git_dirty)$(need_push)\n'
 set_prompt () {
   export RPROMPT="%{$fg_bold[blue]%}%{$reset_color%}"
 }
