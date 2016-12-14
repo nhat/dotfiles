@@ -65,6 +65,14 @@
     { "keys": ["-"], "command": "dired", "args": {"immediate": true, "project": false },
         "context": [{ "key": "setting.command_mode", "operand": true } ]
     },
+    {
+        "keys": ["-"],
+        "command": "dired_up",
+        "context": [
+          { "key": "selector", "operator": "equal", "operand": "text.dired" },
+          { "key": "setting.dired_rename_mode", "operand": false }
+        ]
+    },
     { "keys": ["enter"], "command": "dired_select", "args": {"other_group": false, "and_close": true},
         "context": [
             { "key": "selector", "operator": "equal", "operand": "text.dired" },
