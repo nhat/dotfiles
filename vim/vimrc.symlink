@@ -36,8 +36,7 @@ set titlestring=VIM:\ %-25.105F\ %a%r%m titlelen=120   " configure title to look
 
 filetype on
 syntax on
-autocmd BufEnter * silent! lcd %:p:h                                            " reload buffer when file changes
-autocmd TermOpen * setlocal listchars= | set nocursorline | set nocursorcolumn  " no line highlight in terminal
+autocmd BufEnter * silent! lcd %:p:h                   " reload buffer when file changes
 autocmd FocusLost * silent! wa
 
 
@@ -132,6 +131,7 @@ let g:lightline = {
     \ }
 
 if has('nvim')
+    autocmd TermOpen * setlocal listchars= | set nocursorline | set nocursorcolumn  " no line highlight in terminal
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     tnoremap <Esc><Esc> <C-\><C-n>
 

@@ -62,13 +62,11 @@ bindkey "]" close-brackets
 function insert_quotes() {
   if [[ $RBUFFER[1] = "'" ]]; then
     zle forward-char
+  elif [[ "${LBUFFER%[[:alpha:]]}" != "$LBUFFER" ]] || [[ $RBUFFER[1] != '' ]]; then
+    zle self-insert
   else
-    if [[ "${LBUFFER%[[:alpha:]]}" == "$LBUFFER" ]]; then # last of LBUFFER is not an alphabet
-      LBUFFER+="''"
-      zle backward-char
-    else
-      zle self-insert
-    fi
+    LBUFFER+="''"
+    zle backward-char
   fi
 }
 zle -N insert-quotes insert_quotes
@@ -78,6 +76,8 @@ bindkey "'" insert-quotes
 function insert_double_quotes() {
   if [[ $RBUFFER[1] = '"' ]]; then
     zle forward-char
+  elif [[ "${LBUFFER%[[:alpha:]]}" != "$LBUFFER" ]] || [[ $RBUFFER[1] != '' ]]; then
+    zle self-insert
   else
     LBUFFER+='""'
     zle backward-char

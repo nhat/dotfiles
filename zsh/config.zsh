@@ -1,7 +1,7 @@
 if [[ -n $SSH_CONNECTION ]]; then
-  export PS1='%m:%3~$(git_info_for_prompt)%# '
+  export PS1='%n@%m: %1~ # '
 else
-  export PS1='%3~$(git_info_for_prompt)%# '
+  export PS1='%n: %1~ # '
 fi
 
 # Enable highlighters

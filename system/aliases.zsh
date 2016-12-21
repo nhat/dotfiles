@@ -18,3 +18,4 @@ alias grep='grep --color=auto'              # Always highlight grep search term
 if type nvim > /dev/null 2>&1; then
   alias vi='nvim'
 fi
+
