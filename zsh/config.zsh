@@ -10,6 +10,9 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 # ZSH completions
 fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
 
+# save current command and restore it after next command
+bindkey '^q' push-line-or-edit
+
 # jump list
 export _Z_CMD='c'
 . `brew --prefix`/etc/profile.d/z.sh
