@@ -1,6 +1,6 @@
-# matches case insensitive for lowercase
+# matches case insensitive, if no upper chars
 zstyle ':completion:*' completer _complete
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+l:|=* r:|=*'
 
 
 # pasting with tabs doesn't perform completion
