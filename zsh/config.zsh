@@ -11,7 +11,10 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
 
 # save current command and restore it after next command
-bindkey '^q' push-line-or-edit
+bindkey '\033q' push-line-or-edit
+
+# edit current command in editor
+bindkey '\033v' edit-command-line
 
 # jump list
 export _Z_CMD='c'

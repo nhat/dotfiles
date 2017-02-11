@@ -73,9 +73,9 @@ nnoremap <Leader>w :terminal<CR>
 nnoremap <Leader>W :split<CR>:terminal<CR>
 nnoremap <Leader>s <C-w>s
 nnoremap <Leader>v <C-w>v
-nnoremap <Leader>c <C-w>c
+nnoremap <Leader>C <C-w>c
 nnoremap <Leader><Leader> :w<CR>
-nnoremap <Leader>C :bw!<CR>
+nnoremap <Leader>c :bw<CR>
 nnoremap <Leader>z :tab sp<CR>:set showtabline=0<CR>
 
 " indent with tab key
