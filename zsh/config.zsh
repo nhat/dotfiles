@@ -16,6 +16,12 @@ bindkey '\033q' push-line-or-edit
 # edit current command in editor
 bindkey '\033v' edit-command-line
 
+# binds hex 0x18 0x7f with deleting everything to the left of the cursor
+bindkey "^X\\x7f" backward-kill-line
+
+# adds redo
+bindkey "^X^_" redo
+
 # jump list
 export _Z_CMD='c'
 . `brew --prefix`/etc/profile.d/z.sh

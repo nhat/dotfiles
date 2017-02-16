@@ -37,7 +37,7 @@ set titlestring=VIM:\ %-25.105F\ %a%r%m titlelen=120   " configure title to look
 filetype on
 syntax on
 autocmd BufEnter * silent! lcd %:p:h                   " reload buffer when file changes
-autocmd FocusLost * silent! wa
+autocmd FocusLost * silent! wa                         " save when focus changes
 
 
 call plug#begin('~/.vim/plugged')
@@ -66,6 +66,7 @@ nmap Q :qa<CR>
 nmap U <C-r>
 nmap gt :bnext<CR>
 nmap gT :bprev<CR>
+nnoremap <M-CR> o<Esc>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e 
 nnoremap <Leader>n :enew<CR>
