@@ -12,7 +12,7 @@ fi
 # oh-my-zsh
 ZSH=$HOME/.oh-my-zsh
 DISABLE_AUTO_UPDATE=true
-plugins=(git zsh-history-substring-search zsh-syntax-highlighting)
+plugins=(git zsh-history-substring-search history-search-multi-word zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # all of our zsh files
