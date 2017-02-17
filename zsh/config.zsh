@@ -24,13 +24,14 @@ bindkey "^X^_" redo
 
 # history search multi word
 zstyle ":history-search-multi-word" page-size "5"
-zstyle ":history-search-multi-word" highlight-color "bg=yellow,fg=black"
-zstyle ":plugin:history-search-multi-word" active "none"
+zstyle ":history-search-multi-word" highlight-color "none"
+zstyle ":plugin:history-search-multi-word" active "bg=250,fg=black"
 zstyle ":plugin:history-search-multi-word" check-paths "no"
 
 typeset -gA HSMW_HIGHLIGHT_STYLES
 HSMW_HIGHLIGHT_STYLES[single-hyphen-option]="none"
 HSMW_HIGHLIGHT_STYLES[double-hyphen-option]="none"
+HSMW_HIGHLIGHT_STYLES[builtin]="fg=green"
 HSMW_HIGHLIGHT_STYLES[variable]="none"
 
 # jump list

@@ -9,7 +9,7 @@ fi
 
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
 alias finder='open .'                       # Open current directory in finder
-alias grep='grep --color=auto'              # Always highlight grep search term
+alias ag='ag --pager less -R'
 
 # Use nvim if installed
 if type nvim > /dev/null 2>&1; then

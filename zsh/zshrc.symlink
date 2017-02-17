@@ -32,7 +32,9 @@ do
 done
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
+eval `gdircolors`
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+autoload -Uz compinit
 compinit -u
 
 # load every completion after autocomplete loads

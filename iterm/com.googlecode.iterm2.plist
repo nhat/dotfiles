@@ -1328,7 +1328,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 364 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>446 67 1016 502 0 0 1440 877 </string>
+	<string>444 442 770 381 0 0 1440 877 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame com.apple.typography_panel_ArialMT</key>
@@ -1336,7 +1336,7 @@
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 0 1440 877 0 0 1440 877 </string>
+	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -2426,7 +2426,7 @@
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.16601812900641028</real>
+	<real>0.18759014423076925</real>
 	<key>SwitchPaneModifier</key>
 	<integer>4</integer>
 	<key>SwitchTabModifier</key>
