@@ -7,6 +7,12 @@ fi
 # Enable highlighters
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
+# zsh-history-substring-search
+source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="none"
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
+
 # ZSH completions
 fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
 
