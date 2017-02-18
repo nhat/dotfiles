@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Remove local branches, which are no longer represented in the remote repository.
+
+git checkout master && git branch -vv | awk '{print $1,$4}' | awk '/ gone]/{print $1}' | xargs git branch -D
