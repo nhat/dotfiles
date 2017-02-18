@@ -25,21 +25,25 @@ git_dirty() {
   fi
 }
 
-git_prompt_info () {
+git_prompt_info() {
  ref=$($git symbolic-ref HEAD 2>/dev/null) || return
  echo "${ref#refs/heads/}"
 }
 
-unpushed () {
+unpushed() {
   $git cherry -v @{upstream} 2>/dev/null
 }
 
-need_push () {
-  if [[ $(unpushed) == "" ]]
+need_push_or_wip() {
+  if $(git log -n 1 2>/dev/null | grep -q -c "\-\-wip\-\-")
   then
-    echo ""
-  else
+    echo " with %{$fg_bold[yellow]%}WIP%{$reset_color%} "
+  elif [[ $(unpushed) != "" ]]
+  then
     echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
+  if
+  else
+    echo ""
   fi
 }
 
@@ -53,7 +57,7 @@ directory_name() {
 }
 
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
-export PROMPT=$'\n${ret_status} $(directory_name) $(git_dirty)$(need_push)\n'
+export PROMPT=$'\n${ret_status} $(directory_name) $(git_dirty)$(need_push_or_wip)\n'
 set_prompt () {
   export RPROMPT="%{$fg_bold[blue]%}%{$reset_color%}"
 }
