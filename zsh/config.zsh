@@ -23,10 +23,10 @@ bindkey '\033q' push-line-or-edit
 bindkey '\033v' edit-command-line
 
 # binds hex 0x18 0x7f with deleting everything to the left of the cursor
-bindkey "^X\\x7f" backward-kill-line
+bindkey '^X\x7f' backward-kill-line
 
 # adds redo
-bindkey "^X^_" redo
+bindkey '^X^_' redo
 
 # history search multi word
 zstyle ":history-search-multi-word" page-size "5"
