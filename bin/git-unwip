@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Restore local changes from WIP commit
+
+git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1
+

@@ -41,7 +41,6 @@ need_push_or_wip() {
   elif [[ $(unpushed) != "" ]]
   then
     echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
-  if
   else
     echo ""
   fi
