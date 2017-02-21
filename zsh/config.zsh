@@ -28,8 +28,28 @@ bindkey '^X\x7f' backward-kill-line
 # adds redo
 bindkey '^X^_' redo
 
+# change directories and open files when selected
+fzf-open-file-or-dir() {
+  local cmd="command find -L . \
+    \\( -path '*/\\.*' -o -fstype 'dev' -o -fstype 'proc' \\) -prune \
+    -o -type f -print \
+    -o -type d -print \
+    -o -type l -print 2> /dev/null | sed 1d | cut -b3-"
+  local out=$(eval $cmd | fzf)
+
+  if [ -f "$out" ]; then
+    $EDITOR "$out" < /dev/tty
+  elif [ -d "$out" ]; then
+    cd "$out"
+    zle reset-prompt
+  fi
+}
+export FZF_DEFAULT_OPTS="--height 20% --reverse --color=spinner:250,pointer:250,info:0 --exit-0"
+zle     -N   fzf-open-file-or-dir
+bindkey '^P' fzf-open-file-or-dir
+
 # history search multi word
-zstyle ":history-search-multi-word" page-size "5"
+zstyle ":history-search-multi-word" page-size "8"
 zstyle ":history-search-multi-word" highlight-color "none"
 zstyle ":plugin:history-search-multi-word" active "bg=250,fg=black"
 zstyle ":plugin:history-search-multi-word" check-paths "no"
