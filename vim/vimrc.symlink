@@ -53,7 +53,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'sjl/vitality.vim'
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
-Plug 'KeitaNakamura/neodark.vim'
+Plug 'rakr/vim-one'
 call plug#end()
 
 
@@ -98,13 +98,10 @@ vmap x "_d
 
 " other
 
-let g:neodark#use_256color = 1
-colorscheme neodark
+colorscheme one
 
 let g:buftabline_show=1
 let g:buftabline_indicators=1
-hi TabLineSel ctermfg=237 ctermbg=108 guifg=#263A45 guibg=#84B97C
-hi PmenuSel ctermfg=179 ctermbg=59 guifg=#D4B261 guibg=#475C69
 
 let g:ctrlp_show_hidden=1
 let g:ctrlp_match_window_reversed=0
@@ -112,7 +109,7 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|Trash)$'
 
 let g:lightline = {
-    \ 'colorscheme': 'neodark',
+    \ 'colorscheme': 'one',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -132,6 +129,9 @@ let g:lightline = {
     \ }
 
 if has('nvim')
+    if (has("termguicolors"))
+        set termguicolors
+    endif
     autocmd TermOpen * setlocal listchars= | set nocursorline | set nocursorcolumn  " no line highlight in terminal
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     tnoremap <Esc><Esc> <C-\><C-n>

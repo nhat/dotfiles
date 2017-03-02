@@ -45,9 +45,16 @@ fzf-open-file-or-dir() {
     zle reset-prompt
   fi
 }
-export FZF_DEFAULT_OPTS="--height 20% --reverse --color=spinner:250,pointer:250,info:0 --exit-0"
+export FZF_DEFAULT_OPTS="
+    --height 20% --reverse --exit-0
+    --color=spinner:250,pointer:#4ca34a,fg+:#4ca34a,hl+:#4ca34a,info:#fafafa,bg+:#fafafa
+"
 zle     -N   fzf-open-file-or-dir
 bindkey '^P' fzf-open-file-or-dir
+
+# zsh syntax highlight
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 
 # history search multi word
 zstyle ":history-search-multi-word" page-size "8"
@@ -59,6 +66,8 @@ typeset -gA HSMW_HIGHLIGHT_STYLES
 HSMW_HIGHLIGHT_STYLES[single-hyphen-option]="none"
 HSMW_HIGHLIGHT_STYLES[double-hyphen-option]="none"
 HSMW_HIGHLIGHT_STYLES[builtin]="fg=green"
+HSMW_HIGHLIGHT_STYLES[single-quoted-argument]="fg=green"
+HSMW_HIGHLIGHT_STYLES[double-quoted-argument]="fg=green"
 HSMW_HIGHLIGHT_STYLES[variable]="none"
 
 # jump list

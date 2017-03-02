@@ -1,8 +1,12 @@
 {
+	"auto_complete": false,
 	"bold_folder_labels": true,
 	"caret_extra_width": 1,
-	"color_scheme": "Packages/User/SublimeLinter/base16-ocean.dark (SL).tmTheme",
+	"caret_style": "wide",
+	"color_scheme": "Packages/User/SublimeLinter/One Light (SL).tmTheme",
+	"draw_shadows": false,
 	"enable_tab_scrolling": false,
+	"fade_fold_buttons": false,
 	"folder_exclude_patterns":
 	[
 		".svn",
@@ -26,14 +30,10 @@
 	"show_encoding": true,
 	"show_full_path": true,
 	"show_panel_on_build": false,
-	"theme": "Spacegray.sublime-theme",
+	"theme": "El Capitan.sublime-theme",
 	"update_check": false,
 	"vintage_ctrl_keys": true,
 	"vintage_start_in_command_mode": true,
 	"vintage_use_clipboard": true,
-	"word_wrap": false,
-	"fade_fold_buttons": false,
-	"caret_style": "wide",
-	"auto_complete": false,
-	"draw_shadows": false
+	"word_wrap": false
 }

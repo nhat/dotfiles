@@ -2,6 +2,8 @@
 #  Configuration
 ###########################
 
+# Add truecolor support
+set-option -ga terminal-overrides ",xterm-256color:Tc"
 # use 256 term for pretty colors
 set -g default-terminal "screen-256color"
 
