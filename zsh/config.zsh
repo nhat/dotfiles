@@ -73,7 +73,6 @@ HSMW_HIGHLIGHT_STYLES[variable]="none"
 # jump list
 export _Z_CMD='c'
 . `brew --prefix`/etc/profile.d/z.sh
-# . ~/.dotfiles/bin/z.sh
 
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true

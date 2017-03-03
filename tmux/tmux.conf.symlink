@@ -111,21 +111,20 @@ set -g status-left-length 40
 set -g status-left ''
 
 # show hostname, date, time, and battery in right status bar
-set-option -g status-right '#[fg=green]#h#[default] %d.%m.%y %H:%M\
- #[fg=red]#(battery discharging)#[default]#(battery charging)'
+set-option -g status-right '#[fg=green]#h#[default] %d.%m.%y %H:%M'
 
 ###########################
 # Colors
 ###########################
 
 # color status bar
-set -g status-bg colour235
-set -g status-fg white
+set -g status-bg colour255
+set -g status-fg black
 
 # highlight current window
 set-window-option -g window-status-current-fg black
 set-window-option -g window-status-current-bg green
 
 # set color of active pane
-set -g pane-border-fg colour235
+set -g pane-border-fg colour255
 set -g pane-active-border-fg green
