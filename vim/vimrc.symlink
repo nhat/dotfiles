@@ -36,7 +36,7 @@ set titlestring=VIM:\ %-25.105F\ %a%r%m titlelen=120   " configure title to look
 
 filetype on
 syntax on
-autocmd BufEnter * silent! lcd %:p:h                   " reload buffer when file changes
+autocmd FocusGained,BufEnter * silent! checktime       " reload buffer when file changes
 autocmd FocusLost * silent! wa                         " save when focus changes
 
 
