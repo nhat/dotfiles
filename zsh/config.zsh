@@ -47,7 +47,7 @@ fzf-open-file-or-dir() {
 }
 export FZF_DEFAULT_OPTS="
     --height 20% --reverse --exit-0
-    --color=spinner:250,pointer:#4ca34a,fg+:#4ca34a,hl+:#4ca34a,info:#fafafa,bg+:#fafafa
+    --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625f50,hl+:#e75544,hl:#e75544,info:#fafafa
 "
 zle     -N   fzf-open-file-or-dir
 bindkey '^P' fzf-open-file-or-dir
@@ -59,7 +59,7 @@ ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 # history search multi word
 zstyle ":history-search-multi-word" page-size "8"
 zstyle ":history-search-multi-word" highlight-color "none"
-zstyle ":plugin:history-search-multi-word" active "bg=250,fg=black"
+zstyle ":plugin:history-search-multi-word" active "bg=240,fg=255"
 zstyle ":plugin:history-search-multi-word" check-paths "no"
 
 typeset -gA HSMW_HIGHLIGHT_STYLES

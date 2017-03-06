@@ -2,16 +2,10 @@
     { "keys": ["super+-"], "command": "toggle_comment", "args": { "block": false } },
     { "keys": ["super+alt+-"], "command": "toggle_comment", "args": { "block": true } },
     { "keys": ["j", "j"], "command": "exit_insert_mode",
-        "context": [
-            { "key": "setting.command_mode", "operand": false },
-            { "key": "setting.is_widget", "operand": false }
-        ]
+        "context": [{ "key": "setting.command_mode", "operand": false }, { "key": "setting.is_widget", "operand": false }]
     },
     { "keys": ["k", "k"], "command": "exit_insert_mode",
-        "context": [
-            { "key": "setting.command_mode", "operand": false },
-            { "key": "setting.is_widget", "operand": false }
-        ]
+        "context": [{ "key": "setting.command_mode", "operand": false }, { "key": "setting.is_widget", "operand": false }]
     },
     { "keys": ["u"], "command": "undo", "context": [{"key": "setting.command_mode"}]},
     { "keys": ["U"], "command": "redo", "context": [{"key": "setting.command_mode"}]},
@@ -29,31 +23,31 @@
     { "keys": ["ctrl+k"], "command": "travel_to_pane", "args": {"direction": "up"} },
     { "keys": ["ctrl+l"], "command": "travel_to_pane", "args": {"direction": "right"} },
     { "keys": [" ", "ctrl+h"], "command": "carry_file_to_pane", "args": {"direction": "left"},
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     { "keys": [" ", "ctrl+j"], "command": "carry_file_to_pane", "args": {"direction": "down"},
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     { "keys": [" ", "ctrl+k"], "command": "carry_file_to_pane", "args": {"direction": "up"},
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     { "keys": [" ", "ctrl+l"], "command": "carry_file_to_pane", "args": {"direction": "right"},
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     { "keys": [" ", "v"], "command": "create_pane", "args": {"direction": "right", "give_focus": true},
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     { "keys": [" ", "s"], "command": "create_pane", "args": {"direction": "down", "give_focus": true},
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     { "keys": [" ", "V"], "command": "create_pane_with_file", "args": {"direction": "right"},
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     { "keys": [" ", "S"], "command": "create_pane_with_file", "args": {"direction": "down"},
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     { "keys": [" ", "c"], "command": "destroy_pane", "args": {"direction": "self"},
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     // tab escape parenthesis, quotes, etc.
     { "keys": ["tab"], "command": "move", "args": {"by": "characters", "forward": true},
@@ -66,26 +60,28 @@
         ]
     },
     { "keys": ["-"], "command": "dired", "args": {"immediate": true, "project": false },
-        "context": [{ "key": "setting.command_mode", "operand": true } ]
+        "context": [{ "key": "setting.command_mode", "operand": true }]
     },
-    {
-        "keys": ["-"],
-        "command": "dired_up",
+    { "keys": ["-"], "command": "dired_up",
         "context": [
           { "key": "selector", "operator": "equal", "operand": "text.dired" },
-          { "key": "setting.dired_rename_mode", "operand": false }
-        ]
+          { "key": "setting.dired_rename_mode", "operand": false }]
     },
     { "keys": ["enter"], "command": "dired_select", "args": {"other_group": false, "and_close": true},
         "context": [
             { "key": "selector", "operator": "equal", "operand": "text.dired" },
-            { "key": "setting.dired_rename_mode", "operand": false }
-        ]
+            { "key": "setting.dired_rename_mode", "operand": false }]
+    },
+    { "keys": ["ctrl+u"], "command": "scroll_lines", "args": {"amount": -1.0 },
+            "context": [{"key": "setting.command_mode"}, {"key": "setting.vintage_ctrl_keys"}]
+    },
+    { "keys": ["ctrl+e"], "command": "vi_scroll_lines", "args": {"forward": false},
+            "context": [{"key": "setting.command_mode"}, {"key": "setting.vintage_ctrl_keys"}]
     },
     { "keys": ["super+shift+h"], "command": "code_formatter" },
     { "keys": ["ctrl+o"], "command": "jump_back" },
     { "keys": ["ctrl+n"], "command": "jump_forward" },
-    { "keys": ["alt+super+d"], "command": "find_all_under" },
+    { "keys": ["ctrl+p"], "command": "show_overlay", "args": {"overlay": "goto", "show_files": true} },
     { "keys": ["super+v"], "command": "paste_and_indent" },
     { "keys": ["super+shift+v"], "command": "paste" },
     { "keys": ["super+e"], "command": "run_macro_file", "args": {"file": "Packages/Default/Delete Line.sublime-macro"}}

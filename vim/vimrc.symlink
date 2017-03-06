@@ -32,12 +32,12 @@ set undofile
 set autowriteall
 set hidden
 set title                                              " enable setting title
-set titlestring=VIM:\ %-25.105F\ %a%r%m titlelen=120   " configure title to look like: VIM: /path/to/file
+set titlestring=\ %-25.105F\ %a%r%m titlelen=120       " configure title to look like: /path/to/file
 
 filetype on
 syntax on
-autocmd FocusGained,BufEnter * silent! checktime       " reload buffer when file changes
-autocmd FocusLost * silent! wa                         " save when focus changes
+autocmd FocusGained,BufEnter * silent! checktime       " reload buffer when focus changes
+autocmd FocusLost * silent! wa                         " save buffer when focus changes
 
 
 call plug#begin('~/.vim/plugged')
@@ -66,6 +66,7 @@ nmap Q :qa<CR>
 nmap U <C-r>
 nmap gt :bnext<CR>
 nmap gT :bprev<CR>
+inoremap <M-BS> <C-W>
 nnoremap <M-CR> o<Esc>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e 
@@ -86,10 +87,14 @@ inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
+" easier page navigation
+nnoremap <C-e> <C-u>
+nnoremap <C-u> <C-e>
+
 " have x (removes single character) not go into the default registry
 nnoremap x "_x
 
-" Make X an operator that removes text without placing text in the default registry
+" make X an operator that removes text without placing text in the default registry
 nmap X "_d
 nmap XX "_dd
 vmap X "_d
@@ -99,6 +104,8 @@ vmap x "_d
 " other
 
 colorscheme one
+highlight Directory gui=bold
+highlight Comment gui=italic
 
 let g:buftabline_show=1
 let g:buftabline_indicators=1

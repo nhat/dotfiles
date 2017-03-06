@@ -42,6 +42,10 @@ setw -g aggressive-resize on
 # https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard/blob/master/README.md
 set-option -g default-command "reattach-to-user-namespace -l zsh"
 
+# send focus event
+set -g focus-events on
+
+
 ###########################
 #  Key Bindings
 ###########################
