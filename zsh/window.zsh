@@ -1,4 +1,3 @@
-# From http://dotfiles.org/~_why/.zshrc
 # Sets the window title nicely no matter where you are
 function title() {
   # escape '%' chars in $1, make nonprintables visible
@@ -12,7 +11,7 @@ function title() {
     print -Pn "\ek$a:$3\e\\" # screen title (in ^A")
     ;;
   xterm*|rxvt)
-    print -Pn "\e]2;$2\a" # plain xterm title ($3 for pwd)
+    print -Pn "\e]0;%1d - %n@%m\a" # plain xterm title
     ;;
   esac
 }
