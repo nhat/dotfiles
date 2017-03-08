@@ -2,10 +2,14 @@
 #  Configuration
 ###########################
 
-# Add truecolor support
+# add truecolor support
 set-option -ga terminal-overrides ",xterm-256color:Tc"
 # use 256 term for pretty colors
 set -g default-terminal "screen-256color"
+
+# set tmux title
+set -g set-titles on
+set -g set-titles-string "#{pane_title}"
 
 # increase scroll-back history
 set -g history-limit 10000

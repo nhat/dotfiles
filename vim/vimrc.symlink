@@ -37,7 +37,7 @@ set titlestring=\ %-25.105F\ %a%r%m titlelen=120       " configure title to look
 filetype on
 syntax on
 autocmd FocusGained,BufEnter * silent! checktime       " reload buffer when focus changes
-autocmd FocusLost * silent! wa                         " save buffer when focus changes
+autocmd FocusLost,Bufleave * silent! wa                         " save buffer when focus changes
 
 
 call plug#begin('~/.vim/plugged')
@@ -60,8 +60,6 @@ call plug#end()
 " key bindings
 
 let mapleader = " "
-imap jj <Esc>
-imap kk <Esc>
 nmap Q :qa<CR>
 nmap U <C-r>
 nmap gt :bnext<CR>
@@ -132,7 +130,7 @@ let g:lightline = {
     \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
     \ },
     \ 'separator': { 'left': '', 'right': '' },
-    \ 'subseparator': { 'left': '', 'right': '' }
+    \ 'subseparator': { 'left': '-', 'right': '' }
     \ }
 
 if has('nvim')

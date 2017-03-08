@@ -7,11 +7,11 @@ function title() {
   a=$(print -Pn "%40>...>$a" | tr -d "\n")
 
   case $TERM in
-  screen)
-    print -Pn "\ek$a:$3\e\\" # screen title (in ^A")
+  screen*)
+    print -Pn "\e]0;%1d - $a\a" # plain xterm title
     ;;
   xterm*|rxvt)
-    print -Pn "\e]0;%1d - %n@%m\a" # plain xterm title
+    print -Pn "\e]0;%1d - $a\a" # plain xterm title
     ;;
   esac
 }

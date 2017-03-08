@@ -832,13 +832,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.0039215325377881527</real>
+				<real>0.54509806632995605</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.51764708757400513</real>
+				<real>0.79607844352722168</real>
 				<key>Red Component</key>
-				<real>0.75686275959014893</real>
+				<real>0.92156863212585449</real>
 			</dict>
 			<key>Ansi 4 Color</key>
 			<dict>
@@ -1001,13 +1001,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.31372550129890442</real>
+				<real>0.23590087890625</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.37254902720451355</real>
+				<real>0.23590087890625</real>
 				<key>Red Component</key>
-				<real>0.38431373238563538</real>
+				<real>0.23590087890625</real>
 			</dict>
 			<key>Link Color</key>
 			<dict>
@@ -1419,7 +1419,7 @@
 	<key>NSFontPanelSizeSliderParams</key>
 	<string>2 0 100</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Desktop</string>
+	<string>~/Downloads</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 459}</string>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
@@ -1463,13 +1463,13 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>75 413 963 77 0 0 1440 877 </string>
+	<string>75 279 963 77 0 0 1440 877 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>310 406 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 364 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>392 349 796 473 0 0 1440 877 </string>
+	<string>370 472 918 381 0 0 1440 877 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame com.apple.typography_panel_ArialMT</key>
@@ -1483,7 +1483,9 @@
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>239 130 970 747 0 0 1440 877 </string>
+	<string>0 4 1440 873 0 0 1440 877 </string>
+	<key>NSWindow Frame iTerm Window 5</key>
+	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NeverWarnAboutMeta</key>
 	<true/>
 	<key>NeverWarnAboutMeta_selection</key>
@@ -1641,13 +1643,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.0039215325377881527</real>
+				<real>0.54509806632995605</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.51764708757400513</real>
+				<real>0.79607844352722168</real>
 				<key>Red Component</key>
-				<real>0.75686275959014893</real>
+				<real>0.92156863212585449</real>
 			</dict>
 			<key>Ansi 4 Color</key>
 			<dict>
@@ -1848,13 +1850,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.31372550129890442</real>
+				<real>0.23590087890625</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.37254902720451355</real>
+				<real>0.23590087890625</real>
 				<key>Red Component</key>
-				<real>0.38431373238563538</real>
+				<real>0.23590087890625</real>
 			</dict>
 			<key>Guid</key>
 			<string>E72805BC-3A57-4384-9584-E3A7C4ECD50B</string>
@@ -2488,6 +2490,8 @@
 			<integer>0</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
+			<key>Unicode Version</key>
+			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
 			<true/>
 			<key>Use Bold Font</key>
@@ -2604,7 +2608,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-03-06T07:32:43Z</date>
+	<date>2017-03-08T16:08:03Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>

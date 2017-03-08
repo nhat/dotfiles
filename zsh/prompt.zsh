@@ -18,9 +18,9 @@ git_dirty() {
   else
     if [[ $($git status --porcelain) == "" ]]
     then
-      echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
+      echo " on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
     else
-      echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
+      echo " on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
     fi
   fi
 }
@@ -56,7 +56,7 @@ directory_name() {
 }
 
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
-export PROMPT=$'\n${ret_status} $(directory_name) $(git_dirty)$(need_push_or_wip)\n'
+export PROMPT=$'\n${ret_status} $(directory_name)$(git_dirty)$(need_push_or_wip)\n'
 set_prompt () {
   export RPROMPT="%{$fg_bold[blue]%}%{$reset_color%}"
 }
