@@ -77,8 +77,6 @@ export _Z_CMD='c'
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
-autoload -U $DOTFILES_ROOT/functions/*(:t)
-
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000

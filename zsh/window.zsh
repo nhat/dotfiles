@@ -8,10 +8,10 @@ function title() {
 
   case $TERM in
   screen*)
-    print -Pn "\e]0;%1d - $a\a" # plain xterm title
+    print -Pn "\e]0;%1d ⏤  $a\a" # plain xterm title
     ;;
   xterm*|rxvt)
-    print -Pn "\e]0;%1d - $a\a" # plain xterm title
+    print -Pn "\e]0;%1d ⏤  $a\a" # plain xterm title
     ;;
   esac
 }

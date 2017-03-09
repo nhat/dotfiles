@@ -15,5 +15,5 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home
 # Set source-highlight for less
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
-export LESS=" -XRF"
+export LESS=" -iR"
 
