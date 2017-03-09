@@ -98,6 +98,10 @@ nmap XX "_dd
 vmap X "_d
 vmap x "_d
 
+" toggle comment
+nmap <M--> <Plug>CommentaryLine
+vmap <M--> <Plug>Commentary
+
 
 " other
 

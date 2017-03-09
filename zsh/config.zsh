@@ -59,7 +59,7 @@ ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 # history search multi word
 zstyle ":history-search-multi-word" page-size "8"
 zstyle ":history-search-multi-word" highlight-color "none"
-zstyle ":plugin:history-search-multi-word" active "bg=240,fg=255"
+zstyle ":plugin:history-search-multi-word" active "bg=237,fg=255"
 zstyle ":plugin:history-search-multi-word" check-paths "no"
 
 typeset -gA HSMW_HIGHLIGHT_STYLES

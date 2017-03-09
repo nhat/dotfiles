@@ -1,4 +1,4 @@
-# Sets reasonable OS X defaults.
+# Sets reasonable macOS defaults.
 #
 # The original idea (and a couple settings) were grabbed from:
 #   https://github.com/mathiasbynens/dotfiles/blob/master/.osx
@@ -46,8 +46,9 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 # Default duration for iCal
 defaults write com.apple.iCal 'Default duration in minutes for new event' 30
 
-# Avoid creating .DS_Store files on network volumes
+# Avoid creating .DS_Store files on network and USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Set up Safari for development.
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true

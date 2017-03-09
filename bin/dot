@@ -5,8 +5,8 @@
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
 
-# Set OS X defaults
-$DOTFILES_ROOT/osx/set-defaults.sh
+# Set macOS defaults
+$DOTFILES_ROOT/macos/set-defaults.sh
 
 # Upgrade homebrew
 brew update
