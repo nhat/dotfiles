@@ -2,9 +2,13 @@
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+l:|=* r:|=*'
 
+# Use ls-colors for path completions
+eval $(gdircolors)
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
+
 
 # parens ()
 function insert_parens() {
