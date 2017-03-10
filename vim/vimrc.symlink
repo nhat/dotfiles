@@ -37,7 +37,8 @@ set titlestring=\ %-25.105F\ %a%r%m titlelen=120       " configure title to look
 filetype on
 syntax on
 autocmd FocusGained,BufEnter * silent! checktime       " reload buffer when focus changes
-autocmd FocusLost,Bufleave * silent! wa                         " save buffer when focus changes
+autocmd FocusLost,Bufleave * silent! wa                " save buffer when focus changes
+autocmd StdinReadPost * set buftype=nofile
 
 
 call plug#begin('~/.vim/plugged')
