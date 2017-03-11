@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>AdaptiveFrameRateThroughputThreshold</key>
-	<integer>500000</integer>
+	<integer>10000000</integer>
 	<key>AdjustWindowForFontSizeChange</key>
 	<false/>
 	<key>AllowClipboardAccess</key>
@@ -1471,9 +1471,9 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 364 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 126 606 469 0 0 1440 877 </string>
+	<string>269 152 606 469 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>337 185 1016 512 0 0 1440 877 </string>
+	<string>205 311 1018 447 0 0 1440 877 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame com.apple.typography_panel_ArialMT</key>
@@ -2619,7 +2619,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-03-09T17:18:14Z</date>
+	<date>2017-03-10T18:51:37Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -2631,7 +2631,7 @@
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SlowFrameRate</key>
-	<real>15</real>
+	<real>30</real>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.16644381009615386</real>
 	<key>StretchTabsToFillBar</key>

@@ -100,7 +100,7 @@ vmap X "_d
 vmap x "_d
 
 " toggle comment
-nmap <M--> <Plug>CommentaryLine
+nmap <M--> <Plug>CommentaryLine<CR>
 vmap <M--> <Plug>Commentary
 
 

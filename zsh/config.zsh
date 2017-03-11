@@ -39,11 +39,18 @@ fzf-open-file-or-dir() {
   local out=$(eval $cmd | fzf)
 
   if [ -f "$out" ]; then
-    $EDITOR "$out" < /dev/tty
+    e "$out" < /dev/tty
+    local res="e"
   elif [ -d "$out" ]; then
-    cd "$out"
-    zle reset-prompt
+    builtin cd "$out"
+    local res="cd"
+  else
+      return 0
   fi
+
+  print -s "$res $out"
+  echo -n "\x1b[\033[32m$res\033[39m \e[4m$out"
+  zle accept-line
 }
 export FZF_DEFAULT_OPTS="
     --height 20% --reverse --exit-0
@@ -77,6 +84,8 @@ export _Z_CMD='c'
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
+# don't save wrong commands
+zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -85,7 +94,6 @@ unsetopt SHARE_HISTORY # don't share history between sessions
 setopt NO_HIST_VERIFY # runs last command after enter
 setopt EXTENDED_HISTORY # add timestamps to history
 setopt APPEND_HISTORY # adds history
-setopt INC_APPEND_HISTORY  # adds history incrementally
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
 
