@@ -65,6 +65,8 @@ nmap Q :qa<CR>
 nmap U <C-r>
 nmap gt :bnext<CR>
 nmap gT :bprev<CR>
+imap jj <Esc>
+imap kk <Esc>
 inoremap <M-BS> <C-W>
 nnoremap <M-CR> o<Esc>
 nnoremap <C-n> <Tab>
@@ -78,6 +80,8 @@ nnoremap <Leader>C <C-w>c
 nnoremap <Leader><Leader> :w<CR>
 nnoremap <Leader>c :bw<CR>
 nnoremap <Leader>z :tab sp<CR>:set showtabline=0<CR>
+nnoremap <Leader>f :%s///gc<Left><Left><Left><Left>
+vnoremap <Leader>f :s///gc<Left><Left><Left><Left>
 
 " indent with tab key
 nnoremap <Tab> >>_

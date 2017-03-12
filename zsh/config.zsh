@@ -4,16 +4,18 @@ else
   export PS1='%n: %1~ # '
 fi
 
-# Enable highlighters
+# zsh syntax highlight
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 
 # zsh-history-substring-search
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="none"
 bindkey '^[OA' history-substring-search-up
 bindkey '^[OB' history-substring-search-down
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=red"
 
-# ZSH completions
+# zsh completions
 fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
 
 # save current command and restore it after next command
@@ -25,8 +27,14 @@ bindkey '\033v' edit-command-line
 # binds hex 0x18 0x7f with deleting everything to the left of the cursor
 bindkey '^X\x7f' backward-kill-line
 
+# escape kills buffer
+bindkey '\033' kill-buffer
+
 # adds redo
 bindkey '^X^_' redo
+
+# faster escape timeout
+KEYTIMEOUT=10
 
 # change directories and open files when selected
 fzf-open-file-or-dir() {
@@ -49,7 +57,7 @@ fzf-open-file-or-dir() {
   fi
 
   print -s "$res $out"
-  echo -n "\x1b[\033[32m$res\033[39m \e[4m$out"
+  echo -n "\x1b[\033[32m$res\033[39m \033[4m$out"
   zle accept-line
 }
 export FZF_DEFAULT_OPTS="
@@ -58,10 +66,6 @@ export FZF_DEFAULT_OPTS="
 "
 zle     -N   fzf-open-file-or-dir
 bindkey '^P' fzf-open-file-or-dir
-
-# zsh syntax highlight
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 
 # history search multi word
 zstyle ":history-search-multi-word" page-size "8"
@@ -81,7 +85,7 @@ HSMW_HIGHLIGHT_STYLES[variable]="none"
 export _Z_CMD='c'
 . `brew --prefix`/etc/profile.d/z.sh
 
-export LSCOLORS="exfxcxdxbxegedabagacad"
+export LSCOLORS="ExGxFxDxCxDxDxhbhdacEc"
 export CLICOLOR=true
 
 # don't save wrong commands
