@@ -56,8 +56,9 @@ fzf-open-file-or-dir() {
       return 0
   fi
 
+  zle push-line-or-edit
   print -s "$res $out"
-  echo -n "\x1b[\033[32m$res\033[39m \033[4m$out"
+  echo -ne "\033[38;5;2m$res\033[0m \033[4m$out\033[0m"
   zle accept-line
 }
 export FZF_DEFAULT_OPTS="

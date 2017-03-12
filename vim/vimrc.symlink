@@ -67,7 +67,7 @@ nmap gt :bnext<CR>
 nmap gT :bprev<CR>
 imap jj <Esc>
 imap kk <Esc>
-inoremap <M-BS> <C-W>
+inoremap <M-CR> <Esc>o
 nnoremap <M-CR> o<Esc>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e 
@@ -106,6 +106,18 @@ vmap x "_d
 " toggle comment
 nmap <M--> <Plug>CommentaryLine<CR>
 vmap <M--> <Plug>Commentary
+
+" add macOS shortcuts for editing in insert mode
+inoremap <M-b> <C-Left>
+inoremap <M-f> <Esc>ea
+inoremap <M-BS> <C-W>
+inoremap <M-d> <C-O>de
+inoremap <C-A> <Home>
+inoremap <C-E> <End>
+inoremap <C-X><BS> <C-U>
+inoremap <C-K> <C-O>D
+inoremap <C-_> <C-O>u
+inoremap <C-X><C-_> <C-O><C-r>
 
 
 " other
