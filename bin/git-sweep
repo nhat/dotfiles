@@ -2,5 +2,8 @@
 #
 # Remove local branches, which are no longer represented in the remote repository.
 
-git branch -vv | awk '{print $1,$4}' | awk '/ gone]/{print $1}' | xargs git branch -D
+current_branch=$(git branch | grep "*" | cut -d ' ' -f 2)
+test "$current_branch" != "master" && git checkout master
+
+git fetch -p; git branch -vv | awk '{print $1,$4}' | awk '/ gone]/{print $1}' | xargs git branch -D
 

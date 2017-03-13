@@ -64,7 +64,7 @@ let mapleader = " "
 nmap Q :qa<CR>
 nmap U <C-r>
 nmap gt :bnext<CR>
-nmap gT :bprev<CR>
+nmap gr :bprev<CR>
 imap jj <Esc>
 imap kk <Esc>
 inoremap <M-CR> <Esc>o
