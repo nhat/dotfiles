@@ -69,6 +69,7 @@ imap jj <Esc>
 imap kk <Esc>
 inoremap <M-CR> <Esc>o
 nnoremap <M-CR> o<Esc>
+noremap , '
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e 
 nnoremap <Leader>n :enew<CR>
