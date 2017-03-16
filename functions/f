@@ -2,5 +2,9 @@
 #
 # find shorthand
 function f() {
-	find . -iname "*$1*" ${@:2}
+    if [ "$2" = "" ] ; then
+        find . -iname "*$1*" ${@:2}
+    else
+        find $1 -iname "*$2*" ${@:3}
+    fi
 }
