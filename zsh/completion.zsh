@@ -1,6 +1,9 @@
 # matches case insensitive, if no upper chars
 zstyle ':completion:*' completer _complete
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+l:|=* r:|=*'
+zstyle ':completion:*' matcher-list '' \
+  'm:{a-z\-}={A-Z\_}' \
+  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+  'r:|?=** m:{a-z\-}={A-Z\_}'
 
 # Use ls-colors for path completions
 eval $(gdircolors)
