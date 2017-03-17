@@ -5,12 +5,15 @@ zstyle ':completion:*' matcher-list \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:|?=** m:{a-z\-}={A-Z\_}'
 
-# Use ls-colors for path completions
+# use ls-colors for path completions
 eval $(gdircolors)
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
+
+# enable ../ completion
+zstyle ':completion:*' special-dirs true
 
 
 # parens ()
@@ -22,7 +25,7 @@ zle -N insert-parens insert_parens
 bindkey "(" insert-parens
 
 function close_parens() {
-  if [[ $#RBUFFER != "" ]] && [[ $RBUFFER[1] = ")" ]]; then
+  if [[ $RBUFFER[1] = ")" ]]; then
     zle forward-char
   else
     zle self-insert
@@ -71,7 +74,7 @@ bindkey "]" close-brackets
 function insert_quotes() {
   if [[ $RBUFFER[1] = "'" ]]; then
     zle forward-char
-  elif [[ "${LBUFFER%[[:alpha:]]}" != "$LBUFFER" ]] || [[ $RBUFFER[1] != '' ]]; then
+  elif [[ "$LBUFFER" = "${LBUFFER%[[:blank:]]}" ]] || [[ $RBUFFER[1] != '' ]]; then
     zle self-insert
   else
     LBUFFER+="''"
@@ -85,7 +88,7 @@ bindkey "'" insert-quotes
 function insert_double_quotes() {
   if [[ $RBUFFER[1] = '"' ]]; then
     zle forward-char
-  elif [[ "${LBUFFER%[[:alpha:]]}" != "$LBUFFER" ]] || [[ $RBUFFER[1] != '' ]]; then
+  elif [[ "$LBUFFER" = "${LBUFFER%[[:blank:]]}" ]] || [[ $RBUFFER[1] != '' ]]; then
     zle self-insert
   else
     LBUFFER+='""'

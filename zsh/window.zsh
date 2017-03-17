@@ -16,3 +16,11 @@ function title() {
   esac
 }
 
+precmd() {
+  title "zsh" "%m" "%55<...<%~"
+  set_prompt
+}
+
+function preexec() {
+  title "$1" "%m:%35<...<%~"
+}
