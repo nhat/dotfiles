@@ -32,7 +32,7 @@ set undofile
 set autowriteall
 set hidden
 set title                                              " enable setting title
-set titlestring=\ %-25.105F\ %a%r%m titlelen=120       " configure title to look like: /path/to/file
+set titlestring=%25.105F%a%r%m titlelen=120            " configure title to look like: /path/to/file
 
 filetype on
 syntax on

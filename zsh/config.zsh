@@ -102,6 +102,8 @@ setopt APPEND_HISTORY # adds history
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
 
+setopt GLOBDOTS # matches files beginning with a . without specifying the dot
+setopt NOCLOBBER # don't overwrite existing files
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
 setopt NO_LIST_BEEP

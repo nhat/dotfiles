@@ -5,15 +5,12 @@ zstyle ':completion:*' matcher-list \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:|?=** m:{a-z\-}={A-Z\_}'
 
-# use ls-colors for path completions
 eval $(gdircolors)
-zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
-
-# pasting with tabs doesn't perform completion
-zstyle ':completion:*' insert-tab pending
-
-# enable ../ completion
-zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"     # use ls-colors for path completions
+zstyle ':completion:*' insert-tab pending                    # pasting with tabs doesn't perform completion
+zstyle ':completion:*' special-dirs true                     # enable ../ completion
+zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion:*:(rm|kill|diff|trash):*' ignore-line yes
 
 
 # parens ()
