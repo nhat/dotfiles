@@ -1,9 +1,7 @@
 # shortcut to this dotfiles path is $DOTFILES_ROOT
 export DOTFILES_ROOT=$HOME/.dotfiles
 
-# Stash your environment variables in ~/.localrc. This means they'll stay out
-# of your main dotfiles repository (which may be public, like this one), but
-# you'll have access to them in your scripts.
+# stash local environment variables in ~/.localrc
 if [[ -a ~/.localrc ]]
 then
   source ~/.localrc
@@ -13,7 +11,7 @@ fi
 ZSH=$HOME/.oh-my-zsh
 DISABLE_AUTO_UPDATE=true
 DISABLE_AUTO_TITLE=true
-plugins=(git history-search-multi-word zsh-syntax-highlighting)
+plugins=(git history-search-multi-word)
 source $ZSH/oh-my-zsh.sh
 
 # all of our zsh files

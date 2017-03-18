@@ -8,8 +8,8 @@ if $(gls &>/dev/null); then
 fi
 
 alias -g ..='cd ..'
-alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
-alias finder='open .'                       # Open current directory in finder
+alias mkdir='mkdir -pv'                     # preferred 'mkdir' implementation
+alias finder='open .'                       # open current directory in finder
 alias ag='ag --pager smartless'
 alias less='smartless'
 

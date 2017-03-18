@@ -1,0 +1,7 @@
+#command
+^E back-scroll
+^U forw-line
+
+#env
+LESS=" -iR"
+

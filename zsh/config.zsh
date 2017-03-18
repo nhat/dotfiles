@@ -4,13 +4,18 @@ else
   export PS1='%n: %1~ # '
 fi
 
+# homebrew
+BREW=/usr/local/opt
+
 # zsh syntax highlight
+source $BREW/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 
 # zsh-history-substring-search
-source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $BREW/zsh-history-substring-search/zsh-history-substring-search.zsh
+# source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[OA' history-substring-search-up
 bindkey '^[OB' history-substring-search-down
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=red"
@@ -84,12 +89,12 @@ HSMW_HIGHLIGHT_STYLES[variable]="none"
 
 # jump list
 export _Z_CMD='c'
-. `brew --prefix`/etc/profile.d/z.sh
+source $BREW/z/etc/profile.d/z.sh
 
 export LSCOLORS="ExGxFxDxCxDxDxhbhdacEc"
 export CLICOLOR=true
 
-# don't save wrong commands
+# don't store invalid commands in history
 zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
