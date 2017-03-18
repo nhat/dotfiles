@@ -52,6 +52,7 @@ Plug 'tpope/vim-commentary'
 Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
 Plug 'sjl/vitality.vim'
+Plug 't9md/vim-smalls'
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
 Plug 'rakr/vim-one'
@@ -108,6 +109,11 @@ vmap x "_d
 nmap <M--> <Plug>CommentaryLine<CR>
 vmap <M--> <Plug>Commentary
 
+" make f search for 2 chars
+nmap f <Plug>(smalls)
+omap f <Plug>(smalls)
+xmap f <Plug>(smalls)
+
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
 inoremap <M-f> <Esc>ea
@@ -129,6 +135,14 @@ highlight Comment gui=italic
 
 let g:buftabline_show=1
 let g:buftabline_indicators=1
+
+let g:smalls_auto_jump = 1
+let g:smalls_shade = 0
+let g:smalls_jump_keys = 'ASDFJKLQWERZXCNMUIOP'
+let g:smalls_auto_jump_min_input_length = 2
+let g:smalls_auto_jump_timeout = 0.0
+set ignorecase smartcase
+
 
 let g:ctrlp_show_hidden=1
 let g:ctrlp_match_window_reversed=0
