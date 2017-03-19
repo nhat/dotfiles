@@ -1,4 +1,4 @@
-" settings and plugins
+" settings
 
 set nocompatible
 set clipboard=unnamed
@@ -40,6 +40,8 @@ autocmd FocusGained,BufEnter * silent! checktime       " reload buffer when focu
 autocmd FocusLost,Bufleave * silent! wa                " save buffer when focus changes
 autocmd StdinReadPost * set buftype=nofile
 
+
+" plugins
 
 call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
@@ -136,13 +138,16 @@ highlight Comment gui=italic
 let g:buftabline_show=1
 let g:buftabline_indicators=1
 
+set ignorecase smartcase
 let g:smalls_auto_jump = 1
 let g:smalls_shade = 0
 let g:smalls_jump_keys = 'ASDFJKLQWERZXCNMUIOP'
 let g:smalls_auto_jump_min_input_length = 2
 let g:smalls_auto_jump_timeout = 0.0
-set ignorecase smartcase
-
+let g:smalls_highlight = {
+    \ 'SmallsJumpTarget':
+    \     [['NONE', 'NONE', 'Magenta'],[ 'bold', '#FDD945', 'Black']],
+    \ }
 
 let g:ctrlp_show_hidden=1
 let g:ctrlp_match_window_reversed=0
