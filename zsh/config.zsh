@@ -27,10 +27,13 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=red"
 fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
 
 # save current command and restore it after next command
-bindkey '\033q' push-line-or-edit
+bindkey '^Q' push-line-or-edit
 
 # edit current command in editor
-bindkey '\033v' edit-command-line
+bindkey '^[[13;5u' edit-command-line
+
+# insert parameter last command
+bindkey '^[[13;2u' insert-last-word
 
 # binds hex 0x18 0x7f with deleting everything to the left of the cursor
 bindkey '^X\x7f' backward-kill-line
@@ -42,15 +45,15 @@ bindkey '\033' kill-buffer
 bindkey '^X^_' redo
 
 # faster escape timeout
-KEYTIMEOUT=10
+KEYTIMEOUT=1
 
-# change directories and open files when selected
+# change directories or open files when selected
 fzf-open-file-or-dir() {
   local cmd="command find -L . \
     \\( -path '*/\\.*' -o -fstype 'dev' -o -fstype 'proc' \\) -prune \
     -o -type f -print \
     -o -type d -print \
-    -o -maxdepth 5 \
+    -o -maxdepth 7 \
     -o -type l -print 2> /dev/null | sed 1d | cut -b3-"
   local out=$(eval $cmd | fzf)
 
@@ -65,8 +68,11 @@ fzf-open-file-or-dir() {
   fi
 
   zle push-line-or-edit
-  print -s "$res $out"
-  echo -ne "\033[38;5;2m$res\033[0m \033[4m$out\033[0m"
+  # add to history
+  print -sr "$res ${(q)out}"
+  # add to fasd
+  _fasd_preexec "$res ${(q)out}"
+  echo -ne "\033[38;5;2m$res\033[0m \033[4m${(q)out}\033[0m"
   zle accept-line
 }
 export FZF_DEFAULT_OPTS="

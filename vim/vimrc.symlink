@@ -73,6 +73,8 @@ imap kk <Esc>
 inoremap <M-CR> <Esc>o
 nnoremap <M-CR> o<Esc>
 noremap , '
+nnoremap <S-CR> i<CR><Esc>
+nnoremap <C-CR> O<Esc>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e 
 nnoremap <Leader>n :enew<CR>
@@ -146,7 +148,11 @@ let g:smalls_auto_jump_min_input_length = 2
 let g:smalls_auto_jump_timeout = 0.0
 let g:smalls_highlight = {
     \ 'SmallsJumpTarget':
-    \     [['NONE', 'NONE', 'Magenta'],[ 'bold', '#FDD945', 'Black']],
+    \     [['NONE', 'NONE', 'Red'],[ 'bold', '#FDD945', 'Black']],
+    \ 'SmallsCandidate':
+    \     [['NONE', 'Gray', 'Magenta'],[ 'NONE', '#DCDCDC', 'Red']],
+    \ 'SmallsPos':
+    \     [['NONE', 'Green', 'Black'],[ 'NONE', '#4078f2', 'White']],
     \ }
 
 let g:ctrlp_show_hidden=1
