@@ -4,6 +4,9 @@ else
   export PS1='%n: %1~ # '
 fi
 
+export LSCOLORS="ExGxFxDxCxDxDxhbhdacEc"
+export CLICOLOR=true
+
 # homebrew
 BREW=/usr/local/opt
 
@@ -86,13 +89,6 @@ HSMW_HIGHLIGHT_STYLES[builtin]="fg=green"
 HSMW_HIGHLIGHT_STYLES[single-quoted-argument]="fg=green"
 HSMW_HIGHLIGHT_STYLES[double-quoted-argument]="fg=green"
 HSMW_HIGHLIGHT_STYLES[variable]="none"
-
-# jump list
-export _Z_CMD='c'
-source $BREW/z/etc/profile.d/z.sh
-
-export LSCOLORS="ExGxFxDxCxDxDxhbhdacEc"
-export CLICOLOR=true
 
 # don't store invalid commands in history
 zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }

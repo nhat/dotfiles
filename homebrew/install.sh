@@ -14,7 +14,7 @@ fi
 # install homebrew packages
 brew install coreutils
 brew install zsh
-brew install z
+brew install fasd
 brew install zsh-history-substring-search
 brew install zsh-syntax-highlighting
 brew install jq

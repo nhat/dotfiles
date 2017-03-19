@@ -12,6 +12,7 @@ alias mkdir='mkdir -pv'                     # preferred 'mkdir' implementation
 alias finder='open .'                       # open current directory in finder
 alias ag='ag --pager smartless'
 alias less='smartless'
+alias c='fasd_cd -d'
 
 # Use nvim if installed
 if type nvim > /dev/null 2>&1; then

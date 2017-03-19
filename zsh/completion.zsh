@@ -12,6 +12,13 @@ zstyle ':completion:*' special-dirs true                     # enable ../ comple
 zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:(rm|kill|diff|trash):*' ignore-line yes
 
+zstyle ':completion:*:original' list-colors "=*=$color[red];$color[bold]"
+zstyle ':completion:*:aliases' list-colors "=*=$color[green]"
+
+
+# fasd
+eval "$(fasd --init auto)"
+
 
 # parens ()
 function insert_parens() {
