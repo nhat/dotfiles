@@ -1,5 +1,5 @@
 # Sets the window title nicely no matter where you are
-function title() {
+title() {
   # escape '%' chars in $1, make nonprintables visible
   a=${(V)1//\%/\%\%}
 
@@ -19,12 +19,12 @@ function title() {
   esac
 }
 
-function precmd() {
+precmd() {
   title "zsh" "%m" "%55<...<%~"
   set_prompt
 }
 
-function preexec() {
+preexec() {
   title "$1" "%m:%35<...<%~"
 }
 

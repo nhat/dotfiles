@@ -49,7 +49,7 @@ directory_name() {
 
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
 
-set_prompt () {
+set_prompt() {
   export PROMPT=$'\n${ret_status} $(directory_name)$(git_dirty)$(need_push_or_wip)\n'
   export RPROMPT="%{$fg_bold[blue]%}%{$reset_color%}"
 }

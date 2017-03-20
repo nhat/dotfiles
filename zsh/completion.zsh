@@ -11,24 +11,21 @@ zstyle ':completion:*' insert-tab pending                    # pasting with tabs
 zstyle ':completion:*' special-dirs true                     # enable ../ completion
 zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:(rm|kill|diff|trash):*' ignore-line yes
-
-zstyle ':completion:*:original' list-colors "=*=$color[red];$color[bold]"
-zstyle ':completion:*:aliases' list-colors "=*=$color[green]"
-
+zstyle ':completion:*:*:(e|n(vi(m|))):*' ignored-patterns '.DS_Store|.localized'
 
 # fasd
 eval "$(fasd --init auto)"
 
 
 # parens ()
-function insert_parens() {
+insert_parens() {
   LBUFFER+="()"
   zle backward-char
 }
 zle -N insert-parens insert_parens
 bindkey "(" insert-parens
 
-function close_parens() {
+close_parens() {
   if [[ $RBUFFER[1] = ")" ]]; then
     zle forward-char
   else
@@ -39,14 +36,14 @@ zle -N close-parens close_parens
 bindkey ")" close-parens
 
 # braces {}
-function insert_braces() {
+insert_braces() {
   LBUFFER+="{}"
   zle backward-char
 }
 zle -N insert-braces insert_braces
 bindkey "{" insert-braces
 
-function close_braces() {
+close_braces() {
   if [[ $RBUFFER[1] = "}" ]]; then
     zle forward-char
   else
@@ -57,14 +54,14 @@ zle -N close-braces close_braces
 bindkey "}" close-braces
 
 # brackets []
-function insert_brackets() {
+insert_brackets() {
   LBUFFER+="[]"
   zle backward-char
 }
 zle -N insert-brackets insert_brackets
 bindkey "[" insert-brackets
 
-function close_brackets() {
+close_brackets() {
   if [[ $RBUFFER[1] = ']' ]]; then
     zle forward-char
   else
@@ -75,7 +72,7 @@ zle -N close-brackets close_brackets
 bindkey "]" close-brackets
 
 # quotes ''
-function insert_quotes() {
+insert_quotes() {
   if [[ $RBUFFER[1] = "'" ]]; then
     zle forward-char
   elif [[ "$LBUFFER" = "${LBUFFER%[[:blank:]]}" ]] || [[ $RBUFFER[1] != '' ]]; then
@@ -89,7 +86,7 @@ zle -N insert-quotes insert_quotes
 bindkey "'" insert-quotes
 
 # double quotes ""
-function insert_double_quotes() {
+insert_double_quotes() {
   if [[ $RBUFFER[1] = '"' ]]; then
     zle forward-char
   elif [[ "$LBUFFER" = "${LBUFFER%[[:blank:]]}" ]] || [[ $RBUFFER[1] != '' ]]; then

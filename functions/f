@@ -1,9 +1,9 @@
 #!/bin/sh
 #
 # find shorthand
-function f() {
+f() {
     if [ "$2" = "" ] ; then
-        find . -iname "*$1*" ${@:2}
+        find . -iname "*$1*"
     else
         find $1 -iname "*$2*" ${@:3}
     fi
