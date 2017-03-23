@@ -39,7 +39,7 @@ bindkey '^[[13;2u' insert-last-word
 bindkey '^X\x7f' backward-kill-line
 
 # escape kills buffer
-bindkey '\033' kill-buffer
+bindkey '\033' kill-whole-line
 
 # adds redo
 bindkey '^X^_' redo

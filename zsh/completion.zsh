@@ -11,7 +11,7 @@ zstyle ':completion:*' insert-tab pending                    # pasting with tabs
 zstyle ':completion:*' special-dirs true                     # enable ../ completion
 zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:(rm|kill|diff|trash):*' ignore-line yes
-zstyle ':completion:*:*:(e|n(vi(m|))):*' ignored-patterns '.DS_Store|.localized'
+zstyle ':completion:*:*:*' ignored-patterns '.DS_Store|.localized'
 
 # fasd
 eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)"

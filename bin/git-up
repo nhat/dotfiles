@@ -1,10 +1,9 @@
 #!/bin/sh
 #
 # Usage: git-up
-#        git-reup
 #
 # Like git-pull but show a short and sexy log of changes
-# immediately after merging (git-up) or rebasing (git-reup).
+# immediately after rebasing.
 #
 # Inspired by Kyle Neath's `git up' alias:
 # http://gist.github.com/249223
@@ -14,23 +13,19 @@
 
 set -e
 
-PULL_ARGS="$@"
-
-# when invoked as git-reup, run as `git pull --rebase'
-test "$(basename $0)" = "git-reup" &&
-PULL_ARGS="--rebase $PULL_ARGS"
-
-git pull --prune $PULL_ARGS
+git pull --prune --rebase $@
 
 # show diffstat of all changes if we're pulling with --rebase. not
 # sure why git-pull only does this when merging.
-test "$(basename $0)" = "git-reup" && {
-    echo "Diff:"
-    git --no-pager diff --color --stat HEAD@{1}.. |
-    sed 's/^/ /'
-}
+diff=$(git --no-pager diff --color --stat HEAD@{1}.. | sed 's/^/ /')
+
+if [ "$diff" != "" ]; then
+    echo "Diff:\n$diff"
+fi
 
 # show an abbreviated commit log of stuff that was just merged.
-echo "Log:"
-git log --color --pretty=oneline --abbrev-commit HEAD@{1}.. |
-sed 's/^/  /'
+logs=$(git log --color --pretty=oneline --abbrev-commit HEAD@{1}.. | sed 's/^/  /')
+if [ "$logs" != "" ]; then
+    echo "Log:\n$logs"
+fi
+
