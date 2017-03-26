@@ -8,10 +8,9 @@ zstyle ':completion:*' matcher-list \
 eval $(gdircolors)
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"     # use ls-colors for path completions
 zstyle ':completion:*' insert-tab pending                    # pasting with tabs doesn't perform completion
-zstyle ':completion:*' special-dirs true                     # enable ../ completion
 zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:(rm|kill|diff|trash):*' ignore-line yes
-zstyle ':completion:*:*:*' ignored-patterns '.DS_Store|.localized'
+zstyle ':completion:*:*:(e|n(vi(m|))):*' ignored-patterns '.DS_Store|.localized'
 
 # fasd
 eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)"

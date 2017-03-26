@@ -1,12 +1,12 @@
-# Sets the window title nicely no matter where you are
+# sets the window title nicely no matter where you are
 title() {
   # escape '%' chars in $1, make nonprintables visible
-  a=${(V)1//\%/\%\%}
+  local a=${(V)1//\%/\%\%}
 
-  # Truncate command, and join lines.
+  # truncate command, and join lines.
   a=$(print -Pn "%40>...>$a" | tr -d "\n")
 
-  _icon=${${drak_tabicon[${${(s: :)a}[1]}]}:-${drak_tabicon[zsh]}}
+  local _icon=${${tabicon[${${(s: :)a}[1]}]}:-${tabicon[zsh]}}
 
   case $TERM in
   screen*)
@@ -29,43 +29,43 @@ preexec() {
 }
 
 
-typeset -gA drak_tabicon
-drak_tabicon+=('brew'    $'\U1F37A'); # BEER MUG
-drak_tabicon+=('jekyll'  $'\U1F489'); # SYRINGE
-drak_tabicon+=('make'    $'\U1F6E0'); # HAMMER AND WRENCH
-drak_tabicon+=('mvn'     $'\U1F6E0'); # HAMMER AND WRENCH
-drak_tabicon+=('gradle'  $'\U1F6E0'); # HAMMER AND WRENCH
-drak_tabicon+=('gradlew' $'\U1F6E0'); # HAMMER AND WRENCH
-drak_tabicon+=('rails'   $'\U1F6E4'); # RAILWAY TRACK
-drak_tabicon+=('grunt'   $'\U1F43D'); # PIG NOSE
-drak_tabicon+=('gulp'    $'\U1F379'); # TROPICAL DRINK
-drak_tabicon+=('bower'   $'\U1F3F9'); # BOW AND ARROW
-drak_tabicon+=('git'     $'\U1F3F7'); # LABEL
-drak_tabicon+=('hg'      $'\U1F3F7'); # LABEL
-drak_tabicon+=('svn'     $'\U1F3F7'); # LABEL
-drak_tabicon+=('cvs'     $'\U1F3F7'); # LABEL
-drak_tabicon+=('psql'    $'\U1F418'); # ELEPHANT
-drak_tabicon+=('mysql'   $'\U1F42C'); # DOLPHIN
-drak_tabicon+=('budle'   $'\U1F4E6'); # PACKAGE
-drak_tabicon+=('budler'  $'\U1F4E6'); # PACKAGE
-drak_tabicon+=('tar'     $'\U1F4E6'); # PACKAGE
-drak_tabicon+=('zip'     $'\U1F4E6'); # PACKAGE
-drak_tabicon+=('unzip'   $'\U1F4E6'); # PACKAGE
-drak_tabicon+=('gzip'    $'\U1F4E6'); # PACKAGE
-drak_tabicon+=('gunzip'  $'\U1F4E6'); # PACKAGE
-drak_tabicon+=('bzip'    $'\U1F4E6'); # PACKAGE
-drak_tabicon+=('bunzip'  $'\U1F4E6'); # PACKAGE
-drak_tabicon+=('java'    $'\U2615' ); # HOT BEVERAGE
-drak_tabicon+=('node'    $'\U2615' ); # HOT BEVERAGE
-drak_tabicon+=('coffee'  $'\U2615' ); # HOT BEVERAGE
-drak_tabicon+=('tail'    $'\U1F453'); # EYEGLASSES
-drak_tabicon+=('less'    $'\U1F453'); # EYEGLASSES
-drak_tabicon+=('more'    $'\U1F453'); # EYEGLASSES
-drak_tabicon+=('grep'    $'\U1F50E'); # RIGHT-POINTING MAGNIFYING GLASS
-drak_tabicon+=('ack'     $'\U1F50E'); # RIGHT-POINTING MAGNIFYING GLASS
-drak_tabicon+=('ag'      $'\U1F50E'); # RIGHT-POINTING MAGNIFYING GLASS
-drak_tabicon+=('man'     $'\U1F4DA'); # BOOKS
-drak_tabicon+=('ssh'     $'\U1F5A5'); # DESKTOP COMPUTER
-drak_tabicon+=('rm'      $'\U1F5D1'); # WASTEBASKET
-drak_tabicon+=('zsh'     $'\U1F4BB'); # NOTEBOOK COMPUTER
+typeset -gA tabicon
+tabicon+=('brew'    $'\U1F37A'); # BEER MUG
+tabicon+=('jekyll'  $'\U1F489'); # SYRINGE
+tabicon+=('make'    $'\U1F6E0'); # HAMMER AND WRENCH
+tabicon+=('mvn'     $'\U1F6E0'); # HAMMER AND WRENCH
+tabicon+=('gradle'  $'\U1F6E0'); # HAMMER AND WRENCH
+tabicon+=('gradlew' $'\U1F6E0'); # HAMMER AND WRENCH
+tabicon+=('rails'   $'\U1F6E4'); # RAILWAY TRACK
+tabicon+=('grunt'   $'\U1F43D'); # PIG NOSE
+tabicon+=('gulp'    $'\U1F379'); # TROPICAL DRINK
+tabicon+=('bower'   $'\U1F3F9'); # BOW AND ARROW
+tabicon+=('git'     $'\U1F3F7'); # LABEL
+tabicon+=('hg'      $'\U1F3F7'); # LABEL
+tabicon+=('svn'     $'\U1F3F7'); # LABEL
+tabicon+=('cvs'     $'\U1F3F7'); # LABEL
+tabicon+=('psql'    $'\U1F418'); # ELEPHANT
+tabicon+=('mysql'   $'\U1F42C'); # DOLPHIN
+tabicon+=('budle'   $'\U1F4E6'); # PACKAGE
+tabicon+=('budler'  $'\U1F4E6'); # PACKAGE
+tabicon+=('tar'     $'\U1F4E6'); # PACKAGE
+tabicon+=('zip'     $'\U1F4E6'); # PACKAGE
+tabicon+=('unzip'   $'\U1F4E6'); # PACKAGE
+tabicon+=('gzip'    $'\U1F4E6'); # PACKAGE
+tabicon+=('gunzip'  $'\U1F4E6'); # PACKAGE
+tabicon+=('bzip'    $'\U1F4E6'); # PACKAGE
+tabicon+=('bunzip'  $'\U1F4E6'); # PACKAGE
+tabicon+=('java'    $'\U2615' ); # HOT BEVERAGE
+tabicon+=('node'    $'\U2615' ); # HOT BEVERAGE
+tabicon+=('coffee'  $'\U2615' ); # HOT BEVERAGE
+tabicon+=('tail'    $'\U1F453'); # EYEGLASSES
+tabicon+=('less'    $'\U1F453'); # EYEGLASSES
+tabicon+=('more'    $'\U1F453'); # EYEGLASSES
+tabicon+=('grep'    $'\U1F50E'); # RIGHT-POINTING MAGNIFYING GLASS
+tabicon+=('ack'     $'\U1F50E'); # RIGHT-POINTING MAGNIFYING GLASS
+tabicon+=('ag'      $'\U1F50E'); # RIGHT-POINTING MAGNIFYING GLASS
+tabicon+=('man'     $'\U1F4DA'); # BOOKS
+tabicon+=('ssh'     $'\U1F5A5'); # DESKTOP COMPUTER
+tabicon+=('rm'      $'\U1F5D1'); # WASTEBASKET
+tabicon+=('zsh'     $'\U1F4BB'); # NOTEBOOK COMPUTER
 
