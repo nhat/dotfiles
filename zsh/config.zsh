@@ -21,7 +21,7 @@ source $BREW/zsh-history-substring-search/zsh-history-substring-search.zsh
 # source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[OA' history-substring-search-up
 bindkey '^[OB' history-substring-search-down
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=red"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=yellow"
 
 # zsh completions
 fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
