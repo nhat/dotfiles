@@ -49,7 +49,7 @@ KEYTIMEOUT=1
 
 # change directories or open files when selected
 fzf-open-file-or-dir() {
-  if [[ $#BUFFER != "" ]]; then
+  if [[ $BUFFER != "" ]]; then
     zle push-line-or-edit
   fi
 

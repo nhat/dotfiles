@@ -31,6 +31,7 @@ set noswapfile
 set undofile
 set autowriteall
 set hidden
+set updatetime=150
 set title                                              " enable setting title
 set titlestring=%25.105F%a%r%m titlelen=120            " configure title to look like: /path/to/file
 
@@ -55,6 +56,8 @@ Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
 Plug 'sjl/vitality.vim'
 Plug 't9md/vim-smalls'
+Plug 'airblade/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
 Plug 'rakr/vim-one'
@@ -155,6 +158,9 @@ let g:smalls_highlight = {
     \     [['NONE', 'Green', 'Black'],[ 'NONE', '#4078f2', 'White']],
     \ }
 
+let g:gitgutter_sign_column_always = 1
+let g:gitgutter_realtime = 1
+
 let g:ctrlp_show_hidden=1
 let g:ctrlp_match_window_reversed=0
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
@@ -177,7 +183,7 @@ let g:lightline = {
     \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
     \ },
     \ 'separator': { 'left': '', 'right': '' },
-    \ 'subseparator': { 'left': '-', 'right': '' }
+    \ 'subseparator': { 'left': '', 'right': '' }
     \ }
 
 if has('nvim')
