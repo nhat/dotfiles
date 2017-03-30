@@ -49,6 +49,10 @@ KEYTIMEOUT=1
 
 # change directories or open files when selected
 fzf-open-file-or-dir() {
+  if [[ $#BUFFER != "" ]]; then
+    zle push-line-or-edit
+  fi
+
   local cmd="command find -L . \
     \\( -path '*/\\.*' -o -fstype 'dev' -o -fstype 'proc' \\) -prune \
     -o -type f -print \
@@ -58,21 +62,13 @@ fzf-open-file-or-dir() {
   local out=$(eval $cmd | fzf)
 
   if [ -f "$out" ]; then
-    e "$out" < /dev/tty
-    local res="e"
+    BUFFER="e ${(q)out}"
   elif [ -d "$out" ]; then
-    builtin cd "$out"
-    local res="cd"
+    BUFFER="cd ${(q)out}"
   else
       return 0
   fi
 
-  zle push-line-or-edit
-  # add to history
-  print -sr "$res ${(q)out}"
-  # add to fasd
-  _fasd_preexec "$res ${(q)out}"
-  echo -ne "\033[38;5;2m$res\033[0m \033[4m${(q)out}\033[0m"
   zle accept-line
 }
 export FZF_DEFAULT_OPTS="
