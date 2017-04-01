@@ -39,10 +39,18 @@ bindkey '^[[13;2u' insert-last-word
 bindkey '^X\x7f' backward-kill-line
 
 # escape kills buffer
-bindkey '\033' kill-whole-line
+bindkey '\033' kill-buffer
 
 # adds redo
 bindkey '^X^_' redo
+
+# use the vi navigation keys besides cursor keys in menu completion
+bindkey -M menuselect 'h' vi-backward-char        # left
+bindkey -M menuselect 'k' vi-up-line-or-history   # up
+bindkey -M menuselect 'l' vi-forward-char         # right
+bindkey -M menuselect 'j' vi-down-line-or-history # bottom
+bindkey -M menuselect '\033' undo
+bindkey -M menuselect 'o' accept-and-infer-next-history
 
 # faster escape timeout
 KEYTIMEOUT=1
@@ -73,14 +81,13 @@ fzf-open-file-or-dir() {
 }
 export FZF_DEFAULT_OPTS="
     --height 20% --reverse --exit-0
-    --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625f50,hl+:#e75544,hl:#e75544,info:#fafafa
+    --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA
 "
 zle     -N   fzf-open-file-or-dir
 bindkey '^P' fzf-open-file-or-dir
 
 # history search multi word
-zstyle ":history-search-multi-word" page-size "8"
-zstyle ":history-search-multi-word" highlight-color "none"
+zstyle ":history-search-multi-word" highlight-color "bg=yellow"
 zstyle ":plugin:history-search-multi-word" active "bg=237,fg=255"
 zstyle ":plugin:history-search-multi-word" check-paths "no"
 

@@ -5,10 +5,10 @@ set clipboard=unnamed
 set number                " show line numbers
 set cul                   " highlight current line
 set laststatus=2          " last window always has a statusline
-set nohlsearch            " don't continue to highlight searched phrases
-set incsearch             " but do highlight as you type your search
+set hlsearch              " highlight searched phrases
+set incsearch             " highlight as you type your search
 set ignorecase            " make searches case-insensitive
-set smartcase			  " ignore case unless you uppercase a letter
+set smartcase			  " ignore case unless there is an uppercase letter
 set ruler                 " always show info along bottom
 set showmatch
 set wildmenu
@@ -73,11 +73,13 @@ nmap gt :bnext<CR>
 nmap gr :bprev<CR>
 imap jj <Esc>
 imap kk <Esc>
-inoremap <M-CR> <Esc>o
-nnoremap <M-CR> o<Esc>
 noremap , '
-nnoremap <S-CR> i<CR><Esc>
+inoremap <M-CR> <Esc>o
+inoremap <C-CR> <Esc>O
+nnoremap <M-CR> o<Esc>
 nnoremap <C-CR> O<Esc>
+nnoremap <Esc> :noh<CR>
+nnoremap <S-CR> i<CR><Esc>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e 
 nnoremap <Leader>n :enew<CR>
@@ -139,11 +141,12 @@ inoremap <C-X><C-_> <C-O><C-r>
 colorscheme one
 highlight Directory gui=bold
 highlight Comment gui=italic
+hi Search guibg=#EBCB8B guifg=#3C3C3C
+hi Incsearch gui=none guibg=#EBCB8B guifg=#3C3C3C
 
 let g:buftabline_show=1
 let g:buftabline_indicators=1
 
-set ignorecase smartcase
 let g:smalls_auto_jump = 1
 let g:smalls_shade = 0
 let g:smalls_jump_keys = 'ASDFJKLQWERZXCNMUIOP'
@@ -155,11 +158,13 @@ let g:smalls_highlight = {
     \ 'SmallsCandidate':
     \     [['NONE', 'Gray', 'Magenta'],[ 'NONE', '#DCDCDC', 'Red']],
     \ 'SmallsPos':
-    \     [['NONE', 'Green', 'Black'],[ 'NONE', '#4078f2', 'White']],
+    \     [['NONE', 'Green', 'Black'],[ 'NONE', '#4078F2', 'White']],
     \ }
 
 let g:gitgutter_sign_column_always = 1
 let g:gitgutter_realtime = 1
+
+let g:AutoPairsShortcutBackInsert = ''
 
 let g:ctrlp_show_hidden=1
 let g:ctrlp_match_window_reversed=0

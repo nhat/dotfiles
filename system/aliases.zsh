@@ -7,7 +7,6 @@ if $(gls &>/dev/null); then
   alias la="gls -A --color"
 fi
 
-alias -g ..='cd ..'
 alias mkdir='mkdir -pv'                     # preferred 'mkdir' implementation
 alias finder='open .'                       # open current directory in finder
 alias ag='ag --pager smartless'
