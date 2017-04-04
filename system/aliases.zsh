@@ -9,7 +9,7 @@ fi
 
 alias mkdir='mkdir -pv'                     # preferred 'mkdir' implementation
 alias finder='open .'                       # open current directory in finder
-alias ag='ag --pager smartless'
+alias ag='ag --color-match="48;5;11" --pager=smartless'
 alias less='smartless'
 alias c='fasd_cd -d'
 

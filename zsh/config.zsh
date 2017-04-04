@@ -21,7 +21,7 @@ source $BREW/zsh-history-substring-search/zsh-history-substring-search.zsh
 # source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[OA' history-substring-search-up
 bindkey '^[OB' history-substring-search-down
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=yellow"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=11"
 
 # zsh completions
 fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
@@ -87,7 +87,7 @@ zle     -N   fzf-open-file-or-dir
 bindkey '^P' fzf-open-file-or-dir
 
 # history search multi word
-zstyle ":history-search-multi-word" highlight-color "bg=yellow"
+zstyle ":history-search-multi-word" highlight-color "bg=11"
 zstyle ":plugin:history-search-multi-word" active "bg=237,fg=255"
 zstyle ":plugin:history-search-multi-word" check-paths "no"
 
