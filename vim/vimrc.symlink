@@ -69,8 +69,8 @@ call plug#end()
 let mapleader = " "
 nmap Q :qa<CR>
 nmap U <C-r>
-nmap gt :bnext<CR>
-nmap gr :bprev<CR>
+nmap <silent> gt :bnext<CR>
+nmap <silent> gr :bprev<CR>
 imap jj <Esc>
 imap kk <Esc>
 noremap , '
@@ -78,18 +78,18 @@ inoremap <M-CR> <Esc>o
 inoremap <C-CR> <Esc>O
 nnoremap <M-CR> o<Esc>
 nnoremap <C-CR> O<Esc>
-nnoremap <Esc> :noh<CR>
+nnoremap <silent> <Esc> :noh<CR>
 nnoremap <S-CR> i<CR><Esc>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e 
-nnoremap <Leader>n :enew<CR>
+nnoremap <silent> <Leader>n :enew<CR>
 nnoremap <Leader>w :terminal<CR>
 nnoremap <Leader>W :split<CR>:terminal<CR>
 nnoremap <Leader>s <C-w>s
 nnoremap <Leader>v <C-w>v
 nnoremap <Leader>C <C-w>c
 nnoremap <Leader><Leader> :w<CR>
-nnoremap <Leader>c :bw<CR>
+nnoremap <silent> <Leader>c :bw<CR>
 nnoremap <Leader>z :tab sp<CR>:set showtabline=0<CR>
 nnoremap <Leader>f :%s///gc<Left><Left><Left><Left>
 vnoremap <Leader>f :s///gc<Left><Left><Left><Left>
