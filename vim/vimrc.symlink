@@ -90,9 +90,8 @@ nnoremap <Leader>v <C-w>v
 nnoremap <Leader>C <C-w>c
 nnoremap <Leader><Leader> :w<CR>
 nnoremap <silent> <Leader>c :bw<CR>
-nnoremap <Leader>z :tab sp<CR>:set showtabline=0<CR>
-nnoremap <Leader>f :%s///gc<Left><Left><Left><Left>
-vnoremap <Leader>f :s///gc<Left><Left><Left><Left>
+nnoremap <Leader>r :%s///gc<Left><Left><Left><Left>
+vnoremap <Leader>r :s///gc<Left><Left><Left><Left>
 
 " indent with tab key
 nnoremap <Tab> >>_
@@ -163,6 +162,10 @@ let g:smalls_highlight = {
 
 let g:gitgutter_sign_column_always = 1
 let g:gitgutter_realtime = 1
+let g:gitgutter_sign_added = '█'
+let g:gitgutter_sign_modified = '█'
+let g:gitgutter_sign_removed = '▁'
+let g:gitgutter_sign_modified_removed = '█▁'
 
 let g:AutoPairsShortcutBackInsert = ''
 
@@ -199,7 +202,23 @@ if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     tnoremap <Esc><Esc> <C-\><C-n>
 
-    " Hack to get C-h working in neovim
+    " hack to get C-h working in neovim
     nmap <BS> <C-h>
 endif
+
+function! Tmpwatch(path, days)
+    let l:path = expand(a:path)
+    if isdirectory(l:path)
+        for file in split(globpath(l:path, "*"), "\n")
+            if localtime() > getftime(file) + 86400 * a:days && delete(file) != 0
+                echo "Tmpwatch(): Error deleting '" . file . "'"
+            endif
+        endfor
+    else
+        echo "Tmpwatch(): Directory '" . l:path . "' not found"
+    endif
+endfunction
+
+" remove undo files which have not been modified for 31 days
+call Tmpwatch(&undodir, 31)
 
