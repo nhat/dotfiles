@@ -24,16 +24,16 @@
     { "keys": ["ctrl+j"], "command": "travel_to_pane", "args": {"direction": "down"} },
     { "keys": ["ctrl+k"], "command": "travel_to_pane", "args": {"direction": "up"} },
     { "keys": ["ctrl+l"], "command": "travel_to_pane", "args": {"direction": "right"} },
-    { "keys": [" ", "ctrl+h"], "command": "carry_file_to_pane", "args": {"direction": "left"},
+    { "keys": ["alt+shift+h"], "command": "carry_file_to_pane", "args": {"direction": "left"},
         "context": [{ "key": "setting.command_mode", "operand": true }]
     },
-    { "keys": [" ", "ctrl+j"], "command": "carry_file_to_pane", "args": {"direction": "down"},
+    { "keys": ["alt+shift+j"], "command": "carry_file_to_pane", "args": {"direction": "down"},
         "context": [{ "key": "setting.command_mode", "operand": true }]
     },
-    { "keys": [" ", "ctrl+k"], "command": "carry_file_to_pane", "args": {"direction": "up"},
+    { "keys": ["alt+shift+k"], "command": "carry_file_to_pane", "args": {"direction": "up"},
         "context": [{ "key": "setting.command_mode", "operand": true }]
     },
-    { "keys": [" ", "ctrl+l"], "command": "carry_file_to_pane", "args": {"direction": "right"},
+    { "keys": ["alt+shift+l"], "command": "carry_file_to_pane", "args": {"direction": "right"},
         "context": [{ "key": "setting.command_mode", "operand": true }]
     },
     { "keys": [" ", "v"], "command": "create_pane", "args": {"direction": "right", "give_focus": true},
