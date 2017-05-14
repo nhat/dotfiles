@@ -10,11 +10,11 @@ title() {
 
   case $TERM in
   screen*)
-    print -Pn "\033]0;%1d ⏤  $a\a" # plain xterm title
+    print -Pn "\033]0;%1d ⏤ $a\a" # plain xterm title
     ;;
   xterm*|rxvt)
-    print -Pn "\033]2;%1d ⏤  $a\a" # plain xterm title
-    print -Pn "\033]1;${_icon} %1d ⏤  $a\a" # plain xterm title
+    print -Pn "\033]2;%1d ⏤ $a\a" # plain xterm title
+    print -Pn "\033]1;${_icon} %1d ⏤ $a\a" # plain xterm title
     ;;
   esac
 }

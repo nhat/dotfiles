@@ -76,11 +76,11 @@ imap jj <Esc>
 imap kk <Esc>
 noremap , '
 inoremap <M-CR> <Esc>o
-inoremap <C-CR> <Esc>O
+inoremap <S-CR> <Esc>O
 nnoremap <M-CR> o<Esc>
-nnoremap <C-CR> O<Esc>
+nnoremap <S-CR> O<Esc>
 nnoremap <silent> <Esc> :noh<CR>
-nnoremap <S-CR> i<CR><Esc>
+nnoremap <C-CR> i<CR><Esc>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e 
 nnoremap <silent> <Leader>n :enew<CR>
@@ -104,6 +104,13 @@ vnoremap <S-Tab> <gv
 " easier page navigation
 nnoremap <C-e> <C-u>
 nnoremap <C-u> <C-e>
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+" make Y yank until end of line
+nnoremap Y y$
 
 " have x (removes single character) not go into the default registry
 nnoremap x "_x

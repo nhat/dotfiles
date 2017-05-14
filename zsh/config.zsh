@@ -32,6 +32,9 @@ bindkey '^Q' push-line-or-edit
 # edit current command in editor
 bindkey '^[[13;5u' edit-command-line
 
+# insert new line below
+bindkey '^[^M' vi-open-line-below
+
 # insert parameter last command
 bindkey '^[[13;2u' insert-last-word
 

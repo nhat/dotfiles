@@ -1473,15 +1473,15 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 152 606 469 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>216 418 918 416 0 0 1440 877 </string>
+	<string>389 229 770 429 0 0 1440 877 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame com.apple.typography_panel_ArialMT</key>
 	<string>246 453 260 106 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 4 1440 873 0 0 1440 877 </string>
+	<string>0 5 1440 872 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 4 1440 873 0 0 1440 877 </string>
+	<string>-960 0 960 1057 -1920 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -1900,6 +1900,13 @@
 					<key>Text</key>
 					<string>+</string>
 				</dict>
+				<key>0x2d-0x100000</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Text</key>
+					<string>-</string>
+				</dict>
 				<key>0x2d-0x200000</key>
 				<dict>
 					<key>Action</key>
@@ -1913,13 +1920,6 @@
 					<integer>11</integer>
 					<key>Text</key>
 					<string>0x1f</string>
-				</dict>
-				<key>0x2d-0x80000</key>
-				<dict>
-					<key>Action</key>
-					<integer>10</integer>
-					<key>Text</key>
-					<string>-</string>
 				</dict>
 				<key>0x2e-0x100000</key>
 				<dict>
@@ -2075,6 +2075,13 @@
 					<key>Text</key>
 					<string>0x18 0x1f</string>
 				</dict>
+				<key>0x66-0x140000</key>
+				<dict>
+					<key>Action</key>
+					<integer>23</integer>
+					<key>Text</key>
+					<string></string>
+				</dict>
 				<key>0x6a-0x80000</key>
 				<dict>
 					<key>Action</key>
@@ -2117,6 +2124,13 @@
 					<key>Text</key>
 					<string>0x1b 0x7f</string>
 				</dict>
+				<key>0xd-0x100000</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Text</key>
+					<string>0x1B 0x0D</string>
+				</dict>
 				<key>0xd-0x20000</key>
 				<dict>
 					<key>Action</key>
@@ -2130,13 +2144,6 @@
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[13;5u</string>
-				</dict>
-				<key>0xd-0x80000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x1B 0x0D</string>
 				</dict>
 				<key>0xdc-0x120000</key>
 				<dict>
@@ -2633,7 +2640,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-04-04T12:08:37Z</date>
+	<date>2017-05-25T09:08:22Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
