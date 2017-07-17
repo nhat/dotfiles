@@ -33,7 +33,7 @@ bindkey '^Q' push-line-or-edit
 bindkey '^[[13;5u' edit-command-line
 
 # insert new line below
-bindkey '^[^M' vi-open-line-below
+bindkey '^[^M' self-insert-unmeta
 
 # insert parameter last command
 bindkey '^[[13;2u' insert-last-word

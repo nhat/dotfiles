@@ -1,12 +1,15 @@
 {
     "global": {
-        "check_for_updates_on_startup": false,
+        "check_for_updates_on_startup": true,
         "show_in_menu_bar": false,
         "show_profile_name_in_menu_bar": false
     },
     "profiles": [
         {
             "complex_modifications": {
+                "parameters": {
+                    "basic.to_if_alone_timeout_milliseconds": 1000
+                },
                 "rules": [
                     {
                         "manipulators": [
