@@ -212,21 +212,21 @@ if has('nvim')
 
     " hack to get C-h working in neovim
     nmap <BS> <C-h>
+
+    function! Tmpwatch(path, days)
+        let l:path = expand(a:path)
+        if isdirectory(l:path)
+            for file in split(globpath(l:path, "*"), "\n")
+                if localtime() > getftime(file) + 86400 * a:days && delete(file) != 0
+                    echo "Tmpwatch(): Error deleting '" . file . "'"
+                endif
+            endfor
+        else
+            echo "Tmpwatch(): Directory '" . l:path . "' not found"
+        endif
+    endfunction
+
+    " remove undo files which have not been modified for 30 days
+    call Tmpwatch(&undodir, 30)
 endif
-
-function! Tmpwatch(path, days)
-    let l:path = expand(a:path)
-    if isdirectory(l:path)
-        for file in split(globpath(l:path, "*"), "\n")
-            if localtime() > getftime(file) + 86400 * a:days && delete(file) != 0
-                echo "Tmpwatch(): Error deleting '" . file . "'"
-            endif
-        endfor
-    else
-        echo "Tmpwatch(): Directory '" . l:path . "' not found"
-    endif
-endfunction
-
-" remove undo files which have not been modified for 31 days
-call Tmpwatch(&undodir, 31)
 
