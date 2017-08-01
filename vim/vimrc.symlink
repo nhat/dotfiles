@@ -24,7 +24,7 @@ set smarttab              " use tabs at the start of a line, spaces elsewhere
 set nowrap                " don't wrap text
 set noeb vb t_vb=
 set noshowmode
-set scrolloff=1
+set scrolloff=2
 set sidescroll=1
 set sidescrolloff=5
 set noswapfile
