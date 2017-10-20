@@ -13,5 +13,5 @@ export LANG=en_US.UTF-8
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # set location for Java JDK
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/Home
 
