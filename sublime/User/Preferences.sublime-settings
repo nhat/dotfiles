@@ -22,6 +22,7 @@
 	"hot_exit": false,
 	"ignored_packages":
 	[
+		"JavaScript"
 	],
 	"match_brackets": false,
 	"open_files_in_new_window": false,

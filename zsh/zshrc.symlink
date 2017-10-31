@@ -11,7 +11,7 @@ fi
 ZSH=$HOME/.oh-my-zsh
 DISABLE_AUTO_UPDATE=true
 DISABLE_AUTO_TITLE=true
-plugins=(git history-search-multi-word)
+plugins=(git history-search-multi-word bd)
 source $ZSH/oh-my-zsh.sh
 
 # all of our zsh files
