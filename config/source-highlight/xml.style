@@ -1,0 +1,7 @@
+string green;
+keyword red;
+number yellow;
+comment gray i, noref; // for comments
+type yellow;
+normal black;
+symbol black;

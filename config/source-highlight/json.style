@@ -1,0 +1,14 @@
+string green;
+keyword purple;
+number "92";
+comment gray i, noref; // for comments
+type pink;
+normal black;
+symbol blue;
+
+// for JSON
+key red;
+keyquote gray;
+valquote gray;
+colon black;
+

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Since Sublime is fucking insane and can't handle symlinks for the User
+# directory, we'll need to manually copy stuff over.
+
+rm -rf $DOTFILES_ROOT/config/sublime/User
+cp -R ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User $DOTFILES_ROOT/config/sublime/User

@@ -12,6 +12,7 @@ alias finder='open .'                       # open current directory in finder
 alias ag='ag --color-match="48;5;11" --pager=smartless'
 alias less='smartless'
 alias c='fasd_cd -d'
+alias xml='xmllint --format - | source-highlight -f esc -s xml --style-file xml.style'
 
 # Use nvim if installed
 if type nvim > /dev/null 2>&1; then
