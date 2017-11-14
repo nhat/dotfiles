@@ -134,17 +134,20 @@ nmap f <Plug>(smalls)
 omap f <Plug>(smalls)
 xmap f <Plug>(smalls)
 
+" select current word
+imap <C-n> <Esc><C-n>
+
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
 inoremap <M-f> <Esc>ea
-inoremap <M-BS> <C-W>
+inoremap <M-BS> <C-w>
 inoremap <M-d> <C-O>de
-inoremap <C-A> <Home>
-inoremap <C-E> <End>
-inoremap <C-X><BS> <C-U>
-inoremap <C-K> <C-O>D
-inoremap <C-_> <C-O>u
-inoremap <C-X><C-_> <C-O><C-r>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-x><BS> <C-u>
+inoremap <C-k> <C-o>D
+inoremap <C-_> <C-o>u
+inoremap <C-x><C-_> <C-O><C-r>
 
 
 " other
