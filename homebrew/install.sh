@@ -43,6 +43,7 @@ brew cask install dropbox
 brew cask install java
 brew cask install vlc
 brew cask install sublime-text3
+brew cask install apptrap
 brew cask install spectacle
 brew install neovim/neovim/neovim
 brew cask install iterm2

@@ -106,8 +106,10 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
 " easier page navigation
-nnoremap <C-e> <C-u>
-nnoremap <C-u> <C-e>
+nnoremap <C-d> 20<C-e>
+nnoremap <C-e> 20<C-y>
+nnoremap <C-u> <C-y>
+nnoremap <C-y> <C-e>
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
