@@ -15,7 +15,7 @@
                     {
                         "manipulators": [
                             {
-                                "description": "Change caps_lock to command+control+option.",
+                                "description": "Change caps_lock to command+control+shift+option and escape if press alone.",
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": {
@@ -489,7 +489,7 @@
             "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
-                "keyboard_type": "ansi"
+                "keyboard_type": "iso"
             }
         }
     ]
