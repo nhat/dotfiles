@@ -1,0 +1,47 @@
+source ~/.vimrc
+set surround
+
+nnoremap gt gt
+nnoremap gr gT
+nnoremap <Leader>c :q<CR>
+nnoremap <Leader>C <C-w>c
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nmap <BS> {
+nmap <CR> }
+vmap <BS> {
+vmap <CR> }
+
+nmap + viw
+nnoremap vß v$
+nnoremap cß c$
+nnoremap dß d$
+nnoremap yß y$
+
+" make quotes into movements
+nnoremap dq di"
+nnoremap dQ di'
+nnoremap daq da"
+nnoremap daQ da'
+
+nnoremap cq ci"
+nnoremap cQ ci'
+nnoremap caq ca"
+nnoremap caQ ca'
+
+nnoremap yq yi"
+nnoremap yQ yi'
+nnoremap yaq ya"
+nnoremap yaQ ya'
+
+nnoremap vq vi"
+nnoremap vQ vi'
+nnoremap vaq va"
+nnoremap vaQ va'
+
+nnoremap f :action emacsIDEAs.AceJump<CR>
+
