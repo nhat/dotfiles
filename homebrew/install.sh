@@ -26,6 +26,7 @@ brew install reattach-to-user-namespace
 brew install git
 brew install httpie
 brew install homebrew/dupes/less
+brew install fd
 
 # install cask packages
 brew tap caskroom/cask

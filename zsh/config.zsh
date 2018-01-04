@@ -58,36 +58,41 @@ bindkey -M menuselect 'o' accept-and-infer-next-history
 # faster escape timeout
 KEYTIMEOUT=1
 
-# change directories or open files when selected
-fzf-open-file-or-dir() {
-  if [[ $BUFFER != "" ]]; then
-    zle push-line-or-edit
-  fi
+# use fzf to find file or folder
+fzf-find-file-or-folder() {
+  local out=$(eval fd | fzf)
 
-  local cmd="command find -L . \
-    \\( -path '*/\\.*' -o -fstype 'dev' -o -fstype 'proc' \\) -prune \
-    -o -type f -print \
-    -o -type d -print \
-    -o -maxdepth 15 \
-    -o -type l -print 2> /dev/null | sed 1d | cut -b3-"
-  local out=$(eval $cmd | fzf)
+  if [[ $BUFFER == "" ]]; then
+    # open file or folder
+    if [ -f "$out" ]; then
+        BUFFER="e ${(q)out}"
+    elif [ -d "$out" ]; then
+        BUFFER="cd ${(q)out}"
+    else
+        return 0
+    fi
 
-  if [ -f "$out" ]; then
-    BUFFER="e ${(q)out}"
-  elif [ -d "$out" ]; then
-    BUFFER="cd ${(q)out}"
+    zle accept-line
+  elif [[ $out != "" ]]; then
+    # append to current buffer
+    BUFFER+="${(q)out}"
+
+    zle redisplay
+    zle end-of-line
   else
-      return 0
+    # do nothing
+    zle redisplay
   fi
-
-  zle accept-line
 }
+
+zle -N fzf-find-file-or-folder
+bindkey '^P' fzf-find-file-or-folder
+
+export FZF_DEFAULT_COMMAND='fd'
 export FZF_DEFAULT_OPTS="
     --height 20% --reverse --exit-0
     --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA
 "
-zle     -N   fzf-open-file-or-dir
-bindkey '^P' fzf-open-file-or-dir
 
 # history search multi word
 zstyle ":history-search-multi-word" highlight-color "bg=11"
