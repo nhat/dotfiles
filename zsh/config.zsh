@@ -60,7 +60,7 @@ KEYTIMEOUT=1
 
 # use fzf to find file or folder
 fzf-find-file-or-folder() {
-  local out=$(eval fd | fzf)
+  local out=$(eval fd --follow --hidden | fzf)
 
   if [[ $BUFFER == "" ]]; then
     # open file or folder
@@ -88,7 +88,7 @@ fzf-find-file-or-folder() {
 zle -N fzf-find-file-or-folder
 bindkey '^P' fzf-find-file-or-folder
 
-export FZF_DEFAULT_COMMAND='fd'
+export FZF_DEFAULT_COMMAND='fd --follow --hidden'
 export FZF_DEFAULT_OPTS="
     --height 20% --reverse --exit-0
     --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA

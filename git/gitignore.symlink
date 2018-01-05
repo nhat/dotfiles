@@ -9,7 +9,6 @@ Thumbs.db
 
 # Logs and databases #
 ######################
-*.log
 *.sqlite
 *.iml
 
@@ -18,6 +17,12 @@ Thumbs.db
 *~
 *.swp
 *.rbc
+
+# Other files
+######################
+.git/
+
+node_modules/
 
 # IDE files #
 ######################

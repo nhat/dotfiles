@@ -9,11 +9,11 @@ fi
 
 alias mkdir='mkdir -pv'                     # preferred 'mkdir' implementation
 alias finder='open .'                       # open current directory in finder
-alias ag='ag --color-match="48;5;11" --pager=smartless'
 alias less='smartless'
+alias s='ag --color-match="48;5;11" --pager=smartless'
 alias c='fasd_cd -d'
-alias f=fd
-alias xml='xmllint --format - | source-highlight -f esc -s xml --style-file xml.style'
+alias f='fd --follow --hidden'
+alias xml='(if [[ -t 1 ]] ; then xmllint --format - | source-highlight -f esc -s xml --style-file xml.style; else xmllint --format -; fi)'
 
 # Use nvim if installed
 if type nvim > /dev/null 2>&1; then
