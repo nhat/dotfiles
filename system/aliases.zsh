@@ -14,6 +14,7 @@ alias s='ag --color-match="48;5;11" --pager=smartless'
 alias c='fasd_cd -d'
 alias f='fd --follow --hidden'
 alias xml='(if [[ -t 1 ]] ; then xmllint --format - | source-highlight -f esc -s xml --style-file xml.style; else xmllint --format -; fi)'
+alias curl='curl -sS -D /dev/stderr'
 
 # Use nvim if installed
 if type nvim > /dev/null 2>&1; then
