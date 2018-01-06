@@ -18,13 +18,12 @@ ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 
 # zsh-history-substring-search
 source $BREW/zsh-history-substring-search/zsh-history-substring-search.zsh
-# source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[OA' history-substring-search-up
 bindkey '^[OB' history-substring-search-down
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=11"
 
 # zsh completions
-fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
+fpath=(/usr/local/share/zsh/site-functions $HOME/.zsh/completions $fpath)
 
 # save current command and restore it after next command
 bindkey '^Q' push-line-or-edit
@@ -106,6 +105,11 @@ HSMW_HIGHLIGHT_STYLES[builtin]="fg=green"
 HSMW_HIGHLIGHT_STYLES[single-quoted-argument]="fg=green"
 HSMW_HIGHLIGHT_STYLES[double-quoted-argument]="fg=green"
 HSMW_HIGHLIGHT_STYLES[variable]="none"
+
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=white
+ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # don't store invalid commands in history
 zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }
