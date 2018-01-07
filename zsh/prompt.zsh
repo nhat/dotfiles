@@ -24,14 +24,10 @@ git_branch() {
   fi
 }
 
-unpushed() {
-  $git cherry -v @{upstream} 2>/dev/null
-}
-
 need_push_or_wip() {
   if $($git log -n 1 2>/dev/null | grep -q -c "\-\-wip\-\-"); then
       echo " with %{$fg_bold[yellow]%}WIP%{$reset_color%} "
-  elif [[ $(unpushed) != "" ]]; then
+  elif [[ $($git cherry -v @{upstream} 2>/dev/null) != "" ]]; then
     echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
   elif [[ -n $($git branch 2>/dev/null | grep "rebasing") ]]; then
     echo " with %{$fg_bold[yellow]%}rebase in progress%{$reset_color%} "
@@ -41,7 +37,7 @@ need_push_or_wip() {
 }
 
 git_status() {
-  if $(! $git status -suno &> /dev/null); then
+  if $(! $git branch &> /dev/null); then
     echo ""
   else
     echo "$(git_dirty)$(need_push_or_wip)"
@@ -51,7 +47,7 @@ git_status() {
 directory_name() {
   if [[ $(PWD) == $HOME ]]; then
     echo "%{$fg_bold[blue]%}%1~%{$reset_color%}"
-  else  
+  else
     echo "%{$fg_bold[blue]%}%1/%{$reset_color%}"
   fi
 }

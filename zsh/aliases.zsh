@@ -1,1 +1,0 @@
-alias reload!='exec zsh'

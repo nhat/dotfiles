@@ -7,7 +7,18 @@ else
     export EDITOR='nvim'
 fi
 
+[[ $TMUX = "" ]] && export TERM="xterm-256color"
+
 export LANG=en_US.UTF-8
+export LESS='-iR'
+export PAGER='/usr/local/bin/less'
+
+# set defaults for fzf
+export FZF_DEFAULT_COMMAND='fd --hidden'
+export FZF_DEFAULT_OPTS="
+    --height 30% --reverse --exit-0
+    --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA
+"
 
 # set location for cask to install apps
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"

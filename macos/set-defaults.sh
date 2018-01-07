@@ -31,6 +31,7 @@ defaults write com.apple.dashboard enabled-state -int 1
 # Automatically hide the Dock
 defaults write com.apple.dock autohide -bool true
 
+
 # Hot corners
 # Possible values:
 #  0: no-op
@@ -43,6 +44,7 @@ defaults write com.apple.dock autohide -bool true
 # 10: Put display to sleep
 # 11: Launchpad
 # 12: Notification Center
+
 # Top-right screen corner
 defaults write com.apple.dock wvous-tr-corner -int 0
 defaults write com.apple.dock wvous-tr-modifier -int 0
@@ -55,8 +57,8 @@ defaults write com.apple.dock wvous-tr-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 0
 
-# Bottom-left screen corner shows Mission Control
-defaults write com.apple.dock wvous-bl-corner -int 2
+# Bottom-left screen corner
+defaults write com.apple.dock wvous-bl-corner -int 0
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
 # Default duration for iCal

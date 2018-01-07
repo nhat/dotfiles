@@ -7,14 +7,27 @@ if $(gls &>/dev/null); then
   alias la="gls -A --color"
 fi
 
-alias mkdir='mkdir -pv'                     # preferred 'mkdir' implementation
-alias finder='open .'                       # open current directory in finder
+alias reload!='exec zsh'
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+alias -- -='cd -'
+alias mkdir='mkdir -pv'
+alias finder='open .'
 alias less='smartless'
-alias s='ag --color-match="48;5;11" --pager=smartless'
+alias ag='ag --color-match="48;5;11" --pager=smartless'
+alias s='ag'
 alias c='fasd_cd -d'
 alias f='fd --follow --hidden'
 alias xml='(if [[ -t 1 ]] ; then xmllint --format - | source-highlight -f esc -s xml --style-file xml.style; else xmllint --format -; fi)'
 alias curl='curl -sS -D /dev/stderr'
+alias update_zsh_plugins='antibody bundle < $DOTFILES_ROOT/zsh/plugins >! ~/.zsh/.zsh_plugins && antibody update'
+
+function take() {
+  mkdir -p $1
+  cd $1
+}
 
 # Use nvim if installed
 if type nvim > /dev/null 2>&1; then

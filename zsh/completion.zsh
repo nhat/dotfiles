@@ -11,9 +11,17 @@ zstyle ':completion:*' insert-tab pending                    # pasting with tabs
 zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:(rm|kill|diff|trash):*' ignore-line yes
 zstyle ':completion:*:*:(e|n(vi(m|))):*' ignored-patterns '.DS_Store|.localized'
+zstyle ':completion:*' menu select
+zstyle ':completion::complete:*' use-cache 1
 
 # fasd
-eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)"
+fasd_cache="$HOME/.fasd-init-zsh"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+    fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install >! "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+
 function fasd_cd() {
   if [ $# -le 1 ]; then
     fasd "$@"
@@ -23,6 +31,17 @@ function fasd_cd() {
     [ -d "$_fasd_ret" ] && cd "$_fasd_ret" || printf %s\\n "$_fasd_ret"
   fi
 }
+
+# load smart urls if available
+autoload -Uz is-at-least
+for d in $fpath; do
+  if [[ -e "$d/url-quote-magic" ]]; then
+    autoload -Uz url-quote-magic
+    zle -N self-insert url-quote-magic
+
+    break
+  fi
+done
 
 # parens ()
 insert_parens() {

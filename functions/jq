@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # jq with json highlighting
-jq() { 
+jq() {
     # check if we get data from pipe and didn't set options
     if [[ -z "$@" ]] && [[ -p /dev/stdin ]]; then
         set -- '.' "${@:2}"

@@ -4,8 +4,12 @@
 ._*
 .Spotlight-V100
 .Trashes
+.Trash
 ehthumbs.db
 Thumbs.db
+/Library
+iTunes/
+*.photoslibrary
 
 # Logs and databases #
 ######################
@@ -18,13 +22,17 @@ Thumbs.db
 *.swp
 *.rbc
 
+**/caches/
+**/nvim/undo/
+
 # Other files
 ######################
 .git/
-
+.m2/repository/
+.gradle/
+.npm/
 node_modules/
 
-# IDE files #
-######################
+*.class
 **/.idea
 

@@ -17,8 +17,8 @@ vmap <BS> {
 vmap <CR> }
 
 nmap + viw
-vmap + vvib
-nnoremap vß v$
+vmap + vviB
+nnoremap vß v$h
 nnoremap cß c$
 nnoremap dß d$
 nnoremap yß y$

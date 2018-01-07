@@ -32,9 +32,10 @@ set undofile
 set autowriteall
 set nohidden
 set updatetime=150
+set lazyredraw                                         " redraw only when we need to.
 set mouse=a
 set title                                              " enable setting title
-set titlestring=%25.105F%a%r%m titlelen=120            " configure title to look like: /path/to/file
+set titlestring=%F%a%r%m titlelen=120                  " configure title to look like: /path/to/file
 
 filetype on
 syntax on
@@ -47,7 +48,6 @@ autocmd BufEnter * silent! lcd %:p:h                   " use folder from current
 " plugins
 
 call plug#begin('~/.vim/plugged')
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
@@ -56,12 +56,16 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'sjl/vitality.vim'
 Plug 't9md/vim-smalls'
 Plug 'airblade/vim-gitgutter'
+Plug 'w0rp/ale'
+Plug 'bronson/vim-trailing-whitespace'
 Plug 'jiangmiao/auto-pairs'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'prettier/vim-prettier'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
@@ -72,7 +76,7 @@ call plug#end()
 " key bindings
 
 let mapleader = " "
-nmap Q :qa<CR>
+nmap <silent> Q :qa<CR>
 nmap U <C-r>
 nmap <silent> gt :bnext<CR>
 nmap <silent> gr :bprev<CR>
@@ -86,7 +90,7 @@ nnoremap <S-CR> O<Esc>
 nnoremap <silent> <Esc> :noh<CR>
 nnoremap <C-CR> i<CR><Esc>
 nnoremap <C-n> <Tab>
-nnoremap <Leader>o :e 
+nnoremap <Leader>o :e
 nnoremap <silent> <Leader>n :enew<CR>
 nnoremap <Leader>w :terminal<CR>
 nnoremap <Leader>W :split<CR>:terminal<CR>
@@ -117,13 +121,14 @@ nnoremap gk k
 nnoremap * #
 nnoremap # *
 nnoremap ß $
-vnoremap ß $
 onoremap ß $
+vnoremap ß $h
 nnoremap <BS> {
 nnoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 onoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 vnoremap <BS> {
 vnoremap <CR> }
+nnoremap ü <C-^>
 
 " make Y yank until end of line
 nnoremap Y y$
@@ -148,8 +153,12 @@ vnoremap Q i'
 vnoremap aq a"
 vnoremap aQ a'
 
+" search files and buffers
+nmap <silent><C-p> :Files $HOME<CR>
+nmap <silent><Leader><CR> :Buffers<CR>
+
 " toggle comment
-nmap <M--> <Plug>CommentaryLine j
+nmap <M--> <Plug>CommentaryLine j0
 vmap <M--> <Plug>Commentary
 
 " make f search for 2 chars
@@ -158,7 +167,10 @@ omap f <Plug>(smalls)
 xmap f <Plug>(smalls)
 
 " select current word
-imap <C-n> <Esc><C-n>
+imap <C-f> <Esc><C-f>
+
+" format buffer
+nmap <Leader>p :Neoformat<CR>
 
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
@@ -177,10 +189,29 @@ inoremap <C-x><C-_> <C-O><C-r>
 
 " colorscheme
 colorscheme one
+highlight Normal ctermbg=white
 highlight Directory gui=bold
 highlight Comment gui=italic
-hi Search guibg=#EBCB8B guifg=#3C3C3C
-hi Incsearch gui=none guibg=#EBCB8B guifg=#3C3C3C
+highlight Search guibg=#EBCB8B guifg=#3C3C3C
+highlight Incsearch gui=none guibg=#EBCB8B guifg=#3C3C3C
+
+" corlorscheme for terminal
+let g:terminal_color_0 = '#3c3c3c'
+let g:terminal_color_1 = '#e45649'
+let g:terminal_color_2 = '#50a14f'
+let g:terminal_color_3 = '#ebcb8b'
+let g:terminal_color_4 = '#4078f2'
+let g:terminal_color_5 = '#a626a4'
+let g:terminal_color_6 = '#0184bc'
+let g:terminal_color_7 = '#a0a1a7'
+let g:terminal_color_8 = '#3c3c3c'
+let g:terminal_color_9 = '#e45649'
+let g:terminal_color_10 = '#50a14f'
+let g:terminal_color_11 = '#c18401'
+let g:terminal_color_12 = '#4078f2'
+let g:terminal_color_13 = '#a626a4'
+let g:terminal_color_14 = '#0184bc'
+let g:terminal_color_15 = '#fafafa'
 
 " buffline
 let g:buftabline_show= 1
@@ -207,20 +238,28 @@ let g:gitgutter_realtime = 1
 let g:gitgutter_sign_added = '█'
 let g:gitgutter_sign_modified = '█'
 let g:gitgutter_sign_removed = '▁'
-let g:gitgutter_sign_modified_removed = '█▁'
+let g:gitgutter_sign_modified_removed = '█'
 
 " autopairs
 let g:AutoPairsShortcutBackInsert = ''
 
-" ctrlp
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|Trash)$'
+" fzf
+let g:fzf_layout = { 'down': '~30%' }
 
-" prettier
-let g:prettier#config#print_width = 120
-let g:prettier#config#tab_width = 4
+" multi cursor
+let g:multi_cursor_next_key='<C-f>'
+
+" ale
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_sign_error = '✖︎'
+let g:ale_sign_warning = '⚠'
+highlight ALEError guibg=#e45649 guifg=white cterm=undercurl
+autocmd InsertLeave,TextChanged * silent! ALELint
+
+" fix whitespace
+highlight default ExtraWhitespace ctermbg=red guibg=#E45649
+autocmd BufWrite * FixWhitespace
 
 " lightline
 let g:lightline = {
@@ -247,9 +286,15 @@ if has('nvim')
     if (has("termguicolors"))
         set termguicolors
     endif
+
     autocmd TermOpen * setlocal listchars= | set nocursorline | set nocursorcolumn  " no line highlight in terminal
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    tnoremap <Esc><Esc> <C-\><C-n>
+
+    tnoremap jj <C-\><C-n>
+    tnoremap kk <C-\><C-n>
+
+    autocmd! FileType fzf
+    autocmd  FileType fzf setlocal laststatus=0 noruler titlestring=fzf
+        \| autocmd BufLeave <buffer> set laststatus=2 ruler titlestring=%F%a%r%m
 
     function! Tmpwatch(path, days)
         let l:path = expand(a:path)
@@ -266,5 +311,33 @@ if has('nvim')
 
     " remove undo files which have not been modified for 30 days
     call Tmpwatch(&undodir, 30)
+endif
+
+" VimR specific stuff
+if has("gui_vimr")
+    nmap <silent><D-p> :Files $HOME<CR>
+
+    " add macOS shortcuts for editing in insert mode
+    inoremap <M-Left> <C-Left>
+    inoremap <M-Right> <Esc>ea
+    inoremap <M-BS> <C-w>
+    inoremap <M-DEL> <C-O>de
+    inoremap <D-BS> <C-u>
+    inoremap <D-DEL> <C-o>D
+    inoremap <D-Left> <Home>
+    inoremap <D-Right> <End>
+
+    " vim move
+    let g:move_key_modifier = 'C-S'
+
+    " toggle comment
+    nmap <D-S-m> <Plug>CommentaryLine j0
+    vmap <D-S-m> <Plug>Commentary
+
+    nnoremap <C-g> i<CR><Esc>
+    inoremap <D-g> <Esc>o
+    inoremap <S-D-g> <Esc>O
+    nnoremap <D-g> o<Esc>
+    nnoremap <S-D-g> O<Esc>
 endif
 

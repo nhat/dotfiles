@@ -15,17 +15,16 @@ fi
 brew install coreutils
 brew install zsh
 brew install fasd
-brew install zsh-history-substring-search
-brew install zsh-syntax-highlighting
 brew install jq
 brew install curl
 brew install grc
 brew install trash
-brew install tmux
-brew install reattach-to-user-namespace
 brew install git
-brew install httpie
-brew install homebrew/dupes/less
+brew install fzf
+brew install less
+brew install neovim
+brew install getantibody/tap/antibody
+brew install switchaudio-osx
 brew install fd
 
 # install cask packages
@@ -43,10 +42,9 @@ brew cask install alfred
 brew cask install dropbox
 brew cask install java
 brew cask install vlc
-brew cask install sublime-text3
+brew cask install vimr
 brew cask install apptrap
 brew cask install spectacle
-brew install neovim/neovim/neovim
 brew cask install iterm2
 
 exit 0
