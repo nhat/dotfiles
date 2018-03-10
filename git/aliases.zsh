@@ -11,9 +11,10 @@ alias gca='git commit -v -a'
 alias gca!='git commit -v -a --amend'
 alias gcn!='git commit -v --no-edit --amend'
 alias gcan!='git commit -v -a --no-edit --amend'
+alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 
-alias gd='git diff'
+alias gd='git diff HEAD'
 alias gl="git log --graph --pretty=format:'%C(yellow)%h%Creset %s %Cblue%an %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gp='git push origin HEAD'
 alias grh='git reset HEAD'
