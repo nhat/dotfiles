@@ -21,7 +21,6 @@ brew install grc
 brew install trash
 brew install git
 brew install fzf
-brew install less
 brew install neovim
 brew install getantibody/tap/antibody
 brew install switchaudio-osx

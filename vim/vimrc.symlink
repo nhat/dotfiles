@@ -111,9 +111,7 @@ vnoremap <S-Tab> <gv
 
 " easier page navigation
 nnoremap <C-d> 20<C-e>
-nnoremap <C-e> 20<C-y>
-nnoremap <C-u> <C-y>
-nnoremap <C-y> <C-e>
+nnoremap <C-u> 20<C-y>
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
@@ -154,7 +152,7 @@ vnoremap aq a"
 vnoremap aQ a'
 
 " search files and buffers
-nmap <silent><C-p> :Files $HOME<CR>
+nmap <silent><C-p> :FZF --prompt= $HOME<CR>
 nmap <silent><Leader><CR> :Buffers<CR>
 
 " toggle comment
@@ -315,7 +313,7 @@ endif
 
 " VimR specific stuff
 if has("gui_vimr")
-    nmap <silent><D-p> :Files $HOME<CR>
+    nmap <silent><D-p> :FZF --prompt= $HOME<CR>
 
     " add macOS shortcuts for editing in insert mode
     inoremap <M-Left> <C-Left>

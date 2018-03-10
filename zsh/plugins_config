@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+
+# zsh syntax highlight
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+typeset -gA ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
+
+# zsh-history-substring-search
+zle -N history-substring-search-up
+bindkey '^[OA' history-substring-search-up
+zle -N history-substring-search-down
+bindkey '^[OB' history-substring-search-down
+
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=11"
+HISTORY_SUBSTRING_SEARCH_FUZZY="true"
+
+# history search multi word
+zstyle ":history-search-multi-word" highlight-color "bg=11"
+zstyle ":plugin:history-search-multi-word" active "bg=237,fg=255"
+zstyle ":plugin:history-search-multi-word" check-paths "no"
+bindkey "^R" history-search-multi-word
+
+typeset -gA HSMW_HIGHLIGHT_STYLES
+HSMW_HIGHLIGHT_STYLES[single-hyphen-option]="none"
+HSMW_HIGHLIGHT_STYLES[double-hyphen-option]="none"
+HSMW_HIGHLIGHT_STYLES[builtin]="fg=green"
+HSMW_HIGHLIGHT_STYLES[single-quoted-argument]="fg=green"
+HSMW_HIGHLIGHT_STYLES[double-quoted-argument]="fg=green"
+HSMW_HIGHLIGHT_STYLES[variable]="none"
+
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=white
+ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20

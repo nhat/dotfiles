@@ -26,7 +26,7 @@ git_branch() {
 
 need_push_or_wip() {
   if $($git log -n 1 2>/dev/null | grep -q -c "\-\-wip\-\-"); then
-      echo " with %{$fg_bold[yellow]%}WIP%{$reset_color%} "
+    echo " with %{$fg_bold[yellow]%}WIP%{$reset_color%} "
   elif [[ $($git cherry -v @{upstream} 2>/dev/null) != "" ]]; then
     echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
   elif [[ -n $($git branch 2>/dev/null | grep "rebasing") ]]; then

@@ -23,12 +23,8 @@ do
   source $file
 done
 
-# initialize autocomplete here, otherwise functions won't be loaded
+# initialize autocomplete
 autoload -Uz compinit
-for dump in ${HOME}/.zcompdump(N.mh+24); do
-  compinit
-done
-
 compinit -C
 
 # load every completion after autocomplete loads
@@ -39,8 +35,11 @@ done
 
 # load plugins
 source ~/.zsh/.zsh_plugins
+source $DOTFILES_ROOT/zsh/plugins_config
 
-# load configuration
-source $DOTFILES_ROOT/zsh/config.zsh
+# refresh cache for autocomplete
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
 
 unset config_files

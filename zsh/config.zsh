@@ -14,7 +14,7 @@ KEYTIMEOUT=1
 WORDCHARS=''
 
 # zsh completions
-fpath=(/usr/local/share/zsh/site-functions $HOME/.zsh/completions $fpath)
+fpath=($HOME/.zsh/completions $fpath)
 
 # use emacs key bindings
 bindkey -e
@@ -122,25 +122,31 @@ fi
 
 # use fzf to find file or folder
 fzf-find-file-or-folder() {
-  local out=$(eval fd --hidden . $HOME | fzf)
+  local base=$HOME
+  if [[ $LBUFFER[-1] == "." ]]; then
+    # use current folder
+    base='.'
+    unset 'LBUFFER[-1]'
+  fi
+
+  local out=$(eval fd --hidden . $base | fzf)
 
   if [[ $BUFFER == "" ]]; then
     # open file or folder
-    if [ -f "$out" ]; then
-        BUFFER="e ${(q)out}"
-    elif [ -d "$out" ]; then
-        BUFFER="cd ${(q)out}"
+    if [[ -f $out ]]; then
+      BUFFER="e ${(q)out}"
+    elif [[ -d $out ]]; then
+      BUFFER="cd ${(q)out}"
     else
-        return 0
+      return 0
     fi
 
     zle accept-line
   elif [[ $out != "" ]]; then
     # append to current buffer
-    BUFFER+="${(q)out}"
+    LBUFFER+="${(q)out}"
 
     zle redisplay
-    zle end-of-line
   else
     # do nothing
     zle redisplay
@@ -148,46 +154,6 @@ fzf-find-file-or-folder() {
 }
 zle -N fzf-find-file-or-folder
 bindkey '^P' fzf-find-file-or-folder
-
-export FZF_DEFAULT_COMMAND='fd --hidden'
-export FZF_DEFAULT_OPTS="
-    --height 30% --reverse --exit-0
-    --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA
-"
-
-# zsh syntax highlight
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
-typeset -gA ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
-
-# zsh-history-substring-search
-zle -N history-substring-search-up
-bindkey '^[OA' history-substring-search-up
-zle -N history-substring-search-down
-bindkey '^[OB' history-substring-search-down
-
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=11"
-HISTORY_SUBSTRING_SEARCH_FUZZY="true"
-
-# history search multi word
-zstyle ":history-search-multi-word" highlight-color "bg=11"
-zstyle ":plugin:history-search-multi-word" active "bg=237,fg=255"
-zstyle ":plugin:history-search-multi-word" check-paths "no"
-bindkey "^R" history-search-multi-word
-
-typeset -gA HSMW_HIGHLIGHT_STYLES
-HSMW_HIGHLIGHT_STYLES[single-hyphen-option]="none"
-HSMW_HIGHLIGHT_STYLES[double-hyphen-option]="none"
-HSMW_HIGHLIGHT_STYLES[builtin]="fg=green"
-HSMW_HIGHLIGHT_STYLES[single-quoted-argument]="fg=green"
-HSMW_HIGHLIGHT_STYLES[double-quoted-argument]="fg=green"
-HSMW_HIGHLIGHT_STYLES[variable]="none"
-
-# zsh-autosuggestions
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=white
-ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # don't store invalid commands in history
 zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }
