@@ -192,6 +192,8 @@ highlight Directory gui=bold
 highlight Comment gui=italic
 highlight Search guibg=#EBCB8B guifg=#3C3C3C
 highlight Incsearch gui=none guibg=#EBCB8B guifg=#3C3C3C
+call one#highlight('xmlNamespace', 'e45649', '', 'none')
+call one#highlight('xmlAttribPunct', 'e45649', '', 'none')
 
 " corlorscheme for terminal
 let g:terminal_color_0 = '#3c3c3c'
@@ -258,6 +260,15 @@ autocmd InsertLeave,TextChanged * silent! ALELint
 " fix whitespace
 highlight default ExtraWhitespace ctermbg=red guibg=#E45649
 autocmd BufWrite * FixWhitespace
+
+" show highlight groups at cursor
+nmap <leader>sp :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 " lightline
 let g:lightline = {
