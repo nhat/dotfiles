@@ -366,7 +366,7 @@
                             {
                                 "description": "Disable Sysdiagnose Keys",
                                 "from": {
-                                    "key_code": "period",
+                                    "key_code": "comma",
                                     "modifiers": {
                                         "mandatory": [
                                             "left_shift",
@@ -405,6 +405,43 @@
                                 "to": [
                                     {
                                         "key_code": "return_or_enter"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "ctrl+f1 to f19, ctrl+f2 to f20",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "f1",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f19"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "f2",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f20"
                                     }
                                 ],
                                 "type": "basic"
