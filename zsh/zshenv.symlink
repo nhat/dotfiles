@@ -11,7 +11,6 @@ fi
 
 export LANG=en_US.UTF-8
 export LESS='-iR'
-export PAGER='/usr/local/bin/less'
 
 # set defaults for fzf
 export FZF_DEFAULT_COMMAND='fd --hidden'

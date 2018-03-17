@@ -165,7 +165,6 @@ SAVEHIST=10000
 ttyctl -f
 setopt NO_FLOW_CONTROL
 
-setopt NO_SHARE_HISTORY         # disable history sharing between sessions
 setopt NO_HIST_VERIFY           # runs last command after enter
 setopt EXTENDED_HISTORY         # add timestamps to history
 setopt APPEND_HISTORY           # adds history

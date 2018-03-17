@@ -38,7 +38,7 @@ source ~/.zsh/.zsh_plugins
 source $DOTFILES_ROOT/zsh/plugins_config
 
 # refresh cache for autocomplete
-for dump in ~/.zcompdump(N.mh+24); do
+for dump in $HOME/.zcompdump(N.mh+24); do
   compinit
 done
 
