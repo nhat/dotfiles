@@ -98,7 +98,7 @@ nnoremap <Leader>s <C-w>s
 nnoremap <Leader>v <C-w>v
 nnoremap <Leader>c <C-w>c
 nnoremap <Leader><Leader> :w<CR>
-nnoremap <silent> <Leader>C :bw<CR>
+nnoremap <silent> <Leader>C :bd!<CR>
 nnoremap <Leader>r :%s///gc<Left><Left><Left><Left>
 vnoremap <Leader>r :s///gc<Left><Left><Left><Left>
 
@@ -169,6 +169,10 @@ imap <C-f> <Esc><C-f>
 
 " format buffer
 nmap <Leader>p :Neoformat<CR>
+
+" navigate to error
+nmap <silent> <f2> <Plug>(ale_next_wrap)
+nmap <silent> <s-f2> <Plug>(ale_previous_wrap)
 
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
