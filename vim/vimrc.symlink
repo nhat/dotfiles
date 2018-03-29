@@ -30,7 +30,7 @@ set sidescrolloff=5
 set noswapfile
 set undofile
 set autowriteall
-set nohidden
+set hidden
 set updatetime=150
 set lazyredraw                                         " redraw only when we need to.
 set mouse=a
@@ -58,6 +58,7 @@ Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sjl/vitality.vim'
+Plug 'jeetsukumaran/vim-filebeagle'
 Plug 't9md/vim-smalls'
 Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
@@ -80,8 +81,6 @@ nmap <silent> Q :qa<CR>
 nmap U <C-r>
 nmap <silent> gt :bnext<CR>
 nmap <silent> gr :bprev<CR>
-imap jj <Esc>
-imap kk <Esc>
 noremap , '
 inoremap <M-CR> <Esc>o
 inoremap <S-CR> <Esc>O
@@ -96,9 +95,9 @@ nnoremap <Leader>w :terminal<CR>
 nnoremap <Leader>W :split<CR>:terminal<CR>
 nnoremap <Leader>s <C-w>s
 nnoremap <Leader>v <C-w>v
-nnoremap <Leader>c <C-w>c
+nnoremap <Leader>c :bp\|bd #<CR>
 nnoremap <Leader><Leader> :w<CR>
-nnoremap <silent> <Leader>C :bd!<CR>
+nnoremap <silent> <Leader>C <C-w>c
 nnoremap <Leader>r :%s///gc<Left><Left><Left><Left>
 vnoremap <Leader>r :s///gc<Left><Left><Left><Left>
 
@@ -218,8 +217,9 @@ let g:terminal_color_14 = '#0184bc'
 let g:terminal_color_15 = '#fafafa'
 
 " buffline
-let g:buftabline_show= 1
-let g:buftabline_indicators= 1
+let g:buftabline_show = 1
+let g:buftabline_indicators = 1
+highlight default link BufTabLineHidden PmenuSel
 
 " smalls
 let g:smalls_auto_jump = 1
@@ -237,7 +237,6 @@ let g:smalls_highlight = {
     \ }
 
 " gitgutter
-set signcolumn=yes
 let g:gitgutter_realtime = 1
 let g:gitgutter_sign_added = '█'
 let g:gitgutter_sign_modified = '█'
@@ -251,7 +250,13 @@ let g:AutoPairsShortcutBackInsert = ''
 let g:fzf_layout = { 'down': '~30%' }
 
 " multi cursor
-let g:multi_cursor_next_key='<C-f>'
+let g:multi_cursor_next_key = '<C-f>'
+
+" neoformat
+if executable('xmllint')
+    autocmd FileType xml setlocal formatprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+endif
+let g:neoformat_try_formatprg = 1
 
 " ale
 let g:ale_lint_on_text_changed = 'never'
@@ -262,11 +267,11 @@ highlight ALEError guibg=#e45649 guifg=white cterm=undercurl
 autocmd InsertLeave,TextChanged * silent! ALELint
 
 " fix whitespace
-highlight default ExtraWhitespace ctermbg=red guibg=#E45649
+autocmd BufEnter * highlight clear ExtraWhitespace      " don't show whitespace
 autocmd BufWrite * FixWhitespace
 
 " show highlight groups at cursor
-nmap <leader>sp :call <SID>SynStack()<CR>
+nmap <leader>k :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
@@ -299,6 +304,7 @@ if has('nvim')
     if (has("termguicolors"))
         set termguicolors
     endif
+    set signcolumn=yes
 
     autocmd TermOpen * setlocal listchars= | set nocursorline | set nocursorcolumn  " no line highlight in terminal
 
@@ -341,7 +347,7 @@ if has("gui_vimr")
     inoremap <D-Right> <End>
 
     " vim move
-    let g:move_key_modifier = 'C-S'
+    let g:move_key_modifier = 'D'
 
     " toggle comment
     nmap <D-S-m> <Plug>CommentaryLine j0

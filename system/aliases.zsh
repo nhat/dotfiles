@@ -1,10 +1,10 @@
 # grc overides for ls
 # `brew install coreutils`
 if $(gls &>/dev/null); then
-  alias ls="gls -F --color"
-  alias l="gls -lAh --color"
-  alias ll="gls -lh --color"
-  alias la="gls -A --color"
+  alias ls="gls -F --color --group-directories-first"
+  alias l="gls -lAh --color --group-directories-first"
+  alias ll="gls -lh --color --group-directories-first"
+  alias la="gls -A --color --group-directories-first"
 fi
 
 alias reload!='exec zsh'

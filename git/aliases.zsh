@@ -17,9 +17,8 @@ alias gcam='git commit -a -m'
 alias gd='git diff HEAD'
 alias gl="git log --graph --pretty=format:'%C(yellow)%h%Creset %s %Cblue%an %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gp='git push origin HEAD'
-alias grh='git reset HEAD'
-alias grhh='git reset HEAD --hard'
-alias gr='cd "$(git rev-parse --show-toplevel)"'
+alias grh='git reset --hard'
+alias gt='cd "$(git rev-parse --show-toplevel)"'
 alias grm="git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
            perl -pe 's/^[ \t]*//' | sed 's/ /\\\\ /g' | xargs git rm"
 alias gs='git status -sb'

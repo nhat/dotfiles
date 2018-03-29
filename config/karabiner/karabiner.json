@@ -624,8 +624,7 @@
                                     {
                                         "key_code": "j",
                                         "modifiers": [
-                                            "left_control",
-                                            "left_shift"
+                                            "left_command"
                                         ]
                                     }
                                 ],
@@ -652,8 +651,7 @@
                                     {
                                         "key_code": "k",
                                         "modifiers": [
-                                            "left_control",
-                                            "left_shift"
+                                            "left_command"
                                         ]
                                     }
                                 ],
