@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# bootstrap installs things.
+# initial setup
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
@@ -29,7 +29,7 @@ fail() {
 
 setup_gitconfig() {
   if ! [ -f git/gitconfig.symlink ]; then
-    info 'setup gitconfig'
+    info 'Setup gitconfig'
 
     git_credential='cache'
     if [ "$(uname -s)" == "Darwin" ]; then
@@ -43,7 +43,7 @@ setup_gitconfig() {
 
     sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.default > git/gitconfig.symlink
 
-    success 'gitconfig'
+    success 'Done: gitconfig'
   fi
 }
 
@@ -90,28 +90,28 @@ link_file() {
 
     if [ "$overwrite" == "true" ]; then
       rm -rf "$dst"
-      success "removed $dst"
+      success "Removed $dst"
     fi
 
     if [ "$backup" == "true" ]; then
       mv "$dst" "${dst}.backup"
-      success "moved $dst to ${dst}.backup"
+      success "Moved $dst to ${dst}.backup"
     fi
 
     if [ "$skip" == "true" ]; then
-      success "skipped $src"
+      success "Skipped $src"
     fi
   fi
 
   # "false" or empty
   if [ "$skip" != "true" ]; then
     ln -s "$1" "$2"
-    success "linked $1 to $2"
+    success "Linked $1 to $2"
   fi
 }
 
 install_dotfiles() {
-  info 'installing dotfiles'
+  info 'Installing dotfiles'
 
   local overwrite_all=false backup_all=false skip_all=false
 
@@ -125,16 +125,16 @@ install_dotfiles() {
 setup_gitconfig
 install_dotfiles
 
-# if we're on a Mac, let's install and setup homebrew.
+# if we're on a Mac, let's set default settings and install Homebrew
 if [ "$(uname -s)" == "Darwin" ]; then
-  info "installing dependencies"
+  info "Setup macOS and install applications"
 
   if source bin/dot > /tmp/dotfiles-dot 2>&1; then
-    success "dependencies installed"
+    success "Applications installed"
   else
-    fail "error installing dependencies"
+    fail "Error installing applications"
   fi
 fi
 
-echo ''
-echo '  All installed!'
+echo
+echo 'All installed!'

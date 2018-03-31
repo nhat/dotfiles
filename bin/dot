@@ -5,11 +5,16 @@
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
 
-# Set macOS defaults
+# set macOS defaults
 $DOTFILES_ROOT/macos/set-defaults.sh
 
-# Upgrade homebrew
-brew update
+# don't show last login message in terminal
+if ! [[ -f $HOME/.hushlogin ]]; then
+    touch $HOME/.hushlogin
+fi
 
-# Install homebrew packages
+# setup Homebrew packages
 $DOTFILES_ROOT/homebrew/install.sh 2>&1
+
+# setup Vim
+$DOTFILES_ROOT/vim/install.sh

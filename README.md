@@ -4,7 +4,7 @@ Run this:
 
 ```sh
 cd ~/.dotfiles
-script/bootstrap
+bootstrap
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
