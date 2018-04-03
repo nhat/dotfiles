@@ -1,6 +1,5 @@
 " settings
 
-set nocompatible
 set clipboard=unnamed
 set number                " show line numbers
 set cul                   " highlight current line
@@ -8,7 +7,7 @@ set laststatus=2          " last window always has a statusline
 set hlsearch              " highlight searched phrases
 set incsearch             " highlight as you type your search
 set ignorecase            " make searches case-insensitive
-set smartcase			  " ignore case unless there is an uppercase letter
+set smartcase             " ignore case unless there is an uppercase letter
 set ruler                 " always show info along bottom
 set showmatch
 set wildmenu
@@ -36,6 +35,7 @@ set lazyredraw                                         " redraw only when we nee
 set mouse=a
 set title                                              " enable setting title
 set titlestring=%F%a%r%m titlelen=120                  " configure title to look like: /path/to/file
+set textwidth=120
 
 filetype on
 syntax on
@@ -62,6 +62,7 @@ Plug 'jeetsukumaran/vim-filebeagle'
 Plug 't9md/vim-smalls'
 Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
+Plug 'mattn/emmet-vim'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'jiangmiao/auto-pairs'
 Plug '/usr/local/opt/fzf'
@@ -152,6 +153,7 @@ vnoremap aQ a'
 
 " search files and buffers
 nmap <silent><C-p> :FZF --prompt= $HOME<CR>
+imap <silent><C-p> <Esc>:FZF --prompt= $HOME<CR>
 nmap <silent><Leader><CR> :Buffers<CR>
 
 " toggle comment
@@ -160,18 +162,17 @@ vmap <M--> <Plug>Commentary
 
 " make f search for 2 chars
 nmap f <Plug>(smalls)
-omap f <Plug>(smalls)
-xmap f <Plug>(smalls)
 
 " select current word
 imap <C-f> <Esc><C-f>
 
 " format buffer
-nmap <Leader>p :Neoformat<CR>
+nmap <silent><Leader>p :Neoformat<CR>
+vmap <silent><Leader>p :Neoformat<CR>
 
 " navigate to error
 nmap <silent> <f2> <Plug>(ale_next_wrap)
-nmap <silent> <s-f2> <Plug>(ale_previous_wrap)
+nmap <silent> <S-f2> <Plug>(ale_previous_wrap)
 
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
@@ -253,9 +254,15 @@ let g:fzf_layout = { 'down': '~30%' }
 let g:multi_cursor_next_key = '<C-f>'
 
 " neoformat
-if executable('xmllint')
-    autocmd FileType xml setlocal formatprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
-endif
+autocmd FileType javascript,typescript setlocal formatprg=prettier
+    \\ --stdin
+    \\ --print-width\ 120
+    \\ --single-quote
+    \\ --trailing-comma\ es5
+autocmd FileType xml,html setlocal formatprg=js-beautify\ --type\ html\ --quiet\ --wrap-line-length\ 120\ -
+let g:neoformat_enabled_json = ['jq']
+let g:neoformat_basic_format_align = 1
+let g:neoformat_basic_format_retab = 1
 let g:neoformat_try_formatprg = 1
 
 " ale
@@ -263,20 +270,25 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_sign_error = '✖︎'
 let g:ale_sign_warning = '⚠'
-highlight ALEError guibg=#e45649 guifg=white cterm=undercurl
 autocmd InsertLeave,TextChanged * silent! ALELint
+highlight ALEError guibg=#e45649 guifg=white cterm=undercurl
+
+" emmet
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+autocmd FileType html,css imap <silent><expr><tab> emmet#expandAbbrIntelligent("\<tab>")
 
 " fix whitespace
 autocmd BufEnter * highlight clear ExtraWhitespace      " don't show whitespace
 autocmd BufWrite * FixWhitespace
 
 " show highlight groups at cursor
-nmap <leader>k :call <SID>SynStack()<CR>
+nmap <Leader>k :call <SID>SynStack()<CR>
 function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
 " lightline
@@ -306,7 +318,8 @@ if has('nvim')
     endif
     set signcolumn=yes
 
-    autocmd TermOpen * setlocal listchars= | set nocursorline | set nocursorcolumn  " no line highlight in terminal
+    " no line highlight in terminal
+    autocmd TermOpen * setlocal listchars= | set nocursorline | set nocursorcolumn
 
     tnoremap jj <C-\><C-n>
     tnoremap kk <C-\><C-n>
@@ -335,6 +348,7 @@ endif
 " VimR specific stuff
 if has("gui_vimr")
     nmap <silent><D-p> :FZF --prompt= $HOME<CR>
+    imap <silent><D-p> <Esc>:FZF --prompt= $HOME<CR>
 
     " add macOS shortcuts for editing in insert mode
     inoremap <M-Left> <C-Left>
@@ -352,6 +366,8 @@ if has("gui_vimr")
     " toggle comment
     nmap <D-S-m> <Plug>CommentaryLine j0
     vmap <D-S-m> <Plug>Commentary
+
+    nmap <M-D-z> <Leader>hu
 
     nnoremap <C-g> i<CR><Esc>
     inoremap <D-g> <Esc>o

@@ -44,5 +44,9 @@ nnoremap vQ vi'
 nnoremap vaq va"
 nnoremap vaQ va'
 
+nnoremap <S-K> :action QuickImplementations<CR>
 nnoremap f :action emacsIDEAs.AceJump<CR>
+
+nnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
+vnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
 

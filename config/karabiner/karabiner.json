@@ -684,7 +684,7 @@
                         "key_code": "f3"
                     },
                     "to": {
-                        "key_code": "f3"
+                        "key_code": "mission_control"
                     }
                 },
                 {
@@ -692,7 +692,7 @@
                         "key_code": "f4"
                     },
                     "to": {
-                        "key_code": "f4"
+                        "key_code": "launchpad"
                     }
                 },
                 {
@@ -765,6 +765,7 @@
             "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
+                "country_code": 0,
                 "keyboard_type": "ansi"
             }
         }
