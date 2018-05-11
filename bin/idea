@@ -35,6 +35,11 @@ else
 #      echo "importing from pom"
       open -a "$IDEA" "pom.xml"
 
+    # Is there a build.gradle?
+    elif [ -f build.gradle ]; then
+#      echo "importing from gradle"
+      open -a "$IDEA" "build.gradle"
+
     # can't do anything smart; just open IDEA
     else
 #      echo 'cbf'
