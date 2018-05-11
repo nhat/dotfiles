@@ -1,4 +1,4 @@
-# OS generated files #
+# OS generated files
 ######################
 .DS_Store
 ._*
@@ -11,28 +11,37 @@ Thumbs.db
 iTunes/
 *.photoslibrary
 
-# Logs and databases #
+
+# Logs and databases
 ######################
 *.sqlite
-*.iml
-
+.git/
 *.cache
 .svn
 *~
 *.swp
 *.rbc
-
 **/caches/
 **/nvim/undo/
 
+
+# IDEA
+######################
+.idea
+.shelf
+/*.iml
+/*.ipr
+/*.iws
+/out
+
+
 # Other files
 ######################
-.git/
+.env
+.gradle
+/build
 .m2/repository/
-.gradle/
 .npm/
 node_modules/
-
 *.class
-**/.idea
 
