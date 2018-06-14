@@ -50,3 +50,6 @@ nnoremap f :action emacsIDEAs.AceJump<CR>
 nnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
 vnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
 
+nnoremap <Leader>p :action ReformatCode<CR>
+vnoremap <Leader>p :action ReformatCode<CR>v
+
