@@ -20,7 +20,7 @@ alias ag='ag --color-match="48;5;11" --pager=smartless'
 alias s='ag'
 alias c='fasd_cd -d'
 alias f='fd --follow --hidden'
-alias xml='(if [[ -t 1 ]] ; then xmllint --format - | source-highlight -f esc -s xml --style-file xml.style; else xmllint --format -; fi)'
+alias xml='(if [[ -t 1 ]] ; then xmllint --format - | source-highlight -f esc -s xml --style-file xml.style --data-dir=/usr/local/share/source-highlight ; else xmllint --format -; fi)'
 alias curl='curl -sS -D /dev/stderr'
 alias update_zsh_plugins='antibody bundle < $DOTFILES_ROOT/zsh/plugins >! ~/.zsh/.zsh_plugins && antibody update'
 

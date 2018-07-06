@@ -9,7 +9,7 @@ jq() {
 
     # use raw output for redirect
     if [[ -t 1 ]] ; then
-        /usr/local/bin/jq "$@" | source-highlight -f esc -s json --style-file json.style
+        /usr/local/bin/jq "$@" | source-highlight -f esc -s json --style-file json.style --data-dir=/usr/local/share/source-highlight 
     else
         /usr/local/bin/jq "$@"
     fi
