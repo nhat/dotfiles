@@ -155,6 +155,21 @@ fzf-find-file-or-folder() {
 zle -N fzf-find-file-or-folder
 bindkey '^P' fzf-find-file-or-folder
 
+# transform current word to upper or lower case
+transform-current-word-case() {
+	local currentword="${LBUFFER/*[ |\/|\.|\-]/}${RBUFFER/[ |\/|.|\-]*/}"
+
+	if [[ $currentword == ${currentword:l} ]]; then
+		BUFFER=${BUFFER/$currentword/${currentword:u}}
+	else
+		BUFFER=${BUFFER/$currentword/${currentword:l}}
+	fi
+
+	zle redisplay
+}
+zle -N transform-current-word-case
+bindkey '^[u' transform-current-word-case
+
 # don't store invalid commands in history
 zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }
 HISTFILE=~/.zsh_history

@@ -168,6 +168,10 @@ nmap f <Plug>(smalls)
 " select current word
 imap <C-f> <Esc><C-f>
 
+" toggle word case
+nnoremap <M-u> viw~
+inoremap <M-u> <Esc>viw~ea
+
 " format buffer
 nmap <silent><Leader>p :Neoformat<CR>
 vmap <silent><Leader>p :Neoformat<CR>
@@ -362,6 +366,10 @@ if has("gui_vimr")
     inoremap <D-DEL> <C-o>D
     inoremap <D-Left> <Home>
     inoremap <D-Right> <End>
+
+    " toggle word case
+    nnoremap <S-D-u> viw~
+    inoremap <S-D-u> <Esc>viw~ea
 
     " vim move
     let g:move_key_modifier = 'D'
