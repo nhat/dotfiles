@@ -129,7 +129,8 @@ fzf-find-file-or-folder() {
     unset 'LBUFFER[-1]'
   fi
 
-  local out=$(eval fd --hidden . $base | fzf)
+  local out=$(eval fd --hidden . $base | fzf \
+      --bind 'ctrl-p:execute(fd --hidden | fzf)+abort')
 
   if [[ $BUFFER == "" ]]; then
     # open file or folder
