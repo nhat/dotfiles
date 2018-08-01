@@ -1,5 +1,7 @@
 source ~/.vimrc
+set showmode
 set surround
+set multiple-cursors
 
 nnoremap gt gt
 nnoremap gr gT
@@ -18,7 +20,7 @@ vmap <CR> }
 
 nmap + viw
 vmap + vviB
-nnoremap vß v$h
+nnoremap vß v$
 nnoremap cß c$
 nnoremap dß d$
 nnoremap yß y$
@@ -44,11 +46,20 @@ nnoremap vQ vi'
 nnoremap vaq va"
 nnoremap vaQ va'
 
+" restore binding for toggle case from multiple cursor
+map <A-n> ~
+
+nnoremap <C-O> :action Back<CR>
+nnoremap <C-N> :action Forward<CR>
+
 nnoremap <S-K> :action QuickImplementations<CR>
 nnoremap f :action emacsIDEAs.AceJump<CR>
 
 nnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
 vnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
+
+nnoremap <Leader>r :action Replace<CR>
+vnoremap <Leader>r :action Replace<CR>
 
 nnoremap <Leader>p :action ReformatCode<CR>
 vnoremap <Leader>p :action ReformatCode<CR>v

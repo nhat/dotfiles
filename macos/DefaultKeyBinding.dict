@@ -16,6 +16,8 @@ https://www.hcs.harvard.edu/~jrus/site/cocoa-text.html
 */
 
 {
+  // delete word before cursor
+  "^w" = (deleteWordBackward:);
   // select word
   "@d" = (selectWord:);
   // move line up

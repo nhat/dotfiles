@@ -1,29 +1,28 @@
-" settings
-
+" Settings
+" -------------------------
 set clipboard=unnamed
-set number                " show line numbers
-set cul                   " highlight current line
-set laststatus=2          " last window always has a statusline
-set hlsearch              " highlight searched phrases
-set incsearch             " highlight as you type your search
-set ignorecase            " make searches case-insensitive
-set smartcase             " ignore case unless there is an uppercase letter
-set ruler                 " always show info along bottom
+set number                          " show line numbers
+set cursorline                      " highlight current line
+set laststatus=2                    " last window always has a statusline
+set hlsearch                        " highlight searched phrases
+set ignorecase                      " make searches case-insensitive
+set smartcase                       " ignore case unless there is an uppercase letter
+set ruler                           " always show info along bottom
 set showmatch
 set wildmenu
 set wildignorecase
 set splitbelow
 set splitright
-set autoindent            " auto-indent
-set tabstop=4             " tab spacing
-set softtabstop=4         " unify
-set shiftwidth=4          " indent/outdent by 4 columns
-set shiftround            " always indent/outdent to the nearest tabstop
-set expandtab             " use spaces instead of tabs
-set smarttab              " use tabs at the start of a line, spaces elsewhere
-set nowrap                " don't wrap text
-set tw=0
-set noeb vb t_vb=
+set autoindent                      " auto-indent
+set tabstop=4                       " tab spacing
+set softtabstop=4                   " unify
+set shiftwidth=4                    " indent/outdent by 4 columns
+set shiftround                      " always indent/outdent to the nearest tabstop
+set expandtab                       " use spaces instead of tabs
+set smarttab                        " use tabs at the start of a line, spaces elsewhere
+set nowrap                          " don't wrap text
+set shortmess+=I                    " hide the launch screen
+set visualbell
 set noshowmode
 set scrolloff=2
 set sidescroll=1
@@ -31,23 +30,25 @@ set sidescrolloff=5
 set noswapfile
 set undofile
 set autowriteall
+set confirm
 set hidden
 set updatetime=150
-set lazyredraw                                         " redraw only when we need to.
+set lazyredraw                      " redraw only when we need to.
 set mouse=a
-set title                                              " enable setting title
-set titlestring=%F%a%r%m titlelen=120                  " configure title to look like: /path/to/file
-set textwidth=120
+set title                           " enable setting title
+set titlestring=%F%a%r%m            " configure title to look like: /path/to/file
+set titlelen=120
 
 filetype on
 syntax on
-autocmd FocusGained,BufEnter * silent! checktime       " reload buffer when focus changes
-autocmd FocusLost,Bufleave * silent! wa                " save buffer when focus changes
+autocmd FocusGained,BufEnter * silent! checktime                " reload buffer when focus changes
+autocmd FocusLost,Bufleave * silent! wa                         " save buffer when focus changes
 autocmd StdinReadPost * set buftype=nofile
-autocmd BufEnter * silent! lcd %:p:h                   " use folder from current file
+autocmd BufEnter * silent! lcd %:p:h                            " use folder from current file
 
 
-" plugins
+" Plugins
+" -------------------------
 
 call plug#begin('~/.vim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
@@ -77,7 +78,8 @@ Plug 'rakr/vim-one'
 call plug#end()
 
 
-" key bindings
+" Key Bindings
+" -------------------------
 
 let mapleader = " "
 nmap <silent> Q :qa<CR>
@@ -118,11 +120,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-nnoremap * #
-nnoremap # *
-nnoremap ß $
-onoremap ß $
-vnoremap ß $h
+noremap ß $
 nnoremap <BS> {
 nnoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 onoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
@@ -135,13 +133,8 @@ nnoremap Y y$
 
 " have x (removes single character) not go into the default registry
 nnoremap x "_x
-
-" make X an operator that removes text without placing text in the default registry
-nmap X "_d
-nmap XX "_dd
-vmap X "_d
-vmap x "_d
-
+nnoremap X "_X
+"
 " make quotes into movements
 onoremap q i"
 onoremap Q i'
@@ -164,6 +157,7 @@ vmap <M--> <Plug>Commentary
 
 " make f search for 2 chars
 nmap f <Plug>(smalls)
+nnoremap F f
 
 " select current word
 imap <C-f> <Esc><C-f>
@@ -194,7 +188,8 @@ inoremap <C-x><C-_> <C-O><C-r>
 inoremap <C-u> <Esc>ddI
 
 
-" other
+" Other
+" -------------------------
 
 " colorscheme
 colorscheme one
