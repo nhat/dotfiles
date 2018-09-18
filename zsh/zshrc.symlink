@@ -44,3 +44,6 @@ for dump in $HOME/.zcompdump(N.mh+24); do
 done
 
 unset config_files
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
