@@ -22,6 +22,9 @@ if ! [[ -f $HOME/.hushlogin ]]; then
     touch $HOME/.hushlogin
 fi
 
+# update zsh plugins
+update_zsh_plugins
+
 # setup Homebrew packages
 $DOTFILES_ROOT/homebrew/install.sh 2>&1
 
