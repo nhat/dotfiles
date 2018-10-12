@@ -67,6 +67,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 Plug 'mattn/emmet-vim'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'google/vim-searchindex'
 Plug 'jiangmiao/auto-pairs'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -132,8 +133,8 @@ nnoremap ü <C-^>
 nnoremap Y y$
 
 " have x (removes single character) not go into the default registry
-nnoremap x "_x
-nnoremap X "_X
+noremap x "_x
+noremap X "_X
 "
 " make quotes into movements
 onoremap q i"
