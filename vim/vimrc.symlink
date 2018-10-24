@@ -188,6 +188,14 @@ inoremap <C-_> <C-o>u
 inoremap <C-x><C-_> <C-O><C-r>
 inoremap <C-u> <Esc>ddI
 
+" add macOS shortcuts for editing in command mode
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <M-BS> <C-w>
+cnoremap <C-x><BS> <C-u>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+
 
 " Other
 " -------------------------

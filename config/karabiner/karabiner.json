@@ -31,8 +31,7 @@
                                         "key_code": "left_shift",
                                         "modifiers": [
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ]
                                     }
                                 ],
@@ -51,8 +50,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -74,8 +72,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -97,8 +94,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -120,8 +116,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -143,8 +138,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -166,8 +160,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -189,8 +182,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -215,8 +207,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -241,8 +232,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -267,8 +257,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -293,8 +282,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -319,8 +307,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -345,8 +332,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -364,29 +350,6 @@
                                 "type": "basic"
                             },
                             {
-                                "description": "Disable Sysdiagnose Keys",
-                                "from": {
-                                    "key_code": "comma",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_shift",
-                                            "left_command",
-                                            "left_control",
-                                            "left_option"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "vk_none"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
                                 "description": "Change hyper+tab to caps lock",
                                 "from": {
                                     "key_code": "tab",
@@ -394,8 +357,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -417,8 +379,7 @@
                                         "mandatory": [
                                             "left_shift",
                                             "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ],
                                         "optional": [
                                             "any"
@@ -428,43 +389,6 @@
                                 "to": [
                                     {
                                         "key_code": "return_or_enter"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Ctrl+f1 to f19, Ctrl+f2 to f20",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "f1",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_control"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "f19"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "f2",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_control"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "f20"
                                     }
                                 ],
                                 "type": "basic"
@@ -561,6 +485,38 @@
                                 "to": [
                                     {
                                         "key_code": "f",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "VimR: Cmd+. send Ctrl+c",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com.qvacua.VimR"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "period",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_command"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
                                         "modifiers": [
                                             "left_control"
                                         ]
