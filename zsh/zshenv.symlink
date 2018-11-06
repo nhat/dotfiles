@@ -24,6 +24,6 @@ export FZF_DEFAULT_OPTS="
 # set location for cask to install apps
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-# set location for Java JDK
-export JAVA_HOME=/Library/Java/Home
+# set location and version for Java JDK
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 

@@ -14,13 +14,12 @@ set wildignorecase
 set splitbelow
 set splitright
 set autoindent                      " auto-indent
-set tabstop=4                       " tab spacing
-set softtabstop=4                   " unify
-set shiftwidth=4                    " indent/outdent by 4 columns
+set tabstop=2                       " tab spacing
+set softtabstop=2                   " unify
+set shiftwidth=2                    " indent/outdent by 2 columns
 set shiftround                      " always indent/outdent to the nearest tabstop
 set expandtab                       " use spaces instead of tabs
 set smarttab                        " use tabs at the start of a line, spaces elsewhere
-set nowrap                          " don't wrap text
 set shortmess+=I                    " hide the launch screen
 set visualbell
 set noshowmode
@@ -31,7 +30,6 @@ set noswapfile
 set undofile
 set autowriteall
 set confirm
-set hidden
 set updatetime=150
 set lazyredraw                      " redraw only when we need to.
 set mouse=a
@@ -39,7 +37,7 @@ set title                           " enable setting title
 set titlestring=%F%a%r%m            " configure title to look like: /path/to/file
 set titlelen=120
 
-filetype on
+filetype indent on
 syntax on
 autocmd FocusGained,BufEnter * silent! checktime                " reload buffer when focus changes
 autocmd FocusLost,Bufleave * silent! wa                         " save buffer when focus changes
@@ -51,7 +49,6 @@ autocmd BufEnter * silent! lcd %:p:h                            " use folder fro
 " -------------------------
 
 call plug#begin('~/.vim/plugged')
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -59,9 +56,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'sjl/vitality.vim'
-Plug 'jeetsukumaran/vim-filebeagle'
 Plug 't9md/vim-smalls'
 Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
@@ -87,7 +81,6 @@ nmap <silent> Q :qa<CR>
 nmap U <C-r>
 nmap <silent> gt :bnext<CR>
 nmap <silent> gr :bprev<CR>
-noremap , '
 inoremap <M-CR> <Esc>o
 inoremap <S-CR> <Esc>O
 nnoremap <M-CR> o<Esc>
@@ -106,6 +99,8 @@ nnoremap <Leader><Leader> :w<CR>
 nnoremap <silent> <Leader>C <C-w>c
 nnoremap <Leader>r :%s///gc<Left><Left><Left><Left>
 vnoremap <Leader>r :s///gc<Left><Left><Left><Left>
+map ö [
+map ä ]
 
 " indent with tab key
 nnoremap <Tab> >>_
@@ -147,6 +142,12 @@ vnoremap Q i'
 vnoremap aq a"
 vnoremap aQ a'
 
+" navigate splits
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+
 " search files and buffers
 nmap <silent><C-p> :FZF --prompt= $HOME<CR>
 imap <silent><C-p> <Esc>:FZF --prompt= $HOME<CR>
@@ -157,8 +158,7 @@ nmap <M--> <Plug>CommentaryLine j0
 vmap <M--> <Plug>Commentary
 
 " make f search for 2 chars
-nmap f <Plug>(smalls)
-nnoremap F f
+nmap <Leader>f <Plug>(smalls)
 
 " select current word
 imap <C-f> <Esc><C-f>
@@ -261,8 +261,8 @@ let g:AutoPairsShortcutBackInsert = ''
 " fzf
 let g:fzf_layout = { 'down': '~30%' }
 
-" multi cursor
-let g:multi_cursor_next_key = '<C-f>'
+" don't show hidden files in vinegar
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
 " neoformat
 autocmd FileType javascript,typescript setlocal formatprg=prettier
@@ -356,7 +356,7 @@ if has('nvim')
     call Tmpwatch(&undodir, 30)
 endif
 
-" VimR specific stuff
+" vimr
 if has("gui_vimr")
     nmap <silent><D-p> :FZF --prompt= $HOME<CR>
     imap <silent><D-p> <Esc>:FZF --prompt= $HOME<CR>

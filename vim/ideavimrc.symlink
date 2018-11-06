@@ -53,7 +53,7 @@ nnoremap <C-O> :action Back<CR>
 nnoremap <C-N> :action Forward<CR>
 
 nnoremap <S-K> :action QuickImplementations<CR>
-nnoremap f :action emacsIDEAs.AceJump<CR>
+nnoremap <Leader>f :action emacsIDEAs.AceJump<CR>
 
 nnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
 vnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
