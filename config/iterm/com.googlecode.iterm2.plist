@@ -27,7 +27,7 @@
 	<key>AutoHideTmuxClientSession</key>
 	<false/>
 	<key>CheckTestRelease</key>
-	<true/>
+	<false/>
 	<key>CopyLastNewline</key>
 	<false/>
 	<key>CopySelection</key>
@@ -1280,6 +1280,8 @@
 	<false/>
 	<key>DisableFullscreenTransparency</key>
 	<true/>
+	<key>DisableMetalWhenIdle</key>
+	<true/>
 	<key>DisableWindowSizeSnap</key>
 	<true/>
 	<key>DoubleClickPerformsSmartSelection</key>
@@ -1398,6 +1400,8 @@
 			<string></string>
 		</dict>
 	</dict>
+	<key>GlobalTouchBarMap</key>
+	<dict/>
 	<key>HideActivityIndicator</key>
 	<true/>
 	<key>HideMenuBarInFullscreen</key>
@@ -1424,10 +1428,12 @@
 	<false/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
+	<key>Mark Alert Action</key>
+	<string>Post Notification</string>
 	<key>NSFontPanelSizeSliderParams</key>
 	<string>2 0 100</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>/Applications</string>
+	<string>~/Downloads</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 459}</string>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
@@ -1474,14 +1480,11 @@
 	<dict>
 		<key>CurrentItems</key>
 		<array>
-			<string>iTermTouchBarIdentifierManPage</string>
-			<string>iTermTouchBarIdentifierColorPreset</string>
-			<string>iTermTouchBarIdentifierFunctionKeys</string>
-			<string>NSTouchBarItemIdentifierFlexibleSpace</string>
-			<string>NSTouchBarItemIdentifierOtherItemsProxy</string>
-			<string>iTermTouchBarIdentifierAddMark</string>
 			<string>iTermTouchBarIdentifierPreviousMark</string>
 			<string>iTermTouchBarIdentifierNextMark</string>
+			<string>iTermTouchBarIdentifierAddMark</string>
+			<string>NSTouchBarItemIdentifierFlexibleSpace</string>
+			<string>NSTouchBarItemIdentifierOtherItemsProxy</string>
 		</array>
 		<key>DefaultItems</key>
 		<array>
@@ -1504,27 +1507,27 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 152 606 469 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>162 133 1016 512 0 0 1440 877 </string>
+	<string>135 317 770 429 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
-	<string>99 293 592 584 0 0 1440 877 </string>
+	<string>80 193 592 584 0 0 1280 777 </string>
 	<key>NSWindow Frame com.apple.typography_panel_ArialMT</key>
 	<string>246 453 260 106 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1280 777 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 0 1280 777 0 0 1280 777 </string>
+	<string>0 23 1280 754 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
 	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 11</key>
 	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>0 4 1440 873 0 0 1440 877 </string>
+	<string>0 0 1280 777 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>0 4 1440 873 0 0 1440 877 </string>
+	<string>0 0 1280 777 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>0 4 1440 873 0 0 1440 877 </string>
+	<string>0 0 1280 777 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 5</key>
-	<string>0 4 1440 873 0 0 1440 877 </string>
+	<string>0 0 1280 777 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 6</key>
 	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 7</key>
@@ -2764,7 +2767,7 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
 	<integer>0</integer>
 	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt</key>
-	<true/>
+	<false/>
 	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt_selection</key>
 	<integer>1</integer>
 	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
@@ -2780,6 +2783,8 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
+	<true/>
+	<key>NoSyncSaveDocumentAsPathSet_saveDocumentAs:</key>
 	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>489012477.48013502</real>
@@ -2806,7 +2811,7 @@ Marks and Annotations.Previous Mark or Annotation</string>
 		<key>Button,1,1,,</key>
 		<dict>
 			<key>Action</key>
-			<string>kMovePanePointerAction</string>
+			<string>kContextMenuPointerAction</string>
 		</dict>
 		<key>Button,2,1,,</key>
 		<dict>
@@ -2854,11 +2859,11 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml?shard=42</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=42</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-09-18T13:30:24Z</date>
+	<date>2018-11-06T09:04:46Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -2896,12 +2901,12 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<key>ToolbeltTools</key>
 	<array>
 		<string>Profiles</string>
-		<string>Recent Directories</string>
+		<string>Notes</string>
 	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1480620160</real>
+	<real>1541182080</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>Use background pattern indicator</key>
@@ -2913,7 +2918,7 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<key>UseLionStyleFullscreen</key>
 	<true/>
 	<key>UseMetal</key>
-	<false/>
+	<true/>
 	<key>VerticalBarCursorWidth</key>
 	<real>2</real>
 	<key>Window Arrangements</key>
@@ -2922,6 +2927,8 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
+	<key>disableMetalWhenUnplugged</key>
+	<false/>
 	<key>findIgnoreCase_iTerm</key>
 	<true/>
 	<key>findMode_iTerm</key>
@@ -2929,10 +2936,12 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.1beta5</string>
+	<string>3.2.6beta1</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>1</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
+	<key>metalMaximizeThroughput</key>
 	<false/>
 </dict>
 </plist>
