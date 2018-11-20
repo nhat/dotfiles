@@ -261,8 +261,11 @@ let g:AutoPairsShortcutBackInsert = ''
 " fzf
 let g:fzf_layout = { 'down': '~30%' }
 
-" don't show hidden files in vinegar
+" vinegar
+" don't show hidden files
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+" set pwd to current directory
+let g:netrw_keepdir=0
 
 " neoformat
 autocmd FileType javascript,typescript setlocal formatprg=prettier
