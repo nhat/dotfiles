@@ -49,10 +49,15 @@ nnoremap vaQ va'
 " restore binding for toggle case from multiple cursor
 map <A-n> ~
 
-nnoremap <C-O> :action Back<CR>
-nnoremap <C-N> :action Forward<CR>
+nnoremap <C-o> :action Back<CR>
+nnoremap <C-n> :action Forward<CR>
 
-nnoremap <S-K> :action QuickImplementations<CR>
+inoremap <C-n> <C-o>:action CodeCompletion<CR>
+
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+
+nnoremap <S-k> :action QuickImplementations<CR>
 nnoremap <Leader>f :action emacsIDEAs.AceJump<CR>
 
 nnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
