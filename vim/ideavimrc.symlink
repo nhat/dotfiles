@@ -1,7 +1,6 @@
 source ~/.vimrc
 set showmode
 set surround
-set multiple-cursors
 
 nnoremap gt gt
 nnoremap gr gT

@@ -60,6 +60,7 @@ Plug 't9md/vim-smalls'
 Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 Plug 'mattn/emmet-vim'
+Plug 'gabesoft/vim-ags'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'google/vim-searchindex'
 Plug 'jiangmiao/auto-pairs'
@@ -260,12 +261,24 @@ let g:AutoPairsShortcutBackInsert = ''
 
 " fzf
 let g:fzf_layout = { 'down': '~30%' }
+" search files in git root directory
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+command! ProjectFiles execute 'Files' s:find_git_root()
 
 " vinegar
 " don't show hidden files
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 " set pwd to current directory
 let g:netrw_keepdir=0
+
+" apply macro to selected lines
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
 
 " neoformat
 autocmd FileType javascript,typescript setlocal formatprg=prettier

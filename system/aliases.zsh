@@ -30,22 +30,19 @@ function take() {
 
 # Show short response status for each requests
 function curl() {
-    silent=0
-    # silent option
-    for var in "$@"; do
-        if [[ $var == "-"* ]] && [[ $var != "--"* ]]; then
-            if [[ $var =~ "s" ]] ||
-               [[ $var =~ "v" ]]; then
-                silent=1
-            fi
-        fi
-    done
-
-    if [[ $silent == 0 ]]; then
-        /usr/local/bin/curl -sS -D /dev/stderr $@
-    else
-        /usr/local/bin/curl $@
+  # check if silent option is set
+  local silent=""
+  for var in "$@"; do
+    if [[ "$var" == "-s" ]] || [[ "$var" == "-v" ]] || [[ "$var" == "-I" ]]; then
+      silent=$var
     fi
+  done
+
+  if [[ "$silent" ]]; then
+    /usr/local/bin/curl $@
+  else
+    /usr/local/bin/curl -sS -D /dev/stderr $@
+  fi
 }
 
 # Use nvim if installed
