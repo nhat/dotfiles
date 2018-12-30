@@ -27,5 +27,5 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # set location and version for Java JDK
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export JAVA_HOME=`/usr/libexec/java_home -v 11`
 
