@@ -33,7 +33,7 @@ function curl() {
   # check if silent option is set
   local silent=""
   for var in "$@"; do
-    if [[ "$var" == "-s" ]] || [[ "$var" == "-v" ]] || [[ "$var" == "-I" ]]; then
+    if [[ "$var" == "-s" ]] || [[ "$var" == "-v" ]] || [[ "$var" == "-I" ]] || [[ "$var" == "-i" ]]; then
       silent=$var
     fi
   done
@@ -41,7 +41,7 @@ function curl() {
   if [[ "$silent" ]]; then
     /usr/local/bin/curl $@
   else
-    /usr/local/bin/curl -sS -D /dev/stderr $@
+    /usr/local/bin/curl -sS -D /dev/stderr --suppress-connect-headers $@
   fi
 }
 
