@@ -21,6 +21,7 @@ brew install fzf
 brew install neovim
 brew install getantibody/tap/antibody
 brew install switchaudio-osx
+brew install gnu-sed
 brew install fd
 
 # install cask packages
