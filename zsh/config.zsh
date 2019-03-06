@@ -184,7 +184,8 @@ setopt HIST_REDUCE_BLANKS
 
 setopt NO_BG_NICE               # disable nice background tasks
 setopt EXTENDED_GLOB
-setopt GLOB_STAR_SHORT
+setopt GLOB_STAR_SHORT          # **/* can be abbreviated to **
+setopt GLOBDOTS                 # matches . without specifying the dot
 setopt AUTO_CD
 setopt NO_HUP
 setopt NO_LIST_BEEP
