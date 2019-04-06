@@ -43,7 +43,6 @@ syntax on
 autocmd FocusGained,BufEnter * silent! checktime                " reload buffer when focus changes
 autocmd FocusLost,Bufleave * silent! wa                         " save buffer when focus changes
 autocmd StdinReadPost * set buftype=nofile
-autocmd BufEnter * silent! lcd %:p:h                            " use folder from current file
 
 
 " Plugins
@@ -151,8 +150,8 @@ nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 
 " search files and buffers
-nmap <silent><C-p> :FZF --prompt= $HOME<CR>
-imap <silent><C-p> <Esc>:FZF --prompt= $HOME<CR>
+nmap <silent><C-p> :FZF<CR>
+imap <silent><C-p> <Esc>:FZF<CR>
 nmap <silent><Leader><CR> :Buffers<CR>
 
 " toggle comment
@@ -271,8 +270,6 @@ command! ProjectFiles execute 'Files' s:find_git_root()
 " vinegar
 " don't show hidden files
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-" set pwd to current directory
-let g:netrw_keepdir=0
 
 " apply macro to selected lines
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
@@ -375,8 +372,8 @@ endif
 
 " vimr
 if has("gui_vimr")
-    nmap <silent><D-p> :FZF --prompt= $HOME<CR>
-    imap <silent><D-p> <Esc>:FZF --prompt= $HOME<CR>
+    nmap <silent><D-p> :FZF<CR>
+    imap <silent><D-p> <Esc>:FZF<CR>
 
     " add macOS shortcuts for editing in insert mode
     inoremap <M-Left> <C-Left>
