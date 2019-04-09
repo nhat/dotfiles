@@ -26,6 +26,8 @@
 	<false/>
 	<key>AutoHideTmuxClientSession</key>
 	<false/>
+	<key>BootstrapDaemon</key>
+	<false/>
 	<key>CheckTestRelease</key>
 	<false/>
 	<key>CopyLastNewline</key>
@@ -1505,9 +1507,9 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>330 288 620 392 0 0 1280 777 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 152 606 469 0 0 1440 877 </string>
+	<string>217 115 606 469 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>162 73 1016 512 0 0 1280 777 </string>
+	<string>162 219 1018 447 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>80 193 592 584 0 0 1280 777 </string>
 	<key>NSWindow Frame com.apple.typography_panel_ArialMT</key>
@@ -2755,14 +2757,18 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<true/>
 	<key>NoSyncConfirmBeta</key>
 	<true/>
+	<key>NoSyncCoprocessCommandsToIgnoreErrorOutput</key>
+	<array/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
 	<true/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
 	<integer>0</integer>
 	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt</key>
-	<false/>
+	<true/>
 	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt_selection</key>
 	<integer>1</integer>
+	<key>NoSyncHaveRequestedFullDiskAccess</key>
+	<true/>
 	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
@@ -2856,7 +2862,7 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-11-06T18:23:25Z</date>
+	<date>2019-04-09T18:36:39Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -2929,7 +2935,7 @@ Marks and Annotations.Previous Mark or Annotation</string>
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.5</string>
+	<string>3.2.8</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>1</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
