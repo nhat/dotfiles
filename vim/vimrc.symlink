@@ -371,8 +371,8 @@ endif
 
 " vimr
 if has("gui_vimr")
-    nmap <silent><D-p> :FZF<CR>
-    imap <silent><D-p> <Esc>:FZF<CR>
+    nmap <silent><D-p> :FZF --reverse --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:241,hl+:9,hl:9,info:255 --bind change:top<CR>
+    imap <silent><D-p> <Esc>:FZF --reverse --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:241,hl+:9,hl:9,info:255 --bind change:top<CR>
 
     " add macOS shortcuts for editing in insert mode
     inoremap <M-Left> <C-Left>
