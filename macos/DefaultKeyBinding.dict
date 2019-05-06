@@ -31,5 +31,5 @@ https://www.hcs.harvard.edu/~jrus/site/cocoa-text.html
   // select from beginning of paragraph to last character
   "~s" = (moveToBeginningOfParagraph:, moveToEndOfParagraphAndModifySelection:);
   // delete line/paragraph
-  "^u" = (selectParagraph:, copy:, delete:, moveToBeginningOfParagraph:);
+  "^u" = (selectParagraph:, delete:, moveToBeginningOfParagraph:);
 }
