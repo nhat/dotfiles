@@ -2,6 +2,7 @@ source ~/.vimrc
 set showmode
 set surround
 
+" restore binding for changing buffers
 nnoremap gt gt
 nnoremap gr gT
 nnoremap <Leader>c :q<CR>
@@ -52,9 +53,10 @@ nnoremap <C-o> :action Back<CR>
 nnoremap <C-n> :action Forward<CR>
 
 inoremap <C-n> <C-o>:action CodeCompletion<CR>
-
 nnoremap <S-k> :action QuickImplementations<CR>
-nnoremap <Leader>f :action emacsIDEAs.AceJump<CR>
+inoremap <M-S-U> <Esc>:action EditorToggleCase<CR>:action EditorUnSelectWord<CR>a
+nnoremap <M-S-U> :action EditorToggleCase<CR>:action EditorUnSelectWord<CR>
+vnoremap <M-S-U> :action EditorToggleCase<CR>:action EditorUnSelectWord<CR>
 
 nnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
 vnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
