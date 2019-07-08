@@ -1,6 +1,7 @@
 source ~/.vimrc
 set showmode
 set surround
+set ideajoin
 
 " restore binding for changing buffers
 nnoremap gt gt
@@ -66,4 +67,3 @@ vnoremap <Leader>r :action Replace<CR>
 
 nnoremap <Leader>p :action ReformatCode<CR>
 vnoremap <Leader>p :action ReformatCode<CR>v
-
