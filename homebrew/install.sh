@@ -37,7 +37,7 @@ brew cask install quicklook-json
 brew cask install qlmarkdown
 brew cask install alfred
 brew cask install dropbox
-brew cask install java8
+brew cask install java11
 brew cask install vlc
 brew cask install vimr
 brew cask install apptrap
