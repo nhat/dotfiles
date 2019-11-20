@@ -41,7 +41,7 @@ brew cask install java11
 brew cask install vlc
 brew cask install vimr
 brew cask install apptrap
-brew cask install spectacle
+brew cask install rectangle
 brew cask install iterm2
 
 brew update && brew upgrade
