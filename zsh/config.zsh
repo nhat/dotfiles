@@ -122,10 +122,8 @@ fi
 
 # use fzf to find file or folder
 fzf-find-file-or-folder() {
-  local base=$HOME
-
-  local out=$(eval fd --hidden . $base | fzf \
-      --bind 'ctrl-p:execute(fd --hidden | fzf --height 100% --prompt="🔍 ${PWD##*/} ")+abort')
+  local out=$(eval fd --hidden . $PWD | fzf \
+      --bind 'ctrl-p:execute(fd --hidden . $HOME | fzf --height 100% --prompt="🔍 ${HOME##*/} ")+abort')
 
   if [[ $BUFFER == "" ]]; then
     # open file or folder
