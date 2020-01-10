@@ -52,7 +52,7 @@ directory_name() {
   fi
 }
 
-local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
+local ret_status="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s)"
 
 set_prompt() {
   export PROMPT=$'\n${ret_status} $(directory_name)$(git_status)\n'
