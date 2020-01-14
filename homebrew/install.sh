@@ -28,9 +28,6 @@ brew install fd
 brew tap caskroom/cask
 brew tap caskroom/versions
 
-brew cask install provisionql
-brew cask install qlcolorcode
-brew cask install qlimagesize
 brew cask install qlstephen
 brew cask install quicklook-csv
 brew cask install quicklook-json
