@@ -37,9 +37,7 @@ need_push_or_wip() {
 }
 
 git_status() {
-  if $(! $git branch &> /dev/null); then
-    echo ""
-  else
+  if [[ -n $($git rev-parse --abbrev-ref HEAD 2>/dev/null) ]]; then
     echo "$(git_dirty)$(need_push_or_wip)"
   fi
 }

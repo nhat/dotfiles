@@ -4,7 +4,7 @@ title() {
   local a=${(V)1//\%/\%\%}
 
   # truncate command, and join lines.
-  a=$(print -Pn "%40>...>$a" | tr -d "\n")
+  a=$(print -Pn "%90>...>$a" | tr -d "\n")
 
   local _icon=${${tabicon[${${(s: :)a}[1]}]}:-${tabicon[zsh]}}
 
@@ -20,7 +20,7 @@ title() {
 }
 
 precmd() {
-  title "zsh" "%m" "%55<...<%~"
+  title "zsh" "%m:%35<...<%~"
   set_prompt
 }
 
