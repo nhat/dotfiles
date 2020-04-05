@@ -169,17 +169,16 @@ zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+setopt NO_HIST_VERIFY           # runs last command after enter
+setopt EXTENDED_HISTORY         # add timestamps to history
+setopt INC_APPEND_HISTORY       # save commands as soon as they are entered
+setopt HIST_IGNORE_ALL_DUPS     # disable dupes in history
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_SPACE        # ignore a command starting with a space
 
 # disable flow control only in zsh prompt
 ttyctl -f
 setopt NO_FLOW_CONTROL
-
-setopt NO_HIST_VERIFY           # runs last command after enter
-setopt EXTENDED_HISTORY         # add timestamps to history
-setopt APPEND_HISTORY           # adds history
-setopt HIST_IGNORE_ALL_DUPS     # disable dupes in history
-setopt HIST_REDUCE_BLANKS
-
 setopt NO_BG_NICE               # disable nice background tasks
 setopt EXTENDED_GLOB
 setopt GLOB_STAR_SHORT          # **/* can be abbreviated to **
