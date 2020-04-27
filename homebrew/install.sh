@@ -17,6 +17,7 @@ brew install curl
 brew install grc
 brew install trash
 brew install git
+brew install git-delta
 brew install fzf
 brew install neovim
 brew install getantibody/tap/antibody

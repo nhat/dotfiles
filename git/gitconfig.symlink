@@ -20,8 +20,8 @@
 [core]
     excludesfile = ~/.gitignore
     editor = $EDITOR
-	pager = diff-so-fancy | less -iR
-	autocrlf = input
+    pager = delta --light --keep-plus-minus-markers --width=variable | less -iR
+    autocrlf = input
 [apply]
     whitespace = nowarn
 [mergetool]
