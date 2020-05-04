@@ -21,7 +21,7 @@ vmap <CR> }
 
 nmap + viw
 vmap + vviB
-nnoremap vß v$
+nnoremap vß vg_
 nnoremap cß c$
 nnoremap dß d$
 nnoremap yß y$
@@ -49,6 +49,12 @@ nnoremap vaQ va'
 
 " restore binding for toggle case from multiple cursor
 map <A-n> ~
+
+nnoremap öc :action VcsShowPrevChangeMarker<CR>
+nnoremap äc :action VcsShowNextChangeMarker<CR>
+
+nnoremap öl :action GotoPreviousError<CR>
+nnoremap äl :action GotoNextError<CR>
 
 nnoremap <C-o> :action Back<CR>
 nnoremap <C-n> :action Forward<CR>

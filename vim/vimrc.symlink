@@ -116,13 +116,13 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-noremap ß $
 nnoremap <BS> {
 nnoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 onoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 vnoremap <BS> {
 vnoremap <CR> }
 nnoremap ü <C-^>
+noremap ß g_
 
 " make Y yank until end of line
 nnoremap Y y$
@@ -267,6 +267,7 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_git_root()
 
 " vinegar
+let g:netrw_fastbrowse = 0
 " don't show hidden files
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
