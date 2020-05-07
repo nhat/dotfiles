@@ -15,7 +15,7 @@ alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 
 alias gd='git diff HEAD'
-alias gl="git log --graph --pretty=format:'%C(yellow)%h%Creset %s %Cblue%an %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gl="git log --graph --pretty=format:'%C(yellow)%h%Creset %s %Cblue%an %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --date-order"
 alias gp='git push origin HEAD'
 alias grh='git reset --hard'
 alias gt='cd "$(git rev-parse --show-toplevel)"'
