@@ -26,18 +26,11 @@ brew install gnu-sed
 brew install fd
 
 # install cask packages
-brew tap caskroom/cask
-brew tap caskroom/versions
-
-brew cask install qlstephen
-brew cask install quicklook-csv
-brew cask install quicklook-json
-brew cask install qlmarkdown
 brew cask install alfred
-brew cask install dropbox
 brew cask install java11
 brew cask install vlc
 brew cask install vimr
+brew cask install qlstephen
 brew cask install apptrap
 brew cask install rectangle
 brew cask install iterm2
