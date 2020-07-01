@@ -2,6 +2,7 @@ source ~/.vimrc
 set showmode
 set surround
 set ideajoin
+set ideastatusicon=disabled
 
 " restore binding for changing buffers
 nnoremap gt gt
