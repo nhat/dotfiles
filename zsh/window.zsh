@@ -13,7 +13,6 @@ title() {
     print -Pn "\033]0;%~ ⏤ $a\a" # plain xterm title
     ;;
   xterm*|rxvt)
-    print -Pn "\033]2;%~ ⏤ $a\a" # plain xterm title
     print -Pn "\033]1;${_icon} %1~ ⏤ $a\a" # plain xterm tab title
     ;;
   esac
@@ -41,6 +40,7 @@ tabicon+=('grunt'   $'\U1F43D'); # PIG NOSE
 tabicon+=('gulp'    $'\U1F379'); # TROPICAL DRINK
 tabicon+=('bower'   $'\U1F3F9'); # BOW AND ARROW
 tabicon+=('git'     $'\U1F3F7'); # LABEL
+tabicon+=('g'       $'\U1F3F7'); # LABEL
 tabicon+=('hg'      $'\U1F3F7'); # LABEL
 tabicon+=('svn'     $'\U1F3F7'); # LABEL
 tabicon+=('cvs'     $'\U1F3F7'); # LABEL
