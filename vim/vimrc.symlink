@@ -285,6 +285,7 @@ autocmd FileType javascript,typescript setlocal formatprg=prettier
     \\ --single-quote
     \\ --trailing-comma\ es5
 autocmd FileType xml,html setlocal formatprg=js-beautify\ --type\ html\ --quiet\ --wrap-line-length\ 120\ -
+autocmd FileType lua setlocal formatprg=luafmt\ --indent-count\ 2\ --stdin
 let g:neoformat_enabled_json = ['jq']
 let g:neoformat_basic_format_align = 1
 let g:neoformat_basic_format_retab = 1
