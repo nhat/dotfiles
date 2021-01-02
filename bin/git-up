@@ -17,14 +17,14 @@ git pull --prune --rebase $@
 
 # show diffstat of all changes if we're pulling with --rebase. not
 # sure why git-pull only does this when merging.
-diff=$(git --no-pager diff --color --stat HEAD@{1}.. | sed 's/^/ /')
+diff=$(git --no-pager diff --shortstat HEAD@{1}.. | sed 's/^ //')
 if [ "$diff" != "" ]; then
-    echo "Diff:\n$diff"
+    echo "Diff: $diff"
 fi
 
 # show an abbreviated commit log of stuff that was just merged.
-logs=$(git log --color --reverse --date=relative --pretty=format:'%C(yellow)%h%Creset %s %Cblue%an %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit HEAD@{1}.. | sed 's/^/  /')
+logs=$(git log --color --date=relative --pretty=format:' * %s %Cblue%an %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit HEAD@{1}..)
 if [ "$logs" != "" ]; then
-    echo "Log:\n$logs"
+  echo "Log\n$logs\n ... (more shown in git log)"
 fi
 
