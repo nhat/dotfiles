@@ -2,7 +2,6 @@
 #
 # initial setup
 
-cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
 set -e
@@ -122,19 +121,16 @@ install_dotfiles() {
   done
 }
 
+setup_macos() {
+  info "Setting up macOS"
+  echo
+
+  source bin/dot
+}
+
 setup_gitconfig
 install_dotfiles
-
-# if we're on a Mac, let's set default settings and install Homebrew
-if [ "$(uname -s)" == "Darwin" ]; then
-  info "Setup macOS and install applications"
-
-  if source bin/dot > /tmp/dotfiles-dot 2>&1; then
-    success "Applications installed"
-  else
-    fail "Error installing applications"
-  fi
-fi
+setup_macos
 
 echo
-echo 'All installed!'
+success 'All installed!'

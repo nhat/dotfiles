@@ -1,40 +1,70 @@
-#!/bin/sh
+#!/bin/zsh
 #
 # homebrew
 
+echo "🍺 Setting up Homebrew"
 # check for Homebrew
 if test ! $(which brew); then
   echo "Installing Homebrew for you"
-  ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)" > /tmp/homebrew-install.log
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# install Homebrew packages
-brew install coreutils
-brew install zsh
-brew install fasd
-brew install jq
-brew install curl
-brew install grc
-brew install trash
-brew install git
-brew install git-delta
-brew install fzf
-brew install neovim
-brew install getantibody/tap/antibody
-brew install switchaudio-osx
-brew install gnu-sed
-brew install fd
+# install packages
+echo "Installing packages..."
+packages=(
+  coreutils
+  zsh
+  fasd
+  jq
+  curl
+  grc
+  trash
+  git
+  git-delta
+  fzf
+  neovim
+  getantibody/tap/antibody
+  source-highlight
+  switchaudio-osx
+  gnu-sed
+  the_silver_searcher
+  java11
+  fd
+)
+for package in $packages; do
+  brew install $package
+done
 
-# install cask packages
-brew cask install alfred
-brew cask install java11
-brew cask install vlc
-brew cask install vimr
-brew cask install qlstephen
-brew cask install apptrap
-brew cask install rectangle
-brew cask install iterm2
+# install casks
+echo "Installing casks..."
+brew tap homebrew/cask-fonts
+casks=(
+  alfred
+  karabiner-elements
+  vlc
+  vimr
+  qlstephen
+  apptrap
+  rectangle
+  iterm2
+  fantastical
+  font-source-code-pro
+  1password
+)
+for cask in $casks; do
+  brew install --cask $cask
+done
 
-brew update && brew upgrade
+# install apps from App Store
+echo "Installing apps from App Store..."
+if test ! $(which brew); then
+  echo "Installing MAS for you"
+  brew install mas
+fi
+mas install 1480933944 # Vimari
+mas install 1107421413 # 1Blocker
+mas install 1445328303 # prettyJSON
+mas install 1543920362 # Displaperture
 
+echo "Done"
 exit 0

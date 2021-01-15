@@ -28,23 +28,6 @@ function take() {
   cd $1
 }
 
-# Show short response status for each requests
-function curl() {
-  # check if additional options are set
-  local noQuiet=""
-  for var in "$@"; do
-    if [[ "$var" == "-s" ]] || [[ "$var" == "-v" ]] || [[ "$var" == "-I" ]] || [[ "$var" == "-i" ]] || [[ "$var" == "-o" ]] || [[ "$var" == "-O" ]]; then
-      noQuiet=$var
-    fi
-  done
-
-  if [[ "$noQuiet" ]]; then
-    /usr/local/bin/curl $@
-  else
-    /usr/local/bin/curl -sS -D /dev/stderr --suppress-connect-headers $@
-  fi
-}
-
 # Use nvim if installed
 if type nvim > /dev/null 2>&1; then
   alias vi='nvim'

@@ -1729,7 +1729,7 @@
 			<key>Columns</key>
 			<integer>1200</integer>
 			<key>Command</key>
-			<string>/usr/bin/login -pfql nnguyen2</string>
+			<string>/usr/bin/login -pfql nhatnguyen</string>
 			<key>Cursor Boost</key>
 			<real>0.0</real>
 			<key>Cursor Color</key>
@@ -1774,7 +1774,7 @@
 			<key>Cursor Type</key>
 			<integer>2</integer>
 			<key>Custom Command</key>
-			<string>Yes</string>
+			<string>No</string>
 			<key>Custom Directory</key>
 			<string>Advanced</string>
 			<key>Default Bookmark</key>
