@@ -427,32 +427,6 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
-                            {
-                                "description": "Change fn to command+control+space and fn if press alone.",
-                                "from": {
-                                    "key_code": "fn",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to_if_held_down": [
-                                    {
-                                        "key_code": "fn"
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": [
-                                            "left_command",
-                                            "left_control"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
                             }
                         ]
                     },
