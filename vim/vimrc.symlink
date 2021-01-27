@@ -160,8 +160,8 @@ vmap <M--> <Plug>Commentary
 " make f search for 2 chars
 nmap <Leader>f <Plug>(smalls)
 
-" select current word
-imap <C-f> <Esc><C-f>
+" make current folder working directory
+nmap <Leader>h :lcd %:p:h<bar>:echo 'Working directory: ' . expand('%:p:h')<CR>
 
 " toggle word case
 nnoremap <M-u> viw~
