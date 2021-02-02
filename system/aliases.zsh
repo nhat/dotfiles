@@ -1,10 +1,10 @@
 # grc overides for ls
 # `brew install coreutils`
 if $(gls &>/dev/null); then
-  alias ls="gls -F --color --group-directories-first"
-  alias l="gls -lAh --color --group-directories-first"
-  alias ll="gls -lh --color --group-directories-first"
-  alias la="gls -A --color --group-directories-first"
+  alias ls='gls -F --color --group-directories-first'
+  alias l='gls -lAh --color --group-directories-first'
+  alias ll='gls -lh --color --group-directories-first'
+  alias la='gls -A --color --group-directories-first'
 fi
 
 alias reload!='exec zsh'
@@ -21,7 +21,9 @@ alias s='ag'
 alias c='fasd_cd -d'
 alias f='fd --follow --hidden'
 alias xml='(if [[ -t 1 ]] ; then xmllint --format - | source-highlight -f esc -s xml --style-file xml.style --data-dir=/usr/local/share/source-highlight ; else xmllint --format -; fi)'
+
 alias update_zsh_plugins='antibody bundle < $DOTFILES_ROOT/zsh/plugins >! ~/.zsh/.zsh_plugins && antibody update'
+alias add_touchid='if ! grep -q "pam_tid.so" /etc/pam.d/sudo; then sudo sed -i "1a auth       sufficient     pam_tid.so" /etc/pam.d/sudo; echo Added TouchId to sudo; fi'
 
 function take() {
   mkdir -p $1
