@@ -206,7 +206,7 @@ highlight Normal ctermbg=white
 highlight Directory gui=bold
 highlight Comment gui=italic
 highlight Search guibg=#EBCB8B guifg=#3C3C3C
-highlight Incsearch gui=none guibg=#EBCB8B guifg=#3C3C3C
+highlight Incsearch gui=none guibg=LightGoldenrod1 guifg=#3C3C3C
 call one#highlight('xmlNamespace', 'e45649', '', 'none')
 call one#highlight('xmlAttribPunct', 'e45649', '', 'none')
 
