@@ -26,11 +26,11 @@ git_branch() {
 
 need_push_or_wip() {
   if $($git log -n 1 2>/dev/null | grep -q -c "\-\-wip\-\-"); then
-    echo " with %{$fg_bold[yellow]%}WIP%{$reset_color%} "
+    echo " with %{$fg_bold[yellow]%}WIP%{$reset_color%}"
   elif [[ $($git cherry -v @{upstream} 2>/dev/null) != "" ]]; then
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
+    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%}"
   elif [[ -n $($git branch 2>/dev/null | grep "rebasing") ]]; then
-    echo " with %{$fg_bold[yellow]%}rebase in progress%{$reset_color%} "
+    echo " with %{$fg_bold[yellow]%}rebase in progress%{$reset_color%}"
   else
     echo ""
   fi
@@ -50,9 +50,18 @@ directory_name() {
   fi
 }
 
+kube_ps1_autohide() {
+  kube_status=$(kube_ps1 | sed 's/^(.*}N\/A%.*:.*}N\/A%.*)$//')
+  if [[ $kube_status != "" ]]; then
+    echo " $kube_status"
+  else
+    echo ""
+  fi
+}
+
 local ret_status="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s)"
 
 set_prompt() {
-  export PROMPT=$'\n${ret_status} $(directory_name)$(git_status)\n'
+  export PROMPT=$'\n${ret_status} $(directory_name)$(git_status)$(kube_ps1_autohide)\n'
 }
 

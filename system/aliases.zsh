@@ -21,9 +21,15 @@ alias s='ag'
 alias c='fasd_cd -d'
 alias f='fd --follow --hidden'
 alias xml='(if [[ -t 1 ]] ; then xmllint --format - | source-highlight -f esc -s xml --style-file xml.style --data-dir=/usr/local/share/source-highlight ; else xmllint --format -; fi)'
+alias k='tess kubectl'
+alias kctx='kubectx'
 
 alias update_zsh_plugins='antibody bundle < $DOTFILES_ROOT/zsh/plugins >! ~/.zsh/.zsh_plugins && antibody update'
 alias add_touchid='if ! grep -q "pam_tid.so" /etc/pam.d/sudo; then sudo sed -i "1a auth       sufficient     pam_tid.so" /etc/pam.d/sudo; echo Added TouchId to sudo; fi'
+
+function kns() {
+  tess kubectl get namespace $1 && tess kubectl config set-context --current --namespace=$1
+}
 
 function take() {
   mkdir -p $1
