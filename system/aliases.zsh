@@ -27,8 +27,16 @@ alias kctx='kubectx'
 alias update_zsh_plugins='antibody bundle < $DOTFILES_ROOT/zsh/plugins >! ~/.zsh/.zsh_plugins && antibody update'
 alias add_touchid='if ! grep -q "pam_tid.so" /etc/pam.d/sudo; then sudo sed -i "1a auth       sufficient     pam_tid.so" /etc/pam.d/sudo; echo Added TouchId to sudo; fi'
 
+# Switch k8s namespace quickly
 function kns() {
-  tess kubectl get namespace $1 && tess kubectl config set-context --current --namespace=$1
+  namespace=$1
+  if [[ $1 == "" ]]; then
+    echo "error: no namespace provided" && return
+  elif [[ $namespace == "-" ]]; then
+    if [[  $KNS_PREV == "" ]]; then kubens -c && return; fi
+    namespace=$KNS_PREV
+  fi
+  tess kubectl get namespace $namespace && export KNS_PREV=$(kubens -c) && tess kubectl config set-context --current --namespace=$namespace
 }
 
 function take() {
