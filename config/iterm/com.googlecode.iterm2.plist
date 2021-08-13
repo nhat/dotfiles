@@ -1297,19 +1297,27 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0x4e-0x60000</key>
+		<key>0x4e-0x120000-0x2d</key>
 		<dict>
 			<key>Action</key>
 			<integer>30</integer>
+			<key>Label</key>
+			<string></string>
 			<key>Text</key>
 			<string></string>
+			<key>Version</key>
+			<integer>0</integer>
 		</dict>
-		<key>0x50-0x60000</key>
+		<key>0x4f-0x120000-0x1f</key>
 		<dict>
 			<key>Action</key>
 			<integer>31</integer>
+			<key>Label</key>
+			<string></string>
 			<key>Text</key>
 			<string></string>
+			<key>Version</key>
+			<integer>0</integer>
 		</dict>
 		<key>0x6b-0x100000</key>
 		<dict>
