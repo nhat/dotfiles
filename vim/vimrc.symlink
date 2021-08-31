@@ -57,6 +57,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
+Plug 'arecarn/vim-crunch'
 Plug 't9md/vim-smalls'
 Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
@@ -246,7 +247,7 @@ let g:smalls_highlight = {
     \ 'SmallsCandidate':
     \     [['NONE', 'Gray', 'Magenta'],[ 'NONE', '#DCDCDC', 'Red']],
     \ 'SmallsPos':
-    \     [['NONE', 'Green', 'Black'],[ 'NONE', '#4078F2', 'White']],
+    \     [['NONE', 'Green', 'Black'],[ 'NONE', '#4078F2', 'White']]
     \ }
 
 " gitgutter
