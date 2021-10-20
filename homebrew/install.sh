@@ -50,6 +50,7 @@ casks=(
   fantastical
   font-source-code-pro
   1password
+  notunes
 )
 for cask in $casks; do
   brew install --cask $cask
