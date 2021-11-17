@@ -1,4 +1,5 @@
-source ~/.vimrc
+source ~/.dotfiles/vim/settings.vim
+
 set showmode
 set surround
 set ideajoin
