@@ -30,6 +30,8 @@ packages=(
   the_silver_searcher
   java11
   fd
+  php
+  mas
 )
 for package in $packages; do
   brew install $package
@@ -58,12 +60,8 @@ done
 
 # install apps from App Store
 echo "Installing apps from App Store..."
-if test ! $(which brew); then
-  echo "Installing MAS for you"
-  brew install mas
-fi
 mas install 1480933944 # Vimari
-mas install 1107421413 # 1Blocker
+mas install 1365531024 # 1Blocker
 mas install 1445328303 # prettyJSON
 mas install 1543920362 # Displaperture
 

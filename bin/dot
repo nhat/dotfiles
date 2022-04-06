@@ -12,9 +12,11 @@ if ! [[ -d $HOME/Library/KeyBindings ]]; then
     echo ""
   mkdir $HOME/Library/KeyBindings
 fi
-ln -s $DOTFILES_ROOT/macos/DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
+if ! [[ -f $HOME/Library/KeyBindings/DefaultKeyBinding.dict ]]; then
+  ln -s $DOTFILES_ROOT/macos/DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
+fi
 # install keyboard without dead keys
-if ! [[ -f /Library/Keyboard\ Layouts/German\ -\ Simplified.bundle ]]; then
+if ! [[ -d /Library/Keyboard\ Layouts/German\ -\ Simplified.bundle ]]; then
   sudo cp -r $DOTFILES_ROOT/macos/German\ -\ Simplified.bundle /Library/Keyboard\ Layouts/
 fi
 
@@ -28,7 +30,6 @@ if ! [ -d "$HOME/.zsh" ]; then
   mkdir $HOME/.zsh
 fi
 # fix permissions
-compaudit | xargs chmod g-w
 echo "💻 Installing zsh plugins"
 antibody bundle < $DOTFILES_ROOT/zsh/plugins > ~/.zsh/.zsh_plugins && antibody update
 echo -e "Done\n"
