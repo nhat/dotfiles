@@ -25,17 +25,16 @@ if ! [[ -f $HOME/.hushlogin ]]; then
   touch $HOME/.hushlogin
 fi
 
+# setup Homebrew packages
+$DOTFILES_ROOT/homebrew/install.sh 2>&1
+
 # update zsh plugins
 if ! [ -d "$HOME/.zsh" ]; then
   mkdir $HOME/.zsh
 fi
-# fix permissions
 echo "💻 Installing zsh plugins"
 antibody bundle < $DOTFILES_ROOT/zsh/plugins > ~/.zsh/.zsh_plugins && antibody update
 echo -e "Done\n"
-
-# setup Homebrew packages
-$DOTFILES_ROOT/homebrew/install.sh 2>&1
 
 # setup Vim
 $DOTFILES_ROOT/vim/install.sh
