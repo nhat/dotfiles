@@ -53,6 +53,8 @@ casks=(
   font-source-code-pro
   1password
   notunes
+  bartender
+  shottr
 )
 for cask in $casks; do
   brew install --cask $cask
@@ -63,6 +65,8 @@ echo "Installing apps from App Store..."
 mas install 1480933944 # Vimari
 mas install 1365531024 # 1Blocker
 mas install 1445328303 # prettyJSON
+mas install 1118136179 # AutoMute
+mas install 688211836  # EasyRes
 mas install 1543920362 # Displaperture
 
 echo "Done"
