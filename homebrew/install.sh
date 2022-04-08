@@ -32,6 +32,7 @@ packages=(
   fd
   php
   mas
+  maven
 )
 for package in $packages; do
   brew install $package
@@ -55,6 +56,7 @@ casks=(
   notunes
   bartender
   shottr
+  intellij-idea
 )
 for cask in $casks; do
   brew install --cask $cask

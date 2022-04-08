@@ -6,6 +6,7 @@ fi
 
 export LSCOLORS="ExGxFxDxCxDxDxhbhdacEc"
 export CLICOLOR=true
+export HOMEBREW_NO_ENV_HINTS=true
 
 # faster escape timeout
 KEYTIMEOUT=1

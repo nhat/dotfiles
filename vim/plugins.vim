@@ -7,6 +7,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'moll/vim-bbye' " dependency for vim-symlink
+Plug 'aymericbeaumet/vim-symlink'
 Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
 Plug 'arecarn/vim-crunch'
@@ -18,6 +20,7 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'google/vim-searchindex'
 Plug 'jiangmiao/auto-pairs'
 Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'
@@ -36,8 +39,8 @@ imap <silent><C-p> <Esc>:FZF<CR>
 nmap <silent><Leader><CR> :Buffers<CR>
 
 " toggle comment
-nmap <M--> <Plug>CommentaryLine j0
-vmap <M--> <Plug>Commentary
+nmap <M-/> <Plug>CommentaryLine j0
+vmap <M-/> <Plug>Commentary
 
 " make f search for 2 chars
 nmap <Leader>f <Plug>(smalls)
@@ -217,7 +220,8 @@ if has('nvim')
                 endif
             endfor
         else
-            echo "Tmpwatch(): Directory '" . l:path . "' not found"
+            echo "Tmpwatch(): Directory '" . l:path . "' not found and will be created"
+            !mkdir -p l:path
         endif
     endfunction
 
