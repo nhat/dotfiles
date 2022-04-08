@@ -40,7 +40,6 @@ done
 
 # install casks
 echo "Installing casks..."
-brew tap homebrew/cask-fonts
 casks=(
   alfred
   karabiner-elements
@@ -51,7 +50,6 @@ casks=(
   rectangle
   iterm2
   fantastical
-  font-source-code-pro
   1password
   notunes
   bartender
@@ -64,12 +62,18 @@ done
 
 # install apps from App Store
 echo "Installing apps from App Store..."
-mas install 1480933944 # Vimari
-mas install 1365531024 # 1Blocker
-mas install 1445328303 # prettyJSON
-mas install 1118136179 # AutoMute
-mas install 688211836  # EasyRes
-mas install 1543920362 # Displaperture
+apps=(
+  1480933944 # Vimari
+  1365531024 # 1Blocker
+  1445328303 # prettyJSON
+  1118136179 # AutoMute
+  688211836  # EasyRes
+  1543920362 # Displaperture
+  1568262835 # Super Agent
+)
+for app in $apps; do
+  mas install $app
+done
 
 echo "Done"
 exit 0
