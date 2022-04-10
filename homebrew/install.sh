@@ -13,6 +13,7 @@ fi
 echo "Installing packages..."
 packages=(
   coreutils
+  gnu-sed
   zsh
   fasd
   jq
@@ -26,7 +27,6 @@ packages=(
   getantibody/tap/antibody
   source-highlight
   switchaudio-osx
-  gnu-sed
   the_silver_searcher
   java11
   fd

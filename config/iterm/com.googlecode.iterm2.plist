@@ -1830,13 +1830,6 @@
 			</array>
 			<key>Keyboard Map</key>
 			<dict>
-				<key>0x2a-0x120000</key>
-				<dict>
-					<key>Action</key>
-					<integer>0</integer>
-					<key>Text</key>
-					<string></string>
-				</dict>
 				<key>0x2a-0x200000</key>
 				<dict>
 					<key>Action</key>
@@ -1850,13 +1843,6 @@
 					<integer>12</integer>
 					<key>Text</key>
 					<string>+</string>
-				</dict>
-				<key>0x2d-0x100000</key>
-				<dict>
-					<key>Action</key>
-					<integer>10</integer>
-					<key>Text</key>
-					<string>-</string>
 				</dict>
 				<key>0x2d-0x200000</key>
 				<dict>
@@ -1885,6 +1871,17 @@
 					<integer>12</integer>
 					<key>Text</key>
 					<string>.</string>
+				</dict>
+				<key>0x2f-0x100000-0x2c</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>/</string>
+					<key>Version</key>
+					<integer>0</integer>
 				</dict>
 				<key>0x2f-0x200000</key>
 				<dict>
@@ -2179,13 +2176,6 @@ Marks and Annotations.Previous Mark or Annotation</string>
 					<key>Text</key>
 					<string>[13;5u</string>
 				</dict>
-				<key>0xdc-0x120000</key>
-				<dict>
-					<key>Action</key>
-					<integer>2</integer>
-					<key>Text</key>
-					<string></string>
-				</dict>
 				<key>0xf6-0x100000</key>
 				<dict>
 					<key>Action</key>
@@ -2464,7 +2454,7 @@ Open Autocomplete…</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SourceCodePro-Regular 14</string>
+			<string>SFMono-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Place Prompt at First Column</key>
