@@ -1,26 +1,26 @@
 " Settings
 " -------------------------
 set clipboard=unnamed
-set number                          " show line numbers
-set cursorline                      " highlight current line
-set laststatus=2                    " last window always has a statusline
-set hlsearch                        " highlight searched phrases
-set ignorecase                      " make searches case-insensitive
-set smartcase                       " ignore case unless there is an uppercase letter
-set ruler                           " always show info along bottom
+set number                             " show line numbers
+set cursorline                         " highlight current line
+set laststatus=2                       " last window always has a statusline
+set hlsearch                           " highlight searched phrases
+set ignorecase                         " make searches case-insensitive
+set smartcase                          " ignore case unless there is an uppercase letter
+set ruler                              " always show info along bottom
 set showmatch
 set wildmenu
 set wildignorecase
 set splitbelow
 set splitright
-set autoindent                      " auto-indent
-set tabstop=2                       " tab spacing
-set softtabstop=2                   " unify
-set shiftwidth=2                    " indent/outdent by 2 columns
-set shiftround                      " always indent/outdent to the nearest tabstop
-set expandtab                       " use spaces instead of tabs
-set smarttab                        " use tabs at the start of a line, spaces elsewhere
-set shortmess+=I                    " hide the launch screen
+set autoindent                         " auto-indent
+set tabstop=2                          " tab spacing
+set softtabstop=2                      " unify
+set shiftwidth=2                       " indent/outdent by 2 columns
+set shiftround                         " always indent/outdent to the nearest tabstop
+set expandtab                          " use spaces instead of tabs
+set smarttab                           " use tabs at the start of a line, spaces elsewhere
+set shortmess+=I                       " hide the launch screen
 set visualbell
 set noshowmode
 set scrolloff=2
@@ -31,12 +31,13 @@ set undofile
 set autowriteall
 set confirm
 set updatetime=150
-set lazyredraw                      " redraw only when we need to.
+set lazyredraw                         " redraw only when we need to.
 set mouse=a
-set title                           " enable setting title
-set titlestring=%F%a%r%m            " configure title to look like: /path/to/file
+set title                              " enable setting title
+set titlestring=%F%a%r%m               " configure title to look like: /path/to/file
 set titlelen=120
 set bg=light
+set fillchars=eob:\ ,fold:\ ,vert:\│   " show blank chars for lines after end of file
 
 filetype indent on
 syntax on
