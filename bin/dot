@@ -21,6 +21,9 @@ if ! [[ -f $HOME/.hushlogin ]]; then
   touch $HOME/.hushlogin
 fi
 
+# use touch id for sudo
+add_touchid
+
 # make SF Mono available outside of Terminal.app
 cp -R /System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/ /Library/Fonts/
 
