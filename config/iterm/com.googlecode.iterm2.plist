@@ -21,7 +21,7 @@
 	<key>BootstrapDaemon</key>
 	<false/>
 	<key>CheckTestRelease</key>
-	<true/>
+	<false/>
 	<key>CopyLastNewline</key>
 	<false/>
 	<key>CopySelection</key>
@@ -1739,7 +1739,7 @@
 			<key>Columns</key>
 			<integer>1200</integer>
 			<key>Command</key>
-			<string>/usr/bin/login -pfql nhatnguyen</string>
+			<string>/usr/bin/login -pfql nnguyen2</string>
 			<key>Cursor Boost</key>
 			<real>0.0</real>
 			<key>Cursor Color</key>
