@@ -15,6 +15,9 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 defaults write NSGlobalDomain KeyRepeat -int 1
 
+# Enable full keyboard access for all controls
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
 # Set the Finder prefs for showing a few different volumes on the Desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
