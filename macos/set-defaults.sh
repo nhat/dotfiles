@@ -108,6 +108,9 @@ chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library &> /dev/nu
 # Finder: show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
+# Finder: show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
@@ -143,6 +146,12 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
+
+# Dock size
+defaults write com.apple.dock tilesize -int 50
+
+# Dock size magnified
+defaults write com.apple.dock largesize -int 75
 
 # Don’t show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false

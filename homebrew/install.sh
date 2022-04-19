@@ -35,7 +35,7 @@ packages=(
   maven
 )
 for package in $packages; do
-  brew install $package
+  brew install --no-quarantine $package
 done
 
 # install casks
@@ -46,6 +46,7 @@ casks=(
   vlc
   vimr
   qlstephen
+  syntax-highlight
   apptrap
   rectangle
   iterm2
@@ -57,7 +58,7 @@ casks=(
   intellij-idea
 )
 for cask in $casks; do
-  brew install --cask $cask
+  brew install --cask --no-quarantine $cask
 done
 
 # install apps from App Store
