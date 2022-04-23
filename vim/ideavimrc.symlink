@@ -4,6 +4,7 @@ set showmode
 set surround
 set ideajoin
 set ideastatusicon=disabled
+set clipboard+=ideaput
 
 " restore binding for changing buffers
 nnoremap gt gt

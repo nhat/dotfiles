@@ -1,2 +1,2 @@
-mkdir -p $HOME/.config/karabiner
-ln -sf $DOTFILES_ROOT/config/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
+mkdir -p $HOME/.config/
+ln -sf $DOTFILES_ROOT/config/karabiner/ $HOME/.config/

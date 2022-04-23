@@ -71,6 +71,7 @@ apps=(
   688211836  # EasyRes
   1543920362 # Displaperture
   1568262835 # Super Agent
+  1376402589 # StopTheMadness
 )
 for app in $apps; do
   mas install $app
