@@ -73,8 +73,6 @@ nnoremap <Leader><Leader> :w<CR>
 nnoremap <silent> <Leader>C <C-w>c
 nnoremap <Leader>r :%s///gc<Left><Left><Left><Left>
 vnoremap <Leader>r :s///gc<Left><Left><Left><Left>
-map ö [
-map ä ]
 
 " indent with tab key
 nnoremap <Tab> >>_
@@ -95,8 +93,6 @@ nnoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 onoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 vnoremap <BS> {
 vnoremap <CR> }
-nnoremap ü <C-^>
-noremap ß g_
 
 " make Y yank until end of line
 nnoremap Y y$
@@ -165,13 +161,6 @@ if has("gui_vimr")
     inoremap <D-DEL> <C-o>D
     inoremap <D-Left> <Home>
     inoremap <D-Right> <End>
-
-    " new line shortcuts in insert mode
-    nnoremap <C-g> i<CR><Esc>
-    inoremap <D-g> <Esc>o
-    inoremap <S-D-g> <Esc>O
-    nnoremap <D-g> o<Esc>
-    nnoremap <S-D-g> O<Esc>
 
     " toggle word case
     nnoremap <S-D-u> viw~
