@@ -7,8 +7,6 @@ set ideastatusicon=disabled
 set clipboard+=ideaput
 
 " restore binding for changing buffers
-nnoremap gt gt
-nnoremap gr gT
 nnoremap <Leader>c :q<CR>
 nnoremap <Leader>C <C-w>c
 
@@ -24,10 +22,6 @@ vmap <CR> }
 
 nmap + viw
 vmap + vviB
-nnoremap vß vg_
-nnoremap cß c$
-nnoremap dß d$
-nnoremap yß y$
 
 " make quotes into movements
 nnoremap dq di"
@@ -50,14 +44,11 @@ nnoremap vQ vi'
 nnoremap vaq va"
 nnoremap vaQ va'
 
-" restore binding for toggle case from multiple cursor
-map <A-n> ~
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
 
-nnoremap öc :action VcsShowPrevChangeMarker<CR>
-nnoremap äc :action VcsShowNextChangeMarker<CR>
-
-nnoremap öl :action GotoPreviousError<CR>
-nnoremap äl :action GotoNextError<CR>
+nnoremap [l :action GotoPreviousError<CR>
+nnoremap ]l :action GotoNextError<CR>
 
 nnoremap <C-o> :action Back<CR>
 nnoremap <C-n> :action Forward<CR>

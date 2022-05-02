@@ -55,12 +55,11 @@ nmap <silent> Q :qa<CR>
 nmap U <C-r>
 nmap <silent> gt :bnext<CR>
 nmap <silent> gr :bprev<CR>
-inoremap <M-CR> <Esc>o
-inoremap <S-CR> <Esc>O
-nnoremap <M-CR> o<Esc>
-nnoremap <S-CR> O<Esc>
-nnoremap <silent> <Esc> :noh<CR>
+
+" break into new lines with ctrl+enter
 nnoremap <C-CR> i<CR><Esc>
+
+nnoremap <silent> <Esc> :noh<CR>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e
 nnoremap <silent> <Leader>n :enew<CR>
@@ -150,8 +149,27 @@ cnoremap <M-f> <S-Right>
 " Other
 " -------------------------
 
+" nvim
+if has("nvim")
+    " new line above with shift+enter
+    inoremap <S-CR> <Esc>O
+    nnoremap <S-CR> O<Esc>
+
+    " new line below with meta+enter
+    inoremap <M-CR> <Esc>o
+    nnoremap <M-CR> o<Esc>
+end
+
 " vimr
 if has("gui_vimr")
+    " new line above with shift+enter
+    inoremap <S-CR> <Esc>O
+    nnoremap <S-CR> O<Esc>
+
+    " new line below with cmd+enter
+    inoremap <D-CR> <Esc>o
+    nnoremap <D-CR> o<Esc>
+
     " add macOS shortcuts for editing in insert mode
     inoremap <M-Left> <C-Left>
     inoremap <M-Right> <Esc>ea
