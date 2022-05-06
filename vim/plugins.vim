@@ -7,6 +7,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
 Plug 'moll/vim-bbye' " dependency for vim-symlink
 Plug 'aymericbeaumet/vim-symlink'
 Plug 'matze/vim-move'
