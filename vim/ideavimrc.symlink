@@ -50,9 +50,6 @@ nnoremap ]c :action VcsShowNextChangeMarker<CR>
 nnoremap [l :action GotoPreviousError<CR>
 nnoremap ]l :action GotoNextError<CR>
 
-nnoremap <C-o> :action Back<CR>
-nnoremap <C-n> :action Forward<CR>
-
 inoremap <C-n> <C-o>:action CodeCompletion<CR>
 nnoremap <S-k> :action QuickImplementations<CR>
 inoremap <M-S-U> <Esc>:action EditorToggleCase<CR>:action EditorUnSelectWord<CR>a
