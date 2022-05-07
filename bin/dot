@@ -9,7 +9,6 @@
 $DOTFILES_ROOT/macos/set-defaults.sh
 # extend default key bindings
 if ! [[ -d $HOME/Library/KeyBindings ]]; then
-    echo ""
   mkdir $HOME/Library/KeyBindings
 fi
 if ! [[ -f $HOME/Library/KeyBindings/DefaultKeyBinding.dict ]]; then
