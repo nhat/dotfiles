@@ -55,6 +55,7 @@ casks=(
   notunes
   bartender
   shottr
+  qlmarkdown
   intellij-idea
 )
 for cask in $casks; do
