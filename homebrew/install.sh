@@ -56,6 +56,7 @@ casks=(
   bartender
   shottr
   qlmarkdown
+  keka
   intellij-idea
 )
 for cask in $casks; do
