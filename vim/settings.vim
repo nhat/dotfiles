@@ -96,10 +96,16 @@ vnoremap <CR> }
 " make Y yank until end of line
 nnoremap Y y$
 
-" have x (removes single character) not go into the default registry
+" have x (removes single character) not go into the default register
 noremap x "_x
 noremap X "_X
-"
+
+" paste from last yanked register
+nmap <silent><Leader>p "0p
+vmap <silent><Leader>p "0p
+nmap <silent><Leader>P "0P
+vmap <silent><Leader>P "0P
+
 " make quotes into movements
 onoremap q i"
 onoremap Q i'

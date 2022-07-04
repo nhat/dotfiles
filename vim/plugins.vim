@@ -48,8 +48,8 @@ vmap <M-/> <Plug>Commentary
 nmap <Leader>f <Plug>(smalls)
 
 " format buffer
-nmap <silent><Leader>p :Neoformat<CR>
-vmap <silent><Leader>p :Neoformat<CR>
+nmap <silent><Leader>l :Neoformat<CR>
+vmap <silent><Leader>l :Neoformat<CR>
 
 " navigate to error
 nmap <silent> <f2> <Plug>(ale_next_wrap)
