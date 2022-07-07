@@ -28,8 +28,6 @@ https://www.hcs.harvard.edu/~jrus/site/cocoa-text.html
   "$\U000D" = (moveToBeginningOfParagraph:, moveLeft:, insertNewline:);
   // blank line after current
   "@\U000D" = (moveToEndOfParagraph:, insertNewline:);
-  // select from beginning of paragraph to last character
-  "~s" = (moveToBeginningOfParagraph:, moveToEndOfParagraphAndModifySelection:);
   // delete line/paragraph
   "^u" = (selectParagraph:, delete:, moveToBeginningOfParagraph:);
 }
