@@ -16,7 +16,6 @@ Plug 'arecarn/vim-crunch'
 Plug 't9md/vim-smalls'
 Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
-Plug 'dkarter/bullets.vim'
 Plug 'mattn/emmet-vim'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'google/vim-searchindex'
@@ -113,9 +112,6 @@ let g:gitgutter_sign_added = '█'
 let g:gitgutter_sign_modified = '█'
 let g:gitgutter_sign_removed = '▁'
 let g:gitgutter_sign_modified_removed = '█'
-
-" autopairs
-let g:AutoPairsShortcutBackInsert = ''
 
 " fzf
 let g:fzf_layout = { 'down': '~30%' }
