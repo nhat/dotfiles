@@ -36,6 +36,8 @@ fi
 echo "💻 Installing zsh plugins"
 antibody bundle < $DOTFILES_ROOT/zsh/plugins > ~/.zsh/.zsh_plugins && antibody update
 echo -e "Done\n"
+# turn off kubernetes info in prompt
+kubeoff -g
 
 # setup Vim
 $DOTFILES_ROOT/vim/install.sh
