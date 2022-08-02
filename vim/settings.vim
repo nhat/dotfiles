@@ -83,10 +83,6 @@ vnoremap <S-Tab> <gv
 " easier page navigation
 nnoremap <C-d> 20<C-e>
 nnoremap <C-u> 20<C-y>
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
 nnoremap <BS> {
 nnoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 onoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
@@ -164,6 +160,12 @@ if has("nvim")
     " new line below with meta+enter
     inoremap <M-CR> <Esc>o
     nnoremap <M-CR> o<Esc>
+
+    " move cursor through soft-wrapped lines
+    nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+    nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+    inoremap <silent> <Down> <C-o>gj
+    inoremap <silent> <Up> <C-o>gk
 end
 
 " vimr
@@ -189,5 +191,11 @@ if has("gui_vimr")
     " toggle word case
     nnoremap <S-D-u> viw~
     inoremap <S-D-u> <Esc>viw~ea
+
+    " move cursor through soft-wrapped lines
+    nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+    nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+    inoremap <silent> <Down> <C-o>gj
+    inoremap <silent> <Up> <C-o>gk
 endif
 
