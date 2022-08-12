@@ -44,23 +44,23 @@ nnoremap vQ vi'
 nnoremap vaq va"
 nnoremap vaQ va'
 
-nnoremap [c :action VcsShowPrevChangeMarker<CR>
-nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nmap [c <Action>(VcsShowPrevChangeMarker)
+nmap ]c <Action>(VcsShowNextChangeMarker)
 
-nnoremap [l :action GotoPreviousError<CR>
-nnoremap ]l :action GotoNextError<CR>
+nmap [l <Action>(GotoPreviousError)
+nmap ]l <Action>(GotoNextError)
 
-inoremap <C-n> <C-o>:action CodeCompletion<CR>
-nnoremap <S-k> :action QuickImplementations<CR>
-inoremap <M-S-U> <Esc>:action EditorToggleCase<CR>:action EditorUnSelectWord<CR>a
-nnoremap <M-S-U> :action EditorToggleCase<CR>:action EditorUnSelectWord<CR>
-vnoremap <M-S-U> :action EditorToggleCase<CR>:action EditorUnSelectWord<CR>
+imap <C-n> <C-o><Action>(CodeCompletion)
+nmap gf <Action>(QuickImplementations)
+imap <M-S-U> <Esc><Action>(EditorToggleCase)<Action>(EditorUnSelectWord)a
+nmap <M-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
+vmap <M-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
 
-nnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
-vnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
+nmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
+vmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 
-nnoremap <Leader>r :action Replace<CR>
-vnoremap <Leader>r :action Replace<CR>
+nmap <Leader>r <Action>(Replace)
+vmap <Leader>r <Action>(Replace)
 
-nnoremap <Leader>p :action ReformatCode<CR>
-vnoremap <Leader>p :action ReformatCode<CR>v
+nmap <Leader>l <Action>(ReformatCode)
+vmap <Leader>l <Action>(ReformatCode)
