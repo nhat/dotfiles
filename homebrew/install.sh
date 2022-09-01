@@ -47,7 +47,7 @@ casks=(
   vimr
   qlstephen
   syntax-highlight
-  apptrap
+  appcleaner
   rectangle
   iterm2
   fantastical
