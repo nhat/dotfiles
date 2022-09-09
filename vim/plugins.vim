@@ -13,7 +13,6 @@ Plug 'aymericbeaumet/vim-symlink'
 Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
 Plug 'arecarn/vim-crunch'
-Plug 't9md/vim-smalls'
 Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 Plug 'mattn/emmet-vim'
@@ -42,9 +41,6 @@ nmap <silent><Leader><CR> :Buffers<CR>
 " toggle comment
 nmap <M-/> <Plug>CommentaryLine j0
 vmap <M-/> <Plug>Commentary
-
-" make f search for 2 chars
-nmap <Leader>f <Plug>(smalls)
 
 " format buffer
 nmap <silent><Leader>l :Neoformat<CR>
@@ -90,21 +86,6 @@ let g:terminal_color_15 = '#fafafa'
 let g:buftabline_show = 1
 let g:buftabline_indicators = 1
 highlight default link BufTabLineHidden PmenuSel
-
-" smalls
-let g:smalls_auto_jump = 1
-let g:smalls_shade = 0
-let g:smalls_jump_keys = 'ASDFJKLQWERZXCNMUIOP'
-let g:smalls_auto_jump_min_input_length = 1
-let g:smalls_auto_jump_timeout = 0.0
-let g:smalls_highlight = {
-    \ 'SmallsJumpTarget':
-    \     [['NONE', 'NONE', 'Red'],[ 'bold', '#FDD945', 'Black']],
-    \ 'SmallsCandidate':
-    \     [['NONE', 'Gray', 'Magenta'],[ 'NONE', '#DCDCDC', 'Red']],
-    \ 'SmallsPos':
-    \     [['NONE', 'Green', 'Black'],[ 'NONE', '#4078F2', 'White']]
-    \ }
 
 " gitgutter
 let g:gitgutter_realtime = 1
