@@ -23,12 +23,14 @@ set smarttab                           " use tabs at the start of a line, spaces
 set shortmess+=I                       " hide the launch screen
 set visualbell
 set noshowmode
+set nowrap
 set scrolloff=2
 set sidescroll=1
 set sidescrolloff=5
 set noswapfile
 set undofile
 set autowriteall
+set autoread
 set confirm
 set updatetime=150
 set lazyredraw                         " redraw only when we need to.
