@@ -37,6 +37,7 @@ call plug#end()
 nmap <silent><C-p> :FZF<CR>
 imap <silent><C-p> <Esc>:FZF<CR>
 nmap <silent><Leader><CR> :Buffers<CR>
+nmap <silent><Leader>f :Ag<CR>
 
 " toggle comment
 nmap <M-/> <Plug>CommentaryLine j0
@@ -249,8 +250,13 @@ endif
 " vimr
 if has("gui_vimr")
     " fzf
-    nmap <silent><D-p> :FZF --reverse --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:241,hl+:9,hl:9,info:255 --bind change:top<CR>
-    imap <silent><D-p> <Esc>:FZF --reverse --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:241,hl+:9,hl:9,info:255 --bind change:top<CR>
+    command! -bang Ag
+    \  call fzf#vim#ag(<q-args>,
+    \    fzf#vim#with_preview({'options': ['--layout=reverse', '--color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA', '--bind=change:top']}),
+    \    <bang>0)
+
+    nmap <silent><D-p> :FZF --reverse --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:\#625F50,hl+:\#E75544,hl:\#E75544,info:\#FAFAFA --bind change:top<CR>
+    imap <silent><D-p> <Esc>:FZF --reverse --color=color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:\#625F50,hl+:\#E75544,hl:\#E75544,info:\#FAFAFA --bind change:top<CR>
 
     " toggle comment
     nmap <D-S-m> <Plug>CommentaryLine j0
