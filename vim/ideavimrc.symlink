@@ -5,6 +5,7 @@ set surround
 set ideajoin
 set ideastatusicon=disabled
 set clipboard+=ideaput
+set incsearch
 
 " restore binding for changing buffers
 nnoremap <Leader>c :q<CR>
