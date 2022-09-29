@@ -23,7 +23,7 @@ if [ "$diff" != "" ]; then
 fi
 
 # show an abbreviated commit log of stuff that was just merged.
-logs=$(git log --color --date=relative --pretty=format:' * %s %Cblue%an %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit HEAD@{1}..)
+logs=$(git log --color --pretty=format:"* %C(yellow)%h%Creset %<(40,trunc)%s %<(15,trunc)%Cblue%an %<(15,trunc)%Cgreen%ar%Creset" --abbrev-commit HEAD@{1}..)
 if [ "$logs" != "" ]; then
   echo "Log\n$logs\n ... (more shown in git log)"
 fi

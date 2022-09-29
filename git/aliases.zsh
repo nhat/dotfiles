@@ -15,7 +15,6 @@ alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 
 alias gd='git diff HEAD'
-alias gl='git log --graph --pretty=format:"%C(yellow)%h%Creset %s %Cblue%an %C(yellow)%d%Creset %Cgreen(%cr)%Creset" --abbrev-commit --date=relative --date-order'
 alias gp='git push origin HEAD'
 alias grh='git reset --hard'
 alias gt='cd "$(git rev-parse --show-toplevel)"'
@@ -29,3 +28,11 @@ alias gstc='git stash clear'
 alias gstd='git stash drop'
 alias gstl='git stash list'
 alias gstp='git stash pop'
+
+function gl() {
+  if test $(tput cols) -ge 140; then
+    git log --pretty=format:"* %C(yellow)%h%Creset %<(80,trunc)%s %<(15,trunc)%C(auto)%D%Creset %<(20,trunc)%Cblue%an %Cgreen%ar%Creset" --abbrev-commit --date-order
+  else
+    git log --pretty=format:"* %C(yellow)%h%Creset %<(40,trunc)%s %<(15,trunc)%Cblue%an %<(12,trunc)%Cgreen%ar%Creset" --abbrev-commit --date-order
+  fi
+}
