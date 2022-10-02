@@ -2759,6 +2759,8 @@ Open Autocomplete…</string>
 	<integer>9</integer>
 	<key>SwitchWindowModifier</key>
 	<integer>9</integer>
+	<key>SynchronizeQueryWithFindPasteboard</key>
+	<false/>
 	<key>TabStyle</key>
 	<integer>0</integer>
 	<key>TabStyleWithAutomaticOption</key>
