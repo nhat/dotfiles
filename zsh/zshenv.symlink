@@ -13,7 +13,7 @@ export LANG=en_US.UTF-8
 export LESS='-iR'
 
 # set defaults for fzf
-export FZF_DEFAULT_COMMAND='fd --hidden'
+export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix'
 export FZF_DEFAULT_OPTS="
     --height 30% --reverse --exit-0
     --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA

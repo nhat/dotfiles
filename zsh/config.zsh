@@ -123,7 +123,7 @@ fi
 
 # use fzf to find file or folder
 fzf-find-file-or-folder() {
-  local out=$(fd --hidden . "$PWD" | fzf \
+  local out=$(fd --hidden --strip-cwd-prefix | fzf \
       --bind 'ctrl-p:execute(fd --hidden . $HOME | fzf --height 100% --prompt="🔍 ${HOME##*/} ")+abort')
 
   if [[ $BUFFER == "" ]]; then

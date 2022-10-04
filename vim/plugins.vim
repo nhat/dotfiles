@@ -34,10 +34,13 @@ call plug#end()
 " -------------------------
 
 " search files and buffers
-nmap <silent><C-p> :FZF<CR>
-imap <silent><C-p> <Esc>:FZF<CR>
+nmap <silent><C-p> :Fzf<CR>
+imap <silent><C-p> <Esc>:Fzf<CR>
 nmap <silent><Leader><CR> :Buffers<CR>
 nmap <silent><Leader>f :Ag<CR>
+
+command! Fzf
+    \ :FZF --prompt=🔍\  --reverse --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:\#625F50,hl+:\#E75544,hl:\#E75544,info:\#FAFAFA --bind change:top
 
 " toggle comment
 nmap <M-/> <Plug>CommentaryLine j0
@@ -97,6 +100,7 @@ let g:gitgutter_sign_modified_removed = '█'
 
 " fzf
 let g:fzf_layout = { 'down': '~30%' }
+
 " search files in git root directory
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
@@ -255,8 +259,8 @@ if has("gui_vimr")
     \    fzf#vim#with_preview({'options': ['--layout=reverse', '--color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA', '--bind=change:top']}),
     \    <bang>0)
 
-    nmap <silent><D-p> :FZF --reverse --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:\#625F50,hl+:\#E75544,hl:\#E75544,info:\#FAFAFA --bind change:top<CR>
-    imap <silent><D-p> <Esc>:FZF --reverse --color=color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:\#625F50,hl+:\#E75544,hl:\#E75544,info:\#FAFAFA --bind change:top<CR>
+    nmap <silent><D-p> :Fzf<CR>
+    imap <silent><D-p> <Esc>:Fzf<CR>
 
     " toggle comment
     nmap <D-S-m> <Plug>CommentaryLine j0
