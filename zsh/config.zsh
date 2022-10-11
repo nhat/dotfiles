@@ -126,12 +126,14 @@ fzf-find-file-or-folder() {
   local out=$(fd --hidden --strip-cwd-prefix | fzf \
       --bind 'ctrl-p:execute(fd --hidden . $HOME | fzf --height 100% --prompt="🔍 ${HOME##*/} ")+abort')
 
+  # output with full path
+  local result="$PWD/${(q)out}"
   if [[ $BUFFER == "" ]]; then
     # open file or folder
     if [[ -f $out ]]; then
-      BUFFER="e ${(q)out}"
+      BUFFER="e $result"
     elif [[ -d $out ]]; then
-      BUFFER="cd ${(q)out}"
+      BUFFER="cd $result"
     else
       return 0
     fi
@@ -139,7 +141,7 @@ fzf-find-file-or-folder() {
     zle accept-line
   elif [[ $out != "" ]]; then
     # append to current buffer
-    LBUFFER+="${(q)out}"
+    LBUFFER+="$result"
 
     zle redisplay
   else
