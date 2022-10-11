@@ -1,11 +1,14 @@
 source ~/.dotfiles/vim/settings.vim
 
 set showmode
-set surround
-set ideajoin
-set ideastatusicon=disabled
 set clipboard+=ideaput
 set incsearch
+
+set ideastatusicon=disabled
+set ideajoin
+set surround
+set matchit
+set textobj-indent
 
 " restore binding for changing buffers
 nnoremap <Leader>c :q<CR>
@@ -44,6 +47,9 @@ nnoremap vq vi"
 nnoremap vQ vi'
 nnoremap vaq va"
 nnoremap vaQ va'
+
+" indent-object always includes all lines from higher level
+xmap ai aI
 
 nmap [c <Action>(VcsShowPrevChangeMarker)
 nmap ]c <Action>(VcsShowNextChangeMarker)

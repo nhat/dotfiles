@@ -46,6 +46,7 @@ syntax on
 autocmd FocusGained,BufEnter * silent! checktime                " reload buffer when focus changes
 autocmd FocusLost,Bufleave * silent! wa                         " save buffer when focus changes
 autocmd StdinReadPost * set buftype=nofile
+autocmd BufRead,BufNewFile *.csv set filetype=none              " show plain csv files
 autocmd VimEnter * silent! lcd %:p:h                            " set working directory
 
 
