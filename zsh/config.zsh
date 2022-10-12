@@ -126,8 +126,12 @@ fzf-find-file-or-folder() {
   local out=$(fd --hidden --strip-cwd-prefix | fzf \
       --bind 'ctrl-p:execute(fd --hidden . $HOME | fzf --height 100% --prompt="🔍 ${HOME##*/} ")+abort')
 
-  # output with full path
-  local result="$PWD/${(q)out}"
+  # output with full escaped path
+  local result="$(printf "%q\n" "$(pwd)")/${(q)out}"
+  if [[ $out == /* ]]; then
+    result=${(q)out}
+  fi
+
   if [[ $BUFFER == "" ]]; then
     # open file or folder
     if [[ -f $out ]]; then
