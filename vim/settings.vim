@@ -84,13 +84,13 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
 " easier page navigation
-nnoremap <C-d> 20<C-e>
-nnoremap <C-u> 20<C-y>
-nnoremap <BS> {
-nnoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
-onoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
-vnoremap <BS> {
-vnoremap <CR> }
+nmap <C-d> 20<C-e>
+nmap <C-u> 20<C-y>
+nmap <BS> {
+nmap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
+omap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
+vmap <BS> {
+vmap <CR> }
 
 " make Y yank until end of line
 nnoremap Y y$
