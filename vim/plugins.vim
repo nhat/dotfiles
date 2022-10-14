@@ -14,18 +14,17 @@ Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
 Plug 'arecarn/vim-crunch'
 Plug 'airblade/vim-gitgutter'
-Plug 'w0rp/ale'
 Plug 'mattn/emmet-vim'
 Plug 'dbakker/vim-paragraph-motion'
 Plug 'chrisbra/matchit'
+Plug 'windwp/nvim-autopairs'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'google/vim-searchindex'
-Plug 'tmsvg/pear-tree'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
-Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
 Plug 'rakr/vim-one'
@@ -34,6 +33,10 @@ call plug#end()
 for f in glob('$HOME/.dotfiles/vim/plugins/*.vim', 0, 1)
   execute 'source' f
 endfor
+
+lua << EOF
+require("nvim-autopairs").setup {}
+EOF
 
 " Key Bindings
 " -------------------------
@@ -72,6 +75,7 @@ highlight Search guibg=#EBCB8B guifg=#3C3C3C
 highlight Incsearch gui=none guibg=LightGoldenrod1 guifg=#3C3C3C
 call one#highlight('xmlNamespace', 'e45649', '', 'none')
 call one#highlight('xmlAttribPunct', 'e45649', '', 'none')
+highlight luaFunc guifg=none
 
 " corlorscheme for terminal
 let g:terminal_color_0 = '#3c3c3c'

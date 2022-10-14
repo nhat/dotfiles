@@ -39,6 +39,7 @@ set title                              " enable setting title
 set titlestring=%F%a%r%m               " configure title to look like: /path/to/file
 set titlelen=120
 set bg=light
+set iskeyword+=\-
 set fillchars=eob:\ ,fold:\ ,vert:\│   " show blank chars for lines after end of file
 
 filetype indent on
