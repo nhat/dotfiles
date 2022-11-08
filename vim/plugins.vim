@@ -23,6 +23,7 @@ Plug 'google/vim-searchindex'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'lbrayner/vim-rzip'
 Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
 Plug 'ap/vim-buftabline'
@@ -33,10 +34,6 @@ call plug#end()
 for f in glob('$HOME/.dotfiles/vim/plugins/*.vim', 0, 1)
   execute 'source' f
 endfor
-
-lua << EOF
-require("nvim-autopairs").setup {}
-EOF
 
 " Key Bindings
 " -------------------------
@@ -244,3 +241,6 @@ if has("gui_vimr")
     let g:move_key_modifier = 'D'
 endif
 
+lua << EOF
+require("nvim-autopairs").setup {}
+EOF
