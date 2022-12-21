@@ -71,6 +71,7 @@ bindkey -M menuselect 'l' vi-forward-char         # right
 bindkey -M menuselect 'j' vi-down-line-or-history # bottom
 bindkey -M menuselect '\033' undo
 bindkey -M menuselect 'o' accept-and-infer-next-history
+bindkey -M menuselect '^M' .accept-line
 
 # put into application mode and validate ${terminfo}
 if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
@@ -189,12 +190,12 @@ setopt NO_FLOW_CONTROL
 setopt NO_BG_NICE               # disable nice background tasks
 setopt EXTENDED_GLOB
 setopt GLOB_STAR_SHORT          # **/* can be abbreviated to **
-setopt GLOBDOTS                 # matches . without specifying the dot
 setopt AUTO_CD
 setopt NO_HUP
-setopt NO_LIST_BEEP
+setopt NO_BEEP
 setopt LOCAL_OPTIONS            # allow functions to have local options
 setopt LOCAL_TRAPS              # allow functions to have local traps
+setopt MENU_COMPLETE            # select first completion
 setopt PROMPT_SUBST
 setopt CORRECT
 setopt COMPLETE_IN_WORD

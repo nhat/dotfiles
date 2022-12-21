@@ -1,18 +1,22 @@
 # matches case insensitive, if no upper chars
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list \
-  'm:{a-z\-}={A-Z\_}' \
+  'l:|=* r:|=* m:{a-z\-}={A-Z\_}' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:|?=** m:{a-z\-}={A-Z\_}'
 
 eval $(gdircolors)
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"     # use ls-colors for path completions
 zstyle ':completion:*' insert-tab pending                    # pasting with tabs doesn't perform completion
+zstyle ':completion:*' menu select
 zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:(rm|kill|diff|trash):*' ignore-line yes
 zstyle ':completion:*:*:(e|n(vi(m|))):*' ignored-patterns '.DS_Store|.localized'
-zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' use-cache 1
+
+# organize completions by categories
+zstyle ':completion:*' list-dirs-first true
+zstyle ':completion:*' group-name ''
 
 # fasd
 fasd_cache="$HOME/.fasd-init-zsh"
