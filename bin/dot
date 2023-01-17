@@ -21,10 +21,16 @@ if ! [[ -f $HOME/.hushlogin ]]; then
 fi
 
 # use touch id for sudo
-add_touchid
+if ! grep -q "pam_tid.so" /etc/pam.d/sudo; then 
+  sudo sed -i "1a auth       sufficient     pam_tid.so" /etc/pam.d/sudo
+  echo Added TouchId to sudo
+fi
 
 # make SF Mono available outside of Terminal.app
 cp -R /System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/ /Library/Fonts/
+
+# allow apps downloaded from anywhere
+sudo spctl --master-disable
 
 # setup Homebrew packages
 $DOTFILES_ROOT/homebrew/install.sh 2>&1
