@@ -45,7 +45,7 @@ nmap <silent><Leader><CR> :Buffers<CR>
 nmap <silent><Leader>f :Ag<CR>
 
 command! Fzf
-    \ :FZF --prompt=🔍\  --reverse --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:\#625F50,hl+:\#E75544,hl:\#E75544,info:\#FAFAFA --bind change:top
+    \ :FZF --prompt=🔍\  --reverse --no-separator --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:\#625F50,hl+:\#E75544,hl:\#E75544,info:\#FAFAFA --bind change:top
 
 " toggle comment
 nmap <M-/> <Plug>CommentaryLine j0
@@ -57,7 +57,7 @@ vmap <silent><Leader>l :Neoformat<CR>
 
 " navigate to error
 nmap <silent> <f2> <Plug>(ale_next_wrap)
-nmap <silent> <S-f2> <Plug>(ale_previous_wr
+nmap <silent> <S-f2> <Plug>(ale_previous_wrap)
 
 
 " Other
