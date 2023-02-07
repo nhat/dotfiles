@@ -31,8 +31,8 @@ alias gstp='git stash pop'
 
 function gl() {
   if test $(tput cols) -ge 140; then
-    git log --pretty=format:"* %C(yellow)%h%Creset %<(80,trunc)%s %<(15,trunc)%C(auto)%D%Creset %<(20,trunc)%Cblue%an %Cgreen%ar%Creset" --abbrev-commit --date-order
+    git log --graph --pretty=format:"%C(yellow)%h%Creset %<(80,trunc)%s %<(15,trunc)%C(auto)%D%Creset %<(20,trunc)%Cblue%an %Cgreen%ar%Creset" --abbrev-commit --date-order
   else
-    git log --pretty=format:"* %C(yellow)%h%Creset %<(40,trunc)%s %<(15,trunc)%Cblue%an %<(12,trunc)%Cgreen%ar%Creset" --abbrev-commit --date-order
+    git log --graph --pretty=format:"%C(yellow)%h%Creset %<(40,trunc)%s %<(15,trunc)%Cblue%an %<(12,trunc)%Cgreen%ar%Creset" --abbrev-commit --date-order
   fi
 }
