@@ -10,7 +10,7 @@ echo "Setting up NeoVim"
 echo "  Downloading plug.vim"
 curl -sfLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# link vim and nvim config
+# Link vim and nvim config
 if ! [ -f ~/.config/nvim/init.vim ]; then
   echo "  Linking Vim config with NeoVim"
   mkdir -p ~/.config/nvim

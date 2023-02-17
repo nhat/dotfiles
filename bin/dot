@@ -5,45 +5,14 @@
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
 
-# set macOS defaults
-$DOTFILES_ROOT/macos/set-defaults.sh
-# extend default key bindings
-if ! [[ -d $HOME/Library/KeyBindings ]]; then
-  mkdir $HOME/Library/KeyBindings
-fi
-if ! [[ -f $HOME/Library/KeyBindings/DefaultKeyBinding.dict ]]; then
-  ln -s $DOTFILES_ROOT/macos/DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
-fi
+# Set macOS configurations
+$DOTFILES_ROOT/macos/install.sh
 
-# don't show last login message in terminal
-if ! [[ -f $HOME/.hushlogin ]]; then
-  touch $HOME/.hushlogin
-fi
-
-# use touch id for sudo
-if ! grep -q "pam_tid.so" /etc/pam.d/sudo; then 
-  sudo sed -i "1a auth       sufficient     pam_tid.so" /etc/pam.d/sudo
-  echo Added TouchId to sudo
-fi
-
-# make SF Mono available outside of Terminal.app
-cp -R /System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/ /Library/Fonts/
-
-# allow apps downloaded from anywhere
-sudo spctl --master-disable
-
-# setup Homebrew packages
+# Install and update Homebrew packages
 $DOTFILES_ROOT/homebrew/install.sh 2>&1
 
-# update zsh plugins
-if ! [ -d "$HOME/.zsh" ]; then
-  mkdir $HOME/.zsh
-fi
-echo "💻 Installing zsh plugins"
-antibody bundle < $DOTFILES_ROOT/zsh/plugins > ~/.zsh/.zsh_plugins && antibody update
-echo -e "Done\n"
-# turn off kubernetes info in prompt
-kubeoff -g
+# Setup zsh and plugins
+$DOTFILES_ROOT/zsh/install.sh
 
-# setup Vim
+# Setup Vim and plugins
 $DOTFILES_ROOT/vim/install.sh

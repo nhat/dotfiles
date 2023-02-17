@@ -11,8 +11,6 @@ Up Arrow:     \UF700        Backspace:    \U0008        Return:       \U000D
 Down Arrow:   \UF701        Tab:          \U0009        Delete:       \U007F
 Left Arrow:   \UF702        Escape:       \U001B
 Right Arrow:  \UF703        Enter:        \U000A
-
-https://www.hcs.harvard.edu/~jrus/site/cocoa-text.html
 */
 
 {
