@@ -59,7 +59,9 @@ nmap ]c <Action>(VcsShowNextChangeMarker)
 nmap [l <Action>(GotoPreviousError)
 nmap ]l <Action>(GotoNextError)
 
-imap <C-n> <C-o><Action>(CodeCompletion)
+nmap <C-o> <Action>(Back)
+nmap <C-n> <Action>(Forward)
+imap <C-n> <Action>(CodeCompletion)
 nmap gf <Action>(QuickImplementations)
 imap <M-S-U> <Esc><Action>(EditorToggleCase)<Action>(EditorUnSelectWord)a
 nmap <M-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
