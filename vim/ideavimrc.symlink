@@ -63,9 +63,9 @@ nmap <C-o> <Action>(Back)
 nmap <C-n> <Action>(Forward)
 imap <C-n> <Action>(CodeCompletion)
 nmap gf <Action>(QuickImplementations)
-imap <M-S-U> <Esc><Action>(EditorToggleCase)<Action>(EditorUnSelectWord)a
-nmap <M-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
-vmap <M-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
+imap <D-S-U> <Esc><Action>(EditorToggleCase)<Action>(EditorUnSelectWord)a
+nmap <D-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
+vmap <D-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
 
 nmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 vmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
