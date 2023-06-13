@@ -2,13 +2,18 @@
 #
 # Remove local branches, which are no longer represented in the remote repository.
 
-main_branch="master"
+main_branch=""
+if git branch | grep -q main; then
+  main_branch="master"
+fi
 if git branch | grep -q main; then
   main_branch="main"
 fi
 
 current_branch=$(git branch | grep "*" | cut -d ' ' -f 2)
-test "$current_branch" != "master" && git checkout $main_branch
+if test "$main_branch" != ""; then
+  test "$current_branch" != "$main_branch" && git checkout $main_branch
+fi
 
 git fetch -p; git branch -vv | awk '{print $1,$4}' | awk '/ gone]/{print $1}' | xargs git branch -D
 git pull
