@@ -4,7 +4,7 @@ set showmode
 set clipboard+=ideaput
 set incsearch
 
-set ideastatusicon=disabled
+set ideastatusicon=gray
 set ideajoin
 set surround
 set vim-paragraph-motion
