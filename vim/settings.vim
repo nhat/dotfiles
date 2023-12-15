@@ -172,7 +172,7 @@ if has("nvim")
 end
 
 " vimr
-if has("gui_vimr")
+if exists("g:gui_vimr")
     " new line above with shift+enter
     inoremap <S-CR> <Esc>O
     nnoremap <S-CR> O<Esc>
@@ -194,6 +194,9 @@ if has("gui_vimr")
     " toggle word case
     nnoremap <S-D-u> viw~
     inoremap <S-D-u> <Esc>viw~ea
+
+    " scroll up fix
+    nmap <S-D-e> 20<C-y>
 
     " move cursor through soft-wrapped lines
     nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')

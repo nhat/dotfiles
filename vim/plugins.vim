@@ -221,7 +221,7 @@ if has('nvim')
 endif
 
 " vimr
-if has("gui_vimr")
+if exists("g:gui_vimr")
     " fzf
     command! -bang Ag
     \  call fzf#vim#ag(<q-args>,
