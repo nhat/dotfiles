@@ -287,8 +287,7 @@
                                 "type": "basic"
                             },
                             {
-                                "description": "Change hyper+e to control+u",
-                                                                "conditions": [
+                                "conditions": [
                                     {
                                         "bundle_identifiers": [
                                             "com.qvacua.VimR"
@@ -296,7 +295,7 @@
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
-
+                                "description": "Change hyper+e to control+u",
                                 "from": {
                                     "key_code": "e",
                                     "modifiers": {
@@ -442,7 +441,36 @@
                         ]
                     },
                     {
-                        "description": "iTerm: Cmd+Shift+u changes current word case",
+                        "description": "Change hyper+6 to control+6",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "6",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_shift",
+                                            "left_command",
+                                            "left_control"
+                                        ],
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "6",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "iTerm: Cmd+shift+u changes current word case",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -457,8 +485,8 @@
                                     "key_code": "u",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_command",
-                                            "left_shift"
+                                            "command",
+                                            "shift"
                                         ]
                                     }
                                 },
@@ -509,7 +537,7 @@
                         ]
                     },
                     {
-                        "description": "Change hyper+e to Cmd+Shift+e to fix line deletion when scroll up",
+                        "description": "VimR: Change hyper+e to Cmd+Shift+e to fix line deletion when scroll up",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -579,7 +607,7 @@
                         ]
                     },
                     {
-                        "description": "VimR: option+j/option+k move line down/up",
+                        "description": "VimR: Option+j/option+k move line down/up",
                         "manipulators": [
                             {
                                 "conditions": [
