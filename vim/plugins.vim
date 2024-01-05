@@ -18,6 +18,8 @@ Plug 'mattn/emmet-vim'
 Plug 'dbakker/vim-paragraph-motion'
 Plug 'chrisbra/matchit'
 Plug 'mechatroner/rainbow_csv'
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
 Plug 'windwp/nvim-autopairs'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'google/vim-searchindex'
@@ -185,6 +187,9 @@ let g:lightline = {
     \ 'separator': { 'left': '', 'right': '' },
     \ 'subseparator': { 'left': '', 'right': '' }
     \ }
+
+" vim-markdown
+let g:vim_markdown_folding_disabled = 1
 
 if has('nvim')
     if (has("termguicolors"))
