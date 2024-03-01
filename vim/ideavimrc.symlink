@@ -52,6 +52,7 @@ nnoremap vaQ va'
 
 " indent-object always includes all lines from higher level
 xmap ai aI
+omap ai aI
 
 nmap [c <Action>(VcsShowPrevChangeMarker)
 nmap ]c <Action>(VcsShowNextChangeMarker)
