@@ -17,6 +17,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'mattn/emmet-vim'
 Plug 'dbakker/vim-paragraph-motion'
 Plug 'chrisbra/matchit'
+Plug 'justinmk/vim-sneak'
 Plug 'mechatroner/rainbow_csv'
 Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
@@ -77,7 +78,7 @@ call one#highlight('xmlNamespace', 'e45649', '', 'none')
 call one#highlight('xmlAttribPunct', 'e45649', '', 'none')
 highlight luaFunc guifg=none
 
-" corlorscheme for terminal
+" colorscheme for terminal
 let g:terminal_color_0 = '#3c3c3c'
 let g:terminal_color_1 = '#e45649'
 let g:terminal_color_2 = '#50a14f'

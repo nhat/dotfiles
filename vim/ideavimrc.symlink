@@ -7,6 +7,7 @@ set incsearch
 set ideastatusicon=gray
 set ideajoin
 set surround
+set sneak
 set vim-paragraph-motion
 set commentary
 set matchit
