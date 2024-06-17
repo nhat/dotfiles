@@ -15,7 +15,7 @@
 	<key>AlternateMouseScroll</key>
 	<false/>
 	<key>AlwaysOpenWindowAtStartup</key>
-	<false/>
+	<true/>
 	<key>AutoCommandHistory</key>
 	<false/>
 	<key>AutoHideTmuxClientSession</key>
@@ -2372,7 +2372,7 @@
 			<key>Custom Directory</key>
 			<string>Advanced</string>
 			<key>Custom Locale</key>
-			<string>en_US</string>
+			<string>en_US.UTF-8</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
@@ -3211,6 +3211,8 @@ Open Autocomplete…</string>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Mark Indicators</key>
+			<false/>
+			<key>Show Offscreen Command line</key>
 			<false/>
 			<key>Show Status Bar</key>
 			<false/>
