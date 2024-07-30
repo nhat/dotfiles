@@ -99,7 +99,6 @@ let g:terminal_color_15 = '#fafafa'
 " buffline
 let g:buftabline_show = 1
 let g:buftabline_indicators = 1
-highlight default link BufTabLineHidden PmenuSel
 
 " gitgutter
 let g:gitgutter_realtime = 1
