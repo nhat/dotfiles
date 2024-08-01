@@ -23,6 +23,12 @@ do
   source $file
 done
 
+# homebrew completions
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
 # initialize autocomplete
 autoload -Uz compinit
 compinit -C

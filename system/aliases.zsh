@@ -21,31 +21,43 @@ alias s='ag'
 alias c='fasd_cd -d'
 alias f='fd --follow --hidden'
 alias xml='(if [[ -t 1 ]] ; then xmllint --format - | source-highlight -f esc -s xml --style-file xml.style --data-dir=/usr/local/share/source-highlight ; else xmllint --format -; fi)'
-alias kctx='kubectx'
-alias ks='kubeon'
 alias as-tree='tree --fromfile .'
 
 alias update_zsh_plugins='antibody bundle < $DOTFILES_ROOT/zsh/plugins >! ~/.zsh/.zsh_plugins && antibody update'
 alias add_touchid='if ! grep -q "pam_tid.so" /etc/pam.d/sudo; then sudo sed -i "1a auth       sufficient     pam_tid.so" /etc/pam.d/sudo; echo Added TouchId to sudo; fi'
 
+# k8s
+alias ks='kubeon'
+alias kctx='kubectx'
+
+# Use kubectl with cluster
+function k() {
+  if [[ $1 =~ ^[0-9]+$ ]]; then
+    cluster=$1
+    shift
+    remaining_args=("$@")
+
+    kubecolor --cluster=$cluster $@
+  else
+    kubecolor $@
+  fi
+}
+
+# Use kubectl with multiple clusters
+function kf() {
+  kubecolor foreach -q $@ -n $(kubens -c)
+}
+
 # Switch k8s namespace quickly
 function kns() {
   namespace=$1
   if [[ $1 == "" ]]; then
-    echo "error: no namespace provided" && return
+    kubens -c && return
   elif [[ $namespace == "-" ]]; then
     if [[  $KNS_PREV == "" ]]; then kubens -c && return; fi
     namespace=$KNS_PREV
   fi
-  tess kubectl get namespace $namespace && export KNS_PREV=$(kubens -c) && tess kubectl config set-context --current --namespace=$namespace
-}
-
-function k() {
-  if [[ $1 == "use" ]]; then
-    kubectl $@
-  else
-    tess kubectl $@
-  fi
+  export KNS_PREV=$(kubens -c) && kubectl config set-context --current --namespace=$namespace
 }
 
 function take() {
