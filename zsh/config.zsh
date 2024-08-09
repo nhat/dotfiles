@@ -183,6 +183,7 @@ setopt INC_APPEND_HISTORY       # save commands as soon as they are entered
 setopt HIST_IGNORE_ALL_DUPS     # disable dupes in history
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE        # ignore a command starting with a space
+setopt INTERACTIVE_COMMENTS     # add hash to write comment
 
 # disable flow control only in zsh prompt
 ttyctl -f
