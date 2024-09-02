@@ -2,7 +2,7 @@
 " -------------------------
 
 call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-vinegar'
+Plug 'stevearc/oil.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -249,4 +249,11 @@ endif
 
 lua << EOF
 require("nvim-autopairs").setup {}
+require("oil").setup({
+  delete_to_trash = true,
+  keymaps = {
+    ["<C-p>"] = false
+  }
+})
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 EOF
