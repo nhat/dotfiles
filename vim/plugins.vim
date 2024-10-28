@@ -244,8 +244,9 @@ if exists("g:gui_vimr")
     " rollback chunk
     nmap <M-D-z> <Leader>hu
 
-    " vim move
+    " vim move, move line up/down with option+j/k
     let g:move_key_modifier = 'D'
+    let g:move_key_modifier_visualmode = 'D'
 endif
 
 lua << EOF

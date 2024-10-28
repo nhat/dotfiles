@@ -195,7 +195,7 @@ if exists("g:gui_vimr")
     nnoremap <S-D-u> viw~
     inoremap <S-D-u> <Esc>viw~ea
 
-    " scroll up fix
+    " scroll up fix for unknown issue, so it won't delete current line
     nmap <S-D-e> 20<C-y>
 
     " move cursor through soft-wrapped lines
