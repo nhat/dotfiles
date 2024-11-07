@@ -39,3 +39,6 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
+# copilot
+bindkey '»' zsh_gh_copilot_explain  # bind option+shift+\ to explain
+bindkey '«' zsh_gh_copilot_suggest  # bind option+\ to suggest
