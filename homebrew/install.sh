@@ -28,7 +28,7 @@ packages=(
   source-highlight
   switchaudio-osx
   the_silver_searcher
-  java11
+  java
   fd
   php
   mas

@@ -404,7 +404,7 @@
                         ]
                     },
                     {
-                        "description": "VimR: Option+j/option+k move line down/up",
+                        "description": "VimR: ctrl+shift+j/k move line down/up",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -417,12 +417,12 @@
                                 ],
                                 "from": {
                                     "key_code": "j",
-                                    "modifiers": { "mandatory": ["option"] }
+                                    "modifiers": { "mandatory": ["control", "shift"] }
                                 },
                                 "to": [
                                     {
                                         "key_code": "j",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": ["control"]
                                     }
                                 ],
                                 "type": "basic"
@@ -438,12 +438,12 @@
                                 ],
                                 "from": {
                                     "key_code": "k",
-                                    "modifiers": { "mandatory": ["option"] }
+                                    "modifiers": { "mandatory": ["control", "shift"] }
                                 },
                                 "to": [
                                     {
                                         "key_code": "k",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": ["control"]
                                     }
                                 ],
                                 "type": "basic"

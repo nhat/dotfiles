@@ -124,6 +124,10 @@ let g:netrw_fastbrowse = 0
 " don't show hidden files
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
+" vim-move
+let g:move_key_modifier = 'C-S'
+let g:move_key_modifier_visualmode = 'C-S'
+
 " apply macro to selected lines
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
@@ -249,9 +253,9 @@ if exists("g:gui_vimr")
     " rollback chunk
     nmap <M-D-z> <Leader>hu
 
-    " vim move, move line up/down with option+j/k
-    let g:move_key_modifier = 'D'
-    let g:move_key_modifier_visualmode = 'D'
+    " vim move, move line up/down with ctrl+j/k
+    let g:move_key_modifier = 'C'
+    let g:move_key_modifier_visualmode = 'C'
 endif
 
 lua << EOF
