@@ -78,6 +78,8 @@ highlight Incsearch gui=none guibg=LightGoldenrod1 guifg=#3C3C3C
 call one#highlight('xmlNamespace', 'e45649', '', 'none')
 call one#highlight('xmlAttribPunct', 'e45649', '', 'none')
 highlight luaFunc guifg=none
+highlight PmenuSel guibg=#4078f2 guifg=white
+highlight Pmenu guifg=black
 
 " colorscheme for terminal
 let g:terminal_color_0 = '#3c3c3c'
