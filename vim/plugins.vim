@@ -157,6 +157,9 @@ let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 autocmd FileType html,css imap <silent><expr><tab> emmet#expandAbbrIntelligent("\<tab>")
 
+" copilot
+imap <C-L> <Plug>(copilot-accept-word)
+
 " fix whitespace
 autocmd BufEnter * highlight clear ExtraWhitespace      " don't show whitespace
 autocmd BufWrite * FixWhitespace
@@ -210,6 +213,7 @@ if has('nvim')
     autocmd  FileType fzf setlocal laststatus=0 noruler titlestring=fzf
         \| autocmd BufLeave <buffer> set laststatus=2 ruler titlestring=%F%a%r%m
 
+    " remove undo files which have not been modified for 30 days
     function! Tmpwatch(path, days)
         let l:path = expand(a:path)
         if isdirectory(l:path)
@@ -224,7 +228,6 @@ if has('nvim')
         endif
     endfunction
 
-    " remove undo files which have not been modified for 30 days
     call Tmpwatch(&undodir, 30)
 endif
 
