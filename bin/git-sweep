@@ -3,7 +3,7 @@
 # Remove local branches, which are no longer represented in the remote repository.
 
 main_branch=""
-if git branch | grep -q main; then
+if git branch | grep -q master; then
   main_branch="master"
 fi
 if git branch | grep -q main; then
