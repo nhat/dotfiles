@@ -92,6 +92,10 @@ omap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 vmap <BS> {
 vmap <CR> }
 
+" new line above with shift+enter
+inoremap <S-CR> <Esc>O
+nnoremap <S-CR> O<Esc>
+
 " make Y yank until end of line
 nnoremap Y y$
 
@@ -109,6 +113,7 @@ vmap <silent><Leader>P "0P
 onoremap q i"
 onoremap Q i'
 onoremap aq a"
+
 onoremap aQ a'
 
 vnoremap q i"
@@ -156,10 +161,6 @@ cnoremap <M-f> <S-Right>
 
 " nvim
 if has("nvim")
-    " new line above with shift+enter
-    inoremap <S-CR> <Esc>O
-    nnoremap <S-CR> O<Esc>
-
     " new line below with meta+enter
     inoremap <M-CR> <Esc>o
     nnoremap <M-CR> o<Esc>
@@ -173,10 +174,6 @@ end
 
 " vimr
 if exists("g:gui_vimr")
-    " new line above with shift+enter
-    inoremap <S-CR> <Esc>O
-    nnoremap <S-CR> O<Esc>
-
     " new line below with cmd+enter
     inoremap <D-CR> <Esc>o
     nnoremap <D-CR> o<Esc>
