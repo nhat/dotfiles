@@ -69,6 +69,7 @@ imap <D-S-U> <Esc><Action>(EditorToggleCase)<Action>(EditorUnSelectWord)a
 nmap <D-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
 vmap <D-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
 
+nmap yow <Action>(EditorToggleUseSoftWraps)
 nmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 vmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 

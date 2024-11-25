@@ -14,6 +14,8 @@ Plug 'matze/vim-move'
 Plug 'terryma/vim-expand-region'
 Plug 'arecarn/vim-crunch'
 Plug 'github/copilot.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
 Plug 'airblade/vim-gitgutter'
 Plug 'mattn/emmet-vim'
 Plug 'dbakker/vim-paragraph-motion'
@@ -79,7 +81,8 @@ call one#highlight('xmlNamespace', 'e45649', '', 'none')
 call one#highlight('xmlAttribPunct', 'e45649', '', 'none')
 highlight luaFunc guifg=none
 highlight PmenuSel guibg=#4078f2 guifg=white
-highlight Pmenu guifg=black
+highlight NormalFloat guibg=none
+highlight FloatBorder guifg=#A0A0A8
 
 " colorscheme for terminal
 let g:terminal_color_0 = '#3c3c3c'
@@ -162,7 +165,7 @@ autocmd FileType html,css EmmetInstall
 autocmd FileType html,css imap <silent><expr><tab> emmet#expandAbbrIntelligent("\<tab>")
 
 " copilot
-imap <C-L> <Plug>(copilot-accept-word)
+imap <C-l> <Plug>(copilot-accept-word)
 
 " fix whitespace
 autocmd BufEnter * highlight clear ExtraWhitespace      " don't show whitespace
@@ -260,11 +263,58 @@ endif
 
 lua << EOF
 require("nvim-autopairs").setup {}
+
 require("oil").setup({
   delete_to_trash = true,
   keymaps = {
     ["<C-p>"] = false
   }
 })
+
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+require("CopilotChat").setup {
+  window = {
+    layout = 'float',
+    relative = 'cursor',
+    width = 1,
+    height = 0.4,
+    row = 1,
+    border = 'rounded',
+  },
+  show_folds = false,
+  auto_insert_mode = true, -- Automatically enter insert mode when opening window and on new prompt
+  separator = '',
+  mappings = {
+    complete = {
+      insert = '<C-n>',
+    },
+    submit_prompt = {
+      normal = '<CR>',
+      insert = '<CR>',
+    },
+  }
+}
+
+vim.keymap.set({'n', 'v'}, "<Leader>q", function()
+    if vim.fn.line('.') > (vim.fn.winheight(0) / 2) then
+        vim.cmd('normal! zz')
+    end
+
+    vim.cmd("CopilotChatOpen")
+end, { desc = "Open CopilotChat quick chat" })
+
+local open_chat_keymap = vim.g.gui_vimr ~= nil and '<C-S-F19>' or '<C-S-c>'
+vim.keymap.set({'n', 'v', 'i'}, open_chat_keymap, function()
+  local pane_width = vim.api.nvim_win_get_width(0)
+  local layout = pane_width > 100 and 'vertical' or 'horizontal'
+
+  require("CopilotChat").toggle({
+    window = {
+      layout = layout,
+      width = 0.35,
+    },
+    auto_insert_mode = false,
+  }) end, { desc = "Open CopilotChat" })
 EOF
+

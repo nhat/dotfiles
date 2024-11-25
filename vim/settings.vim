@@ -127,8 +127,11 @@ nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 
-" make current folder working directory
+" make current file's folder the working directory
 nmap <Leader>h :lcd %:p:h<bar>:echo 'Working directory: ' . expand('%:p:h')<CR>
+
+" reload vim config
+nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " toggle word case
 nnoremap <M-u> viw~
