@@ -124,8 +124,9 @@ fi
 
 # use fzf to find file or folder
 fzf-find-file-or-folder() {
-  local out=$(fd --hidden --strip-cwd-prefix | fzf \
-      --bind 'ctrl-p:execute(fd --hidden . $HOME | fzf --height 100% --prompt="🔍 ${HOME##*/} ")+abort')
+fd --hidden --strip-cwd-prefix | fzf --header="(Press again to search in home folder)" > /tmp/fzf_selection \
+    --bind 'ctrl-p:execute(fd --hidden . $HOME | fzf --height 100% --prompt="🔍 ${HOME##*/} " > /tmp/fzf_selection)+abort'
+  local out=$(cat /tmp/fzf_selection)
 
   # output with full escaped path
   local result="$(printf "%q\n" "$(pwd)")/${(q)out}"
