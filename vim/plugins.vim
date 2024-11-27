@@ -35,6 +35,7 @@ Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
+Plug 'vimpostor/vim-lumen'
 Plug 'rakr/vim-one'
 call plug#end()
 
