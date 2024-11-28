@@ -6,10 +6,7 @@
 # Run ./set-defaults.sh and you'll be good to go.
 
 # Disable press-and-hold for keys in favor of key repeat
-defaults write -g ApplePressAndHoldEnabled -bool false
-
-# Use AirDrop over every interface
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Set a really fast key repeat
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
@@ -18,12 +15,17 @@ defaults write NSGlobalDomain KeyRepeat -int 1
 # Enable full keyboard access for all controls
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-# Set the Finder prefs for showing a few different volumes on the Desktop
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+# Dragging windows from anywhere with ctrl+cmd+click
+defaults write NSGlobalDomain NSWindowShouldDragOnGesture -bool true
+
+# Disable animation when ctrl+cmd+click dragging window
+defaults write NSGlobalDomain NSWindowShouldDragOnGestureFeedback -bool false
 
 # Save to disk (not to iCloud) by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+# Use AirDrop over every interface
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
@@ -98,6 +100,10 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 # Disable the warning when changing a file extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# Set the Finder prefs for showing a few different volumes on the Desktop
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # Disable the warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
