@@ -27,6 +27,7 @@ packages=(
   getantibody/tap/antibody
   source-highlight
   switchaudio-osx
+  jordanbaird-ice
   the_silver_searcher
   java
   fd
@@ -50,10 +51,8 @@ casks=(
   appcleaner
   rectangle
   iterm2
-  fantastical
   1password
   notunes
-  bartender
   shottr
   qlmarkdown
   keka
