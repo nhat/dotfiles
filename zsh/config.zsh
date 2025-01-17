@@ -182,6 +182,7 @@ setopt NO_HIST_VERIFY           # runs last command after enter
 setopt EXTENDED_HISTORY         # add timestamps to history
 setopt INC_APPEND_HISTORY       # save commands as soon as they are entered
 setopt HIST_IGNORE_ALL_DUPS     # disable dupes in history
+setopt SHARE_HISTORY            # share history between sessions
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE        # ignore a command starting with a space
 setopt INTERACTIVE_COMMENTS     # add hash to write comment
