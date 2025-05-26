@@ -58,8 +58,11 @@ omap ai aI
 nmap [c <Action>(VcsShowPrevChangeMarker)
 nmap ]c <Action>(VcsShowNextChangeMarker)
 
-nmap [s <Action>(GotoPreviousError)
-nmap ]s <Action>(GotoNextError)
+nmap [e <Action>(GotoPreviousError)
+nmap ]e <Action>(GotoNextError)
+
+nmap [f <Action>(MethodUp)
+nmap ]f <Action>(MethodDown)
 
 nmap <C-o> <Action>(Back)
 nmap <C-n> <Action>(Forward)
