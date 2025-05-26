@@ -162,6 +162,8 @@ cnoremap <M-f> <S-Right>
 " Other
 " -------------------------
 
+autocmd BufReadPost * if filereadable(expand('%:p')) | call system('open -a ' . expand('$DOTFILES_ROOT') . '/macos/AddToRecent.app ' . shellescape(expand('%:p'))) | endif
+
 " nvim
 if has("nvim")
     " new line below with meta+enter
