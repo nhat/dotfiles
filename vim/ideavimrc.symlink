@@ -64,6 +64,10 @@ nmap ]e <Action>(GotoNextError)
 nmap [f <Action>(MethodUp)
 nmap ]f <Action>(MethodDown)
 
+" select word under cursor
+nmap <D-d> viw
+imap <D-d> <Esc>viw
+
 nmap <C-o> <Action>(Back)
 nmap <C-n> <Action>(Forward)
 imap <C-n> <Action>(CodeCompletion)
