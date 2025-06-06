@@ -55,6 +55,12 @@ nnoremap vaQ va'
 xmap ai aI
 omap ai aI
 
+" select word under cursor
+nmap <D-d> viw
+imap <D-d> <Esc>viw
+
+
+"intelli actions
 nmap [c <Action>(VcsShowPrevChangeMarker)<Action>(PreviousDiff)
 nmap ]c <Action>(VcsShowNextChangeMarker)<Action>(NextDiff)
 
@@ -64,18 +70,15 @@ nmap ]e <Action>(GotoNextError)
 nmap [f <Action>(MethodUp)
 nmap ]f <Action>(MethodDown)
 
-" select word under cursor
-nmap <D-d> viw
-imap <D-d> <Esc>viw
-
 nmap <C-o> <Action>(Back)
 nmap <C-n> <Action>(Forward)
+imap <C-k> <Action>(EditorCutLineEnd)
 imap <C-n> <Action>(CodeCompletion)
-nmap gf <Action>(QuickImplementations)
 imap <D-S-U> <Esc><Action>(EditorToggleCase)<Action>(EditorUnSelectWord)a
 nmap <D-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
 vmap <D-S-U> <Action>(EditorToggleCase)<Action>(EditorUnSelectWord)
 
+nmap gf <Action>(QuickImplementations)
 nmap yow <Action>(EditorToggleUseSoftWraps)
 nmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
 vmap gq <Action>(com.andrewbrookins.idea.wrap.WrapAction)
