@@ -55,8 +55,8 @@ nnoremap vaQ va'
 xmap ai aI
 omap ai aI
 
-nmap [c <Action>(VcsShowPrevChangeMarker)
-nmap ]c <Action>(VcsShowNextChangeMarker)
+nmap [c <Action>(VcsShowPrevChangeMarker)<Action>(PreviousDiff)
+nmap ]c <Action>(VcsShowNextChangeMarker)<Action>(NextDiff)
 
 nmap [e <Action>(GotoPreviousError)
 nmap ]e <Action>(GotoNextError)
