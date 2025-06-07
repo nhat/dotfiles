@@ -205,6 +205,50 @@ let g:lightline = {
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
 
+" remove undo files which have not been modified for 30 days
+function! Tmpwatch(path, days)
+    let l:path = expand(a:path)
+    if isdirectory(l:path)
+        for file in split(globpath(l:path, "*"), "\n")
+            if localtime() > getftime(file) + 86400 * a:days && delete(file) != 0
+                echo "Tmpwatch(): Error deleting '" . file . "'"
+            endif
+        endfor
+    else
+        echo "Tmpwatch(): Directory '" . l:path . "' not found and will be created"
+        !mkdir -p l:path
+    endif
+endfunction
+
+call Tmpwatch(&undodir, 30)
+
+" Add open recent files to macOS Recent Items
+let g:addtorecent_ignore_files = ['COMMIT_EDITMSG']
+function! AddToRecentIfNeeded(filepath) abort
+  " Only proceed if file exists
+  if !filereadable(a:filepath)
+    return
+  endif
+
+  " Get the filename (not the path)
+  let l:filename = fnamemodify(a:filepath, ':t')
+
+  " Check against ignore list
+  for ignored in g:addtorecent_ignore_files
+    if l:filename ==# ignored
+      return
+    endif
+  endfor
+
+  " Construct the full app path
+  let l:app_path = expand('$HOME') . '/.dotfiles/macos/AddToRecent.app'
+
+  " Call the system command
+  call system('open -a ' . shellescape(l:app_path) . ' ' . shellescape(a:filepath))
+endfunction
+
+autocmd BufReadPost * call AddToRecentIfNeeded(expand('%:p'))
+
 if has('nvim')
     if (has("termguicolors"))
         set termguicolors
@@ -220,23 +264,6 @@ if has('nvim')
     autocmd! FileType fzf
     autocmd  FileType fzf setlocal laststatus=0 noruler titlestring=fzf
         \| autocmd BufLeave <buffer> set laststatus=2 ruler titlestring=%F%a%r%m
-
-    " remove undo files which have not been modified for 30 days
-    function! Tmpwatch(path, days)
-        let l:path = expand(a:path)
-        if isdirectory(l:path)
-            for file in split(globpath(l:path, "*"), "\n")
-                if localtime() > getftime(file) + 86400 * a:days && delete(file) != 0
-                    echo "Tmpwatch(): Error deleting '" . file . "'"
-                endif
-            endfor
-        else
-            echo "Tmpwatch(): Directory '" . l:path . "' not found and will be created"
-            !mkdir -p l:path
-        endif
-    endfunction
-
-    call Tmpwatch(&undodir, 30)
 endif
 
 " vimr
