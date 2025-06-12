@@ -12,6 +12,3 @@ source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 antidote bundle < $DOTFILES_ROOT/zsh/plugins > ~/.zsh/.zsh_plugins && antidote update
 echo -e "Done\n"
 
-# Turn off kubernetes info in prompt
-kubeoff -g
-
