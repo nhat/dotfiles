@@ -15,7 +15,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'arecarn/vim-crunch'
 Plug 'github/copilot.vim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'mattn/emmet-vim'
 Plug 'dbakker/vim-paragraph-motion'

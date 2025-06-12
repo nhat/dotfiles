@@ -1,4 +1,5 @@
 autoload colors && colors
+source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
 
 if (( $+commands[git] )); then
   git="$commands[git]"

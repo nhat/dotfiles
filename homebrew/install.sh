@@ -29,7 +29,7 @@ packages=(
   switchaudio-osx
   jordanbaird-ice
   the_silver_searcher
-  java
+  openjdk@17
   fd
   php
   mas
@@ -57,6 +57,7 @@ casks=(
   qlmarkdown
   keka
   intellij-idea
+  monitorcontrol
 )
 for cask in $casks; do
   brew install --cask --no-quarantine $cask
