@@ -15,7 +15,6 @@ packages=(
   coreutils
   gnu-sed
   zsh
-  fasd
   jq
   curl
   grc
@@ -58,6 +57,7 @@ casks=(
   keka
   intellij-idea
   monitorcontrol
+  hammerspoon
 )
 for cask in $casks; do
   brew install --cask --no-quarantine $cask
