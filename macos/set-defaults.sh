@@ -161,6 +161,9 @@ defaults write com.apple.dock tilesize -int 50
 # Dock size magnified
 defaults write com.apple.dock largesize -int 75
 
+# Group windows by application in Mission Control
+defaults write com.apple.dock expose-group-apps -bool true
+
 # Don’t show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
