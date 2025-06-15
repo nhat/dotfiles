@@ -14,7 +14,7 @@ curl -sfLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.
 if ! [ -f ~/.config/nvim/init.vim ]; then
   echo "  Linking Vim config with NeoVim"
   mkdir -p ~/.config/nvim
-  ln -s ~/.vimrc ~/.config/nvim/init.vim
+  ln -sf ~/.vimrc ~/.config/nvim/init.vim
 fi
 
 # Install plugins
