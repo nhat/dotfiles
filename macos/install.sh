@@ -51,3 +51,4 @@ cp -R /System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/ /Lib
 # Allow apps downloaded from anywhere
 echo "Allowing apps downloaded from anywhere..."
 sudo spctl --master-disable
+
