@@ -1,0 +1,457 @@
+{
+  "1Piece" : {
+    "DelayWindowList" : 0.10000000000000001,
+    "FlagDisableSystemKeyboardShortcut" : true,
+    "FlagFocusWindowDisplayBottomShortCut" : false,
+    "FlagFocusWindowDisplayLeftShortCut" : false,
+    "FlagFocusWindowDisplayPrimaryShortCut" : false,
+    "FlagFocusWindowDisplayRightShortCut" : false,
+    "FlagFocusWindowDisplayTopShortCut" : false,
+    "FlagFocusWindowExcludeWindowOnOtherDisplay" : false,
+    "FlagHotKeyCycleWindowsKeyAssignModifierKeysCommand" : false,
+    "FlagHotKeyCycleWindowsShortCut" : false,
+    "FlagHotKeyCycleWindowsShowDarkBackground" : true,
+    "FlagHotKeyCycleWindowsShowPreviewFrontLongPress" : false,
+    "FlagMenuDoNotShowInMenuBar" : true,
+    "FlagMouseGestureOnWindowsTitlebar" : 0,
+    "FlagPopupMenuBarContextMenuShortCut" : false,
+    "FlagQuickTimePlayer" : 0,
+    "FlagRecentlyMinimizedWindowMenuDoNotShow" : true,
+    "FlagRecentlyMinimizedWindowMenuNumberShortCut" : true,
+    "FlagRecentlyMinimizedWindowMenuShortCut" : false,
+    "FlagRecentlyMinimizedWindowShortCut" : false,
+    "FlagSendWindowToBackShortCut" : false,
+    "FlagStageManagerSwitchStageShift" : false,
+    "FlagWarpMouseCursorShortCut" : false,
+    "FlagWindowListAlt1Delay" : true,
+    "FlagWindowListAlt1SelectItem" : true,
+    "FlagWindowListDelay" : true,
+    "FlagWindowListEnableButtonRightClick" : true,
+    "FlagWindowListItemShowActiveSpaceIcon" : false,
+    "FlagWindowListKeyAssignBack" : false,
+    "FlagWindowListKeyAssignButton1" : false,
+    "FlagWindowListKeyAssignButton2" : false,
+    "FlagWindowListKeyAssignButton3" : false,
+    "FlagWindowListKeyAssignModifierKeysAlternate" : false,
+    "FlagWindowListKeyAssignModifierKeysCommand" : true,
+    "FlagWindowListKeyAssignOrderDown" : false,
+    "FlagWindowListKeyAssignOrderUp" : false,
+    "FlagWindowListKeyAssignSliderLeft" : false,
+    "FlagWindowListKeyAssignSliderRight" : false,
+    "FlagWindowListPreviousWindowShortCut" : false,
+    "FlagWindowListPreviousWindowShowTitle" : true,
+    "FlagWindowOperationAssistMovement" : false,
+    "FlagWindowOperationAssistProportionally" : false,
+    "FlagWindowOperationAssistQuarters" : false,
+    "FlagWindowOperationAssistShortCut" : false,
+    "FlagWindowOperationAssistThirds" : false,
+    "FlagWindowOperationBottomCenterThirdShortCut" : false,
+    "FlagWindowOperationBottomLeftShortCut" : false,
+    "FlagWindowOperationBottomLeftThirdShortCut" : false,
+    "FlagWindowOperationBottomLeftTwoThirdsShortCut" : false,
+    "FlagWindowOperationBottomRightThirdShortCut" : false,
+    "FlagWindowOperationBottomRightTwoThirdsShortCut" : false,
+    "FlagWindowOperationCenterThirdShortCut" : false,
+    "FlagWindowOperationContextMenuShortCut" : false,
+    "FlagWindowOperationFitShowTooltip" : false,
+    "FlagWindowOperationGridShortCut" : false,
+    "FlagWindowOperationHotKeyAssist" : false,
+    "FlagWindowOperationLeftThirdShortCut" : false,
+    "FlagWindowOperationLeftTwoThirdsShortCut" : false,
+    "FlagWindowOperationMargin" : true,
+    "FlagWindowOperationMaximizeHorizontalShortCut" : false,
+    "FlagWindowOperationMaximizeShortCut" : false,
+    "FlagWindowOperationMaximizeSlimShortCut" : false,
+    "FlagWindowOperationMaximizeVerticalShortCut" : false,
+    "FlagWindowOperationMoveBottomEdgeShortCut" : false,
+    "FlagWindowOperationMoveBottomLeftCornerShortCut" : false,
+    "FlagWindowOperationMoveBottomLeftShortCut" : false,
+    "FlagWindowOperationMoveBottomRightCornerShortCut" : false,
+    "FlagWindowOperationMoveBottomRightShortCut" : false,
+    "FlagWindowOperationMoveBottomShortCut" : false,
+    "FlagWindowOperationMoveCenterVerticalShortCut" : false,
+    "FlagWindowOperationMoveLeftEdgeShortCut" : false,
+    "FlagWindowOperationMoveLeftRightShortCut" : false,
+    "FlagWindowOperationMoveRightEdgeShortCut" : false,
+    "FlagWindowOperationMoveTopBottomShortCut" : false,
+    "FlagWindowOperationMoveTopEdgeShortCut" : false,
+    "FlagWindowOperationMoveTopLeftCornerShortCut" : false,
+    "FlagWindowOperationMoveTopLeftShortCut" : false,
+    "FlagWindowOperationMoveTopRightCornerShortCut" : false,
+    "FlagWindowOperationMoveTopRightShortCut" : false,
+    "FlagWindowOperationMoveTopShortCut" : false,
+    "FlagWindowOperationNextMaximizeShortCut" : false,
+    "FlagWindowOperationNextMoveCenterShortCut" : false,
+    "FlagWindowOperationPresetShortCut" : false,
+    "FlagWindowOperationPreviousMaximizeShortCut" : false,
+    "FlagWindowOperationPreviousMoveCenterShortCut" : false,
+    "FlagWindowOperationPreviousShortCut" : false,
+    "FlagWindowOperationRightThirdShortCut" : false,
+    "FlagWindowOperationRightTwoThirdsShortCut" : false,
+    "FlagWindowOperationTopCenterThirdShortCut" : false,
+    "FlagWindowOperationTopLeftShortCut" : false,
+    "FlagWindowOperationTopLeftThirdShortCut" : false,
+    "FlagWindowOperationTopLeftTwoThirdsShortCut" : false,
+    "FlagWindowOperationTopRightThirdShortCut" : false,
+    "FlagWindowOperationTopRightTwoThirdsShortCut" : false,
+    "FlagWindowOperationTweakAlignmentEdgeAssist" : false,
+    "FlagWindowOperationTweakDistanceDisplay" : false,
+    "FlagWindowOperationTweakShortCut" : false,
+    "FlagWindowOperationWindowSnapAssist" : false,
+    "FlagWindowOperationWindowSnapCircularMove" : false,
+    "FlagWindowOperationWindowSnapDelayMissionControl" : false,
+    "FlagWindowOperationWindowSnapDisable" : false,
+    "FlagWindowOperationWindowSnapMaximizeVerticalHorizontal" : false,
+    "FlagWindowOperationWindowSnapMoveSpace" : false,
+    "FlagWindowOperationWindowSnapResizeDisable" : false,
+    "FlagWindowOperationWindowSnapRestore" : false,
+    "FlagWindowOperationWindowSnapTrackingAdjacentDisable" : false,
+    "FlagWindowOperationZoomShortCut" : false,
+    "focusWindowBackHotKey" : {
+      "characters" : "∫",
+      "charactersIgnoringModifiers" : "b",
+      "keyCode" : 11,
+      "modifierFlags" : 524288
+    },
+    "focusWindowBottomHotKey" : {
+      "characters" : "∆",
+      "charactersIgnoringModifiers" : "j",
+      "keyCode" : 38,
+      "modifierFlags" : 524288
+    },
+    "focusWindowDisplayBottomHotKey" : {
+      "characters" : "∆",
+      "charactersIgnoringModifiers" : "j",
+      "keyCode" : 38,
+      "modifierFlags" : 1572864
+    },
+    "focusWindowDisplayLeftHotKey" : {
+      "characters" : "˙",
+      "charactersIgnoringModifiers" : "h",
+      "keyCode" : 4,
+      "modifierFlags" : 1572864
+    },
+    "focusWindowDisplayRightHotKey" : {
+      "characters" : "¬",
+      "charactersIgnoringModifiers" : "l",
+      "keyCode" : 37,
+      "modifierFlags" : 1572864
+    },
+    "focusWindowDisplayTopHotKey" : {
+      "characters" : "˚",
+      "charactersIgnoringModifiers" : "k",
+      "keyCode" : 40,
+      "modifierFlags" : 1572864
+    },
+    "focusWindowLeftHotKey" : {
+      "characters" : "˙",
+      "charactersIgnoringModifiers" : "h",
+      "keyCode" : 4,
+      "modifierFlags" : 524288
+    },
+    "focusWindowRightHotKey" : {
+      "characters" : "¬",
+      "charactersIgnoringModifiers" : "l",
+      "keyCode" : 37,
+      "modifierFlags" : 524288
+    },
+    "focusWindowTopHotKey" : {
+      "characters" : "˚",
+      "charactersIgnoringModifiers" : "k",
+      "keyCode" : 40,
+      "modifierFlags" : 524288
+    },
+    "hideMouseCursorHotKey" : {
+      "characters" : "\u001a",
+      "charactersIgnoringModifiers" : "Z",
+      "keyCode" : 6,
+      "modifierFlags" : 1966080
+    },
+    "HotKeyCycleWindowsHereKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "HotKeyCycleWindowsHereMaximizeKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "hotKeyCycleWindowsHotKey" : {
+      "characters" : "",
+      "charactersIgnoringModifiers" : "n",
+      "keyCode" : 45,
+      "modifierFlags" : 524288
+    },
+    "HotKeyCycleWindowsNextKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "HotKeyCycleWindowsNextMaximizeKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "HotKeyCycleWindowsPreviousKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "HotKeyCycleWindowsPreviousMaximizeKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "HotKeyCycleWindowsSelectDownKeyAssign" : {
+      "equivalent" : "j",
+      "keyCode" : 38,
+      "string" : "J"
+    },
+    "HotKeyCycleWindowsSelectLeftKeyAssign" : {
+      "equivalent" : "h",
+      "keyCode" : 4,
+      "string" : "H"
+    },
+    "HotKeyCycleWindowsSelectRightKeyAssign" : {
+      "equivalent" : "l",
+      "keyCode" : 37,
+      "string" : "L"
+    },
+    "HotKeyCycleWindowsSelectUpKeyAssign" : {
+      "equivalent" : "k",
+      "keyCode" : 40,
+      "string" : "K"
+    },
+    "HotKeyCycleWindowsShowPreviewOpacity" : 100,
+    "HotKeyCycleWindowsThumbnailSizeScale" : -3.6000000000000001,
+    "HotKeyCycleWindowsVerticalPosition" : 1,
+    "hotKeyPreviousWindowHotKey" : {
+      "characters" : "\u0002",
+      "charactersIgnoringModifiers" : "b",
+      "keyCode" : 11,
+      "modifierFlags" : 1835008
+    },
+    "moveMouseCursorHotKey" : {
+      "characters" : "\u001a",
+      "charactersIgnoringModifiers" : "Z",
+      "keyCode" : 6,
+      "modifierFlags" : 1441792
+    },
+    "MoveMouseCursorVelocity" : 0,
+    "ping" : {
+      "characters" : "\t",
+      "charactersIgnoringModifiers" : "\t",
+      "keyCode" : 48,
+      "modifierFlags" : 1048576
+    },
+    "sendWindowToBackHotKey" : {
+      "characters" : "",
+      "charactersIgnoringModifiers" : "n",
+      "keyCode" : 45,
+      "modifierFlags" : 524288
+    },
+    "StateHotKeyCycleWindowsFadeOut" : true,
+    "StateWindowListFadeOut" : true,
+    "SUEnableAutomaticChecks" : true,
+    "TagHotKeyCycleWindowsDisplayPosition" : 2,
+    "TagMouseOperationControlButtonGreenButtonRightMouseClick" : 0,
+    "TagWindowListDisplayPosition" : 2,
+    "TagWindowListSelectItem" : 4,
+    "WindowListAlt1Delay" : 0.070000000000000007,
+    "windowListAlt1HotKey" : {
+      "characters" : "",
+      "charactersIgnoringModifiers" : "n",
+      "keyCode" : 45,
+      "modifierFlags" : 524288
+    },
+    "WindowListBackKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "WindowListMoveActiveSpaceKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "WindowListMoveLeftSpaceKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "WindowListOrder" : 1,
+    "WindowListPreviewKeyAssign" : {
+      "equivalent" : "",
+      "keyCode" : -1,
+      "string" : ""
+    },
+    "WindowListSelectDownKeyAssign" : {
+      "equivalent" : "j",
+      "keyCode" : 38,
+      "string" : "J"
+    },
+    "WindowListSelectUpKeyAssign" : {
+      "equivalent" : "k",
+      "keyCode" : 40,
+      "string" : "K"
+    },
+    "windowOperationBottomHotKey" : {
+      "characters" : "Ô",
+      "charactersIgnoringModifiers" : "J",
+      "keyCode" : 38,
+      "modifierFlags" : 655360
+    },
+    "windowOperationBottomRightHotKey" : {
+      "characters" : "Ô",
+      "charactersIgnoringModifiers" : "J",
+      "keyCode" : 38,
+      "modifierFlags" : 1703936
+    },
+    "windowOperationContextMenuHotKey" : {
+      "noHotKey" : true
+    },
+    "WindowOperationCustomizeAppList" : [
+      {
+        "heightGrid" : 1,
+        "heightType" : 3,
+        "heightValue" : 91.699996948242188,
+        "horizontalGrid" : 6,
+        "ignoreMargin" : 0,
+        "modeType" : 0,
+        "path" : "Default",
+        "transformType" : 0,
+        "variableType" : true,
+        "verticalGrid" : 4,
+        "widthGrid" : 1,
+        "widthType" : 3,
+        "widthValue" : 90.900001525878906,
+        "xGrid" : 1,
+        "xType" : 5,
+        "xValue" : 0,
+        "yGrid" : 1,
+        "yType" : 5,
+        "yValue" : 0
+      },
+      {
+        "heightGrid" : 1,
+        "heightType" : 1,
+        "heightValue" : 700,
+        "horizontalGrid" : 6,
+        "ignoreMargin" : false,
+        "modeType" : 0,
+        "path" : "\/Applications\/1Piece.app\/Contents\/Preferences\/1Piece Preferences.app",
+        "transformType" : 0,
+        "variableType" : true,
+        "verticalGrid" : 4,
+        "widthGrid" : 1,
+        "widthType" : 1,
+        "widthValue" : 1200,
+        "xGrid" : 1,
+        "xType" : 5,
+        "xValue" : 0,
+        "yGrid" : 1,
+        "yType" : 5,
+        "yValue" : 0
+      }
+    ],
+    "windowOperationCustomizeHotKey" : {
+      "characters" : "Ï",
+      "charactersIgnoringModifiers" : "F",
+      "keyCode" : 3,
+      "modifierFlags" : 655360
+    },
+    "windowOperationLeftHotKey" : {
+      "characters" : "Ó",
+      "charactersIgnoringModifiers" : "H",
+      "keyCode" : 4,
+      "modifierFlags" : 655360
+    },
+    "windowOperationLeftRightHotKey" : {
+      "characters" : "√",
+      "charactersIgnoringModifiers" : "v",
+      "keyCode" : 9,
+      "modifierFlags" : 524288
+    },
+    "windowOperationMaximizeHotKey" : {
+      "characters" : "ƒ",
+      "charactersIgnoringModifiers" : "f",
+      "keyCode" : 3,
+      "modifierFlags" : 524288
+    },
+    "windowOperationMoveCenterHorizontalHotKey" : {
+      "characters" : "ç",
+      "charactersIgnoringModifiers" : "c",
+      "keyCode" : 8,
+      "modifierFlags" : 524288
+    },
+    "windowOperationMoveCenterHotKey" : {
+      "characters" : "Ç",
+      "charactersIgnoringModifiers" : "C",
+      "keyCode" : 8,
+      "modifierFlags" : 655360
+    },
+    "windowOperationMoveCenterVerticalHotKey" : {
+      "noHotKey" : true
+    },
+    "windowOperationMoveLeftHotKey" : {
+      "characters" : "\u001b",
+      "charactersIgnoringModifiers" : "{",
+      "keyCode" : 33,
+      "modifierFlags" : 1441792
+    },
+    "windowOperationMoveRightHotKey" : {
+      "characters" : "\u001d",
+      "charactersIgnoringModifiers" : "}",
+      "keyCode" : 30,
+      "modifierFlags" : 1441792
+    },
+    "windowOperationNextHotKey" : {
+      "characters" : "\u0019",
+      "charactersIgnoringModifiers" : "\u0019",
+      "keyCode" : 48,
+      "modifierFlags" : 655360
+    },
+    "windowOperationRestoreHotKey" : {
+      "characters" : "‰",
+      "charactersIgnoringModifiers" : "R",
+      "keyCode" : 15,
+      "modifierFlags" : 655360
+    },
+    "windowOperationRightHotKey" : {
+      "characters" : "Ò",
+      "charactersIgnoringModifiers" : "L",
+      "keyCode" : 37,
+      "modifierFlags" : 655360
+    },
+    "windowOperationTopBottomHotKey" : {
+      "characters" : "◊",
+      "charactersIgnoringModifiers" : "V",
+      "keyCode" : 9,
+      "modifierFlags" : 655360
+    },
+    "windowOperationTopHotKey" : {
+      "characters" : "",
+      "charactersIgnoringModifiers" : "K",
+      "keyCode" : 40,
+      "modifierFlags" : 655360
+    },
+    "windowOperationTopRightHotKey" : {
+      "characters" : "",
+      "charactersIgnoringModifiers" : "K",
+      "keyCode" : 40,
+      "modifierFlags" : 1703936
+    },
+    "WindowOperationWindowSnapBottomEdge" : 0,
+    "WindowOperationWindowSnapBottomLeftCorner" : 0,
+    "WindowOperationWindowSnapBottomRightCorner" : 0,
+    "WindowOperationWindowSnapLeftEdge" : 0,
+    "WindowOperationWindowSnapRightEdge" : 0,
+    "WindowOperationWindowSnapTopEdge" : 0,
+    "WindowOperationWindowSnapTopLeftCorner" : 0,
+    "WindowOperationWindowSnapTopRightCorner" : 0
+  },
+  "1PiecePreferences" : {
+
+  }
+}
