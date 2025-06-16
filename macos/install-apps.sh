@@ -11,6 +11,7 @@ APP_LIST=(
   "1Piece|https://app1piece.com/1Piece-4.2.1.zip"
   "BetterZip|https://macitbetter.com/BetterZip.zip"
   "Calendr|github:pakerwreah/calendr"
+  "Vimari|github:televator-apps/vimari"
 )
 
 download_and_install() {
