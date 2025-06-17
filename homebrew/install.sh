@@ -28,7 +28,7 @@ packages=(
   switchaudio-osx
   jordanbaird-ice
   the_silver_searcher
-  openjdk@17
+  openjdk
   fd
   php
   mas
