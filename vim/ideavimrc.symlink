@@ -1,7 +1,7 @@
 source ~/.dotfiles/vim/settings.vim
 
 set showmode
-set clipboard+=unnamed
+set clipboard+=ideaput
 set incsearch
 
 set ideastatusicon=gray

@@ -193,6 +193,7 @@ setopt NO_FLOW_CONTROL
 setopt NO_BG_NICE               # disable nice background tasks
 setopt EXTENDED_GLOB
 setopt GLOB_STAR_SHORT          # **/* can be abbreviated to **
+setopt GLOBDOTS                 # match files and folders starting with dot
 setopt AUTO_CD
 setopt NO_HUP
 setopt NO_BEEP
