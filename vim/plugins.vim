@@ -289,6 +289,21 @@ if exists("g:gui_vimr")
     let g:move_key_modifier_visualmode = 'C'
 endif
 
+" make current file or oil folder the working directory
+nnoremap <Leader>h :call <SID>SetWorkingDir()<CR>
+
+function! s:SetWorkingDir()
+  if expand('%:p') =~# '^oil://'
+    let l:dir = substitute(expand('%:p'), '^oil://', '', '')
+    execute 'lcd' fnameescape(l:dir)
+    echo 'Working directory: ' . l:dir
+  else
+    execute 'lcd' expand('%:p:h')
+    echo 'Working directory: ' . expand('%:p:h')
+  endif
+endfunction
+
+
 lua << EOF
 require("nvim-autopairs").setup {}
 

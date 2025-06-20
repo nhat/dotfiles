@@ -127,16 +127,6 @@ nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 
-" make current file's folder the working directory
-nmap <Leader>h :lcd %:p:h<bar>:echo 'Working directory: ' . expand('%:p:h')<CR>
-
-" reload vim config
-nnoremap <leader>sv :source $MYVIMRC<CR>
-
-" toggle word case
-nnoremap <M-u> viw~
-inoremap <M-u> <Esc>viw~ea
-
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
 inoremap <M-f> <Esc>ea
