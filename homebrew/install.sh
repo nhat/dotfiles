@@ -58,6 +58,7 @@ casks=(
   intellij-idea
   monitorcontrol
   hammerspoon
+  keepingyouawake
 )
 for cask in $casks; do
   brew install --cask --no-quarantine $cask
