@@ -57,6 +57,3 @@ done
 unset config_files
 
 test -e /Users/nnguyen2/.iterm2_shell_integration.zsh && source /Users/nnguyen2/.iterm2_shell_integration.zsh || true
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
