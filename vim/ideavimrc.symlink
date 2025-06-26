@@ -55,11 +55,6 @@ nnoremap vaQ va'
 xmap ai aI
 omap ai aI
 
-" select word under cursor
-nmap <D-d> viw
-imap <D-d> <Esc>viw
-
-
 "intelli actions
 nmap [c <Action>(VcsShowPrevChangeMarker)<Action>(PreviousDiff)
 nmap ]c <Action>(VcsShowNextChangeMarker)<Action>(NextDiff)
