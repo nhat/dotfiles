@@ -59,9 +59,6 @@ nmap U <C-r>
 nmap <silent> gt :bnext<CR>
 nmap <silent> gr :bprev<CR>
 
-" break into new lines with ctrl+enter
-nnoremap <C-CR> i<CR><Esc>
-
 nnoremap <silent> <Esc> :noh<CR>
 nnoremap <C-n> <Tab>
 nnoremap <Leader>o :e
@@ -92,9 +89,12 @@ omap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 vmap <BS> {
 vmap <CR> }
 
-" new line above with shift+enter
-inoremap <S-CR> <Esc>O
-nnoremap <S-CR> O<Esc>
+" break into new lines with shift+enter
+nnoremap <S-CR> i<CR><Esc>
+
+" new line above with shift+meta+enter
+inoremap <S-M-CR> <Esc>O
+nnoremap <S-M-CR> O<Esc>
 
 " make Y yank until end of line
 nnoremap Y y$

@@ -55,6 +55,9 @@ nnoremap vaQ va'
 xmap ai aI
 omap ai aI
 
+" break into new lines with shift+enter
+inoremap <S-CR> <CR>
+
 "intelli actions
 nmap [c <Action>(VcsShowPrevChangeMarker)<Action>(PreviousDiff)
 nmap ]c <Action>(VcsShowNextChangeMarker)<Action>(NextDiff)
