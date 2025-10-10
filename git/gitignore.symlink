@@ -45,4 +45,5 @@ iTunes/
 node_modules/
 *.class
 tmp/
+.claude/
 
