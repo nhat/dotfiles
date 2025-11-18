@@ -23,10 +23,10 @@ do
   source $file
 done
 
-# homebrew completions
+# homebrew completions (cached path for performance)
 if type brew &>/dev/null
 then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
 fi
 
 # initialize autocomplete
