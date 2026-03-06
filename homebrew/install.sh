@@ -26,7 +26,7 @@ packages=(
   getantibody/tap/antibody
   source-highlight
   switchaudio-osx
-  jordanbaird-ice
+  thaw
   the_silver_searcher
   openjdk
   fd
