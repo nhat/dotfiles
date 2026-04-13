@@ -20,7 +20,21 @@ HISTORY_SUBSTRING_SEARCH_FUZZY="true"
 zstyle ":history-search-multi-word" highlight-color "bg=11"
 zstyle ":plugin:history-search-multi-word" active "bg=237,fg=255"
 zstyle ":plugin:history-search-multi-word" check-paths "no"
-bindkey "^R" history-search-multi-word
+# Wrap HSMW to fix a zsh 5.9 bug: it deletes zle-line-pre-redraw on entry and
+# fails to restore it on exit, permanently breaking syntax highlighting and autosuggestions.
+# Widget name must end in -word so HSMW's internal *-word pattern match triggers
+# navigation correctly. Companion widgets follow the same naming convention.
+_hsmw_fix-word() {
+  zle history-search-multi-word "$@"
+  if ! zle -la zle-line-pre-redraw 2>/dev/null && (( ${+functions[azhw:zle-line-pre-redraw]} )); then
+    zle -N zle-line-pre-redraw azhw:zle-line-pre-redraw
+  fi
+}
+zle -N _hsmw_fix-word
+zle -N _hsmw_fix-word-backwards   history-search-multi-word
+zle -N _hsmw_fix-word-pbackwards  history-search-multi-word
+zle -N _hsmw_fix-word-pforwards   history-search-multi-word
+bindkey "^R" _hsmw_fix-word
 
 typeset -gA HSMW_HIGHLIGHT_STYLES
 HSMW_HIGHLIGHT_STYLES[single-hyphen-option]="none"
