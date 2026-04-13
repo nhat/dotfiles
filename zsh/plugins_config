@@ -6,6 +6,11 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 typeset -gA ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=cyan'
+# pattern highlighter — matches unquoted $VAR and ${VAR}
+# must use += syntax so the key is stored without literal quote characters
+ZSH_HIGHLIGHT_PATTERNS+=('$[a-zA-Z_][a-zA-Z0-9_]#' 'fg=cyan')
+ZSH_HIGHLIGHT_PATTERNS+=('${[^}]#}' 'fg=cyan')
 
 # zsh-history-substring-search
 zle -N history-substring-search-up
