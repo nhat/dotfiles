@@ -5,7 +5,12 @@ zstyle ':completion:*' matcher-list \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:|?=** m:{a-z\-}={A-Z\_}'
 
-eval $(gdircolors)
+# Cache gdircolors output — avoids forking a subprocess every startup
+_gdircolors_cache="$HOME/.gdircolors.zsh"
+if [[ ! -f "$_gdircolors_cache" ]]; then
+  gdircolors > "$_gdircolors_cache"
+fi
+source "$_gdircolors_cache"
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"     # use ls-colors for path completions
 zstyle ':completion:*' insert-tab pending                    # pasting with tabs doesn't perform completion
 zstyle ':completion:*' menu select

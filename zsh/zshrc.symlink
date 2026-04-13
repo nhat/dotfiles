@@ -29,9 +29,14 @@ then
   FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
 fi
 
-# initialize autocomplete
+# initialize autocomplete — rebuild dump only when missing or older than 24h
 autoload -Uz compinit
-compinit -C
+if [[ ! -f "$HOME/.zcompdump" || -n $HOME/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+  zcompile "$HOME/.zcompdump"
+else
+  compinit -C
+fi
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
@@ -42,17 +47,6 @@ done
 # load plugins
 source ~/.zsh/.zsh_plugins
 source $DOTFILES_ROOT/zsh/plugins_config
-
-# refresh cache for autocomplete
-for dump in $HOME/.zcompdump(#qN.m1); do
-  rm $HOME/.zcompdump
-  compinit
-  touch .zcompdump
-
-  if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
-      zcompile "$dump"
-  fi
-done
 
 unset config_files
 

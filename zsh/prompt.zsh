@@ -1,5 +1,5 @@
 autoload colors && colors
-source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
+# kube-ps1 is loaded via antidote in ~/.zsh/.zsh_plugins — no need to source again here
 
 if (( $+commands[git] )); then
   git="$commands[git]"
