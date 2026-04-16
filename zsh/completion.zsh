@@ -23,23 +23,13 @@ zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*' group-name ''
 
-# fasd
-fasd_cache="$HOME/.fasd-init-zsh"
-if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-    fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install >! "$fasd_cache"
+# zoxide — fast directory jumping (replaces fasd)
+_zoxide_cache="$HOME/.zoxide-init-zsh"
+if [[ ! -s "$_zoxide_cache" || "$(command -v zoxide)" -nt "$_zoxide_cache" ]]; then
+  zoxide init zsh >! "$_zoxide_cache"
 fi
-source "$fasd_cache"
-unset fasd_cache
-
-function fasd_cd() {
-  if [ $# -le 1 ]; then
-    fasd "$@"
-  else
-    local _fasd_ret="$(fasd -e 'printf %s' "$@")"
-    [ -z "$_fasd_ret" ] && return
-    [ -d "$_fasd_ret" ] && cd "$_fasd_ret" || printf %s\\n "$_fasd_ret"
-  fi
-}
+source "$_zoxide_cache"
+unset _zoxide_cache
 
 # load smart urls if available
 autoload -Uz is-at-least
