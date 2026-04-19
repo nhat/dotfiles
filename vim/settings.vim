@@ -121,19 +121,25 @@ vnoremap Q i'
 vnoremap aq a"
 vnoremap aQ a'
 
-" iTerm2 navigator: sentinel file tells the coprocess that vim is active
-if !empty($ITERM_SESSION_ID)
-  autocmd VimEnter * silent! call writefile([], '/tmp/.vim_iterm_' . $ITERM_SESSION_ID)
-  autocmd VimLeave * silent! call delete('/tmp/.vim_iterm_' . $ITERM_SESSION_ID)
+" iTerm2 navigator: sentinel file (UUID-only) for fast per-pane vim detection.
+" ITERM_SESSION_ID format is "wXtXpX:UUID" — extract just the UUID part so
+" Hammerspoon can do a direct hs.fs.attributes() stat instead of a shell glob.
+let s:iterm_uuid = matchstr($ITERM_SESSION_ID, '[^:]\+$')
+if !empty(s:iterm_uuid)
+  augroup itermNavigator
+    autocmd!
+    autocmd VimEnter * silent! call writefile([], '/tmp/.vim_iterm_' . s:iterm_uuid)
+    autocmd VimLeave * silent! call delete('/tmp/.vim_iterm_' . s:iterm_uuid)
+  augroup END
 endif
 
-" Called by the iTerm2 coprocess (via injected Ex command) when vim is detected.
-" Also used as a direct fallback mapping in non-iTerm2 terminals.
+" Navigate vim splits; at edge call Hammerspoon to switch the iTerm2 pane.
+" The & backgrounds the hs IPC call so vim isn't blocked.
 function! SwitchWindow(dir)
   let l:prev = winnr()
   execute 'wincmd ' . a:dir
   if winnr() == l:prev
-    call system('/opt/homebrew/bin/hs -c ''navigateITermPane("' . a:dir . '")''')
+    call system('/opt/homebrew/bin/hs -c ''navigateITermPane("' . a:dir . '")'' &')
   endif
 endfunction
 nnoremap <silent> <C-h> :call SwitchWindow('h')<CR>
