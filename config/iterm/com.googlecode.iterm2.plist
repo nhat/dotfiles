@@ -1688,12 +1688,60 @@
 			<key>Version</key>
 			<integer>0</integer>
 		</dict>
+		<key>0x68-0x80000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>Select Pane Left
+Select Split Pane.Select Pane Left</string>
+			<key>Version</key>
+			<integer>0</integer>
+		</dict>
+		<key>0x6a-0x80000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>Select Pane Below
+Select Split Pane.Select Pane Below</string>
+			<key>Version</key>
+			<integer>0</integer>
+		</dict>
 		<key>0x6b-0x100000</key>
 		<dict>
 			<key>Action</key>
 			<integer>13</integer>
 			<key>Text</key>
 			<string></string>
+		</dict>
+		<key>0x6b-0x80000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>Select Pane Above
+Select Split Pane.Select Pane Above</string>
+			<key>Version</key>
+			<integer>0</integer>
+		</dict>
+		<key>0x6c-0x80000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>Select Pane Right
+Select Split Pane.Select Pane Right</string>
+			<key>Version</key>
+			<integer>0</integer>
 		</dict>
 		<key>0x9-0x40000</key>
 		<dict>
@@ -3184,19 +3232,6 @@ Marks and Annotations.Next Mark or Annotation</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
-				<key>0x6a-0x80000</key>
-				<dict>
-					<key>Action</key>
-					<integer>10</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>j</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
 				<key>0x6b-0x180000</key>
 				<dict>
 					<key>Action</key>
@@ -3208,19 +3243,6 @@ Marks and Annotations.Next Mark or Annotation</string>
 					<key>Text</key>
 					<string>Previous Mark/Annotation
 Marks and Annotations.Previous Mark or Annotation</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
-				<key>0x6b-0x80000</key>
-				<dict>
-					<key>Action</key>
-					<integer>10</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>k</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>

@@ -121,11 +121,25 @@ vnoremap Q i'
 vnoremap aq a"
 vnoremap aQ a'
 
-" navigate splits
-nnoremap <C-h> <C-w><C-h>
-nnoremap <C-j> <C-w><C-j>
-nnoremap <C-k> <C-w><C-k>
-nnoremap <C-l> <C-w><C-l>
+" iTerm2 navigator: sentinel file tells the coprocess that vim is active
+if !empty($ITERM_SESSION_ID)
+  autocmd VimEnter * silent! call writefile([], '/tmp/.vim_iterm_' . $ITERM_SESSION_ID)
+  autocmd VimLeave * silent! call delete('/tmp/.vim_iterm_' . $ITERM_SESSION_ID)
+endif
+
+" Called by the iTerm2 coprocess (via injected Ex command) when vim is detected.
+" Also used as a direct fallback mapping in non-iTerm2 terminals.
+function! SwitchWindow(dir)
+  let l:prev = winnr()
+  execute 'wincmd ' . a:dir
+  if winnr() == l:prev
+    call system('/opt/homebrew/bin/hs -c ''navigateITermPane("' . a:dir . '")''')
+  endif
+endfunction
+nnoremap <silent> <C-h> :call SwitchWindow('h')<CR>
+nnoremap <silent> <C-j> :call SwitchWindow('j')<CR>
+nnoremap <silent> <C-k> :call SwitchWindow('k')<CR>
+nnoremap <silent> <C-l> :call SwitchWindow('l')<CR>
 
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
