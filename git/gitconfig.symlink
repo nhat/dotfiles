@@ -20,7 +20,7 @@
 [core]
     excludesfile = ~/.gitignore
     editor = $EDITOR
-    pager = delta --light --keep-plus-minus-markers --width=variable | less -iR
+    pager = delta-auto | less -iR
     autocrlf = input
 [apply]
     whitespace = nowarn
@@ -40,6 +40,20 @@
 	default = current
 [branch]
 	autosetupmerge = always
+[delta]
+    keep-plus-minus-markers = true
+    width = variable
+    features = dark-mode
+[delta "light-mode"]
+    light = true
+    syntax-theme = GitHub
+    minus-style = syntax "#ffd0d0"
+    plus-style = syntax "#d0ffd0"
+[delta "dark-mode"]
+    dark = true
+    syntax-theme = OneHalfDark
+    minus-style = syntax "#4a1a1a"
+    plus-style = syntax "#1a3a1a"
 [diff-so-fancy]
 	markEmptyLines = false
 	stripLeadingSymbols = false
