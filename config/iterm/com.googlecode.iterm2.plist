@@ -1447,6 +1447,8 @@
 	</dict>
 	<key>GlobalTouchBarMap</key>
 	<dict/>
+	<key>HTMLTabTitles</key>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideActivityIndicator</key>
@@ -1479,6 +1481,8 @@
 	<false/>
 	<key>Mark Alert Action</key>
 	<string>Post Notification</string>
+	<key>MinimalTabStyleOutlineStrength</key>
+	<real>0.10000000149011612</real>
 	<key>NeverWarnAboutMeta</key>
 	<true/>
 	<key>NeverWarnAboutMeta_selection</key>
@@ -3564,9 +3568,9 @@ Open Autocomplete…</string>
 	<key>SuppressRestartAnnouncement</key>
 	<true/>
 	<key>SwitchPaneModifier</key>
-	<integer>4</integer>
+	<integer>5</integer>
 	<key>SwitchTabModifier</key>
-	<integer>9</integer>
+	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
 	<integer>9</integer>
 	<key>SynchronizeQueryWithFindPasteboard</key>
@@ -3574,7 +3578,7 @@ Open Autocomplete…</string>
 	<key>TabStyle</key>
 	<integer>0</integer>
 	<key>TabStyleWithAutomaticOption</key>
-	<integer>4</integer>
+	<integer>5</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>TerminalMargin</key>
