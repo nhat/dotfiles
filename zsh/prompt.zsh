@@ -60,9 +60,15 @@ kube_ps1_autohide() {
   fi
 }
 
+zmx_session() {
+  if [[ -n $ZMX_SESSION ]]; then
+    echo "%{$fg_bold[cyan]%}[$ZMX_SESSION]%{$reset_color%} "
+  fi
+}
+
 local ret_status="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s)"
 
 set_prompt() {
-  export PROMPT=$'\n${ret_status} $(directory_name)$(git_status)$(kube_ps1_autohide)\n'
+  export PROMPT=$'\n${ret_status} $(zmx_session)$(directory_name)$(git_status)$(kube_ps1_autohide)\n'
 }
 
