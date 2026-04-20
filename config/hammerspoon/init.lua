@@ -106,15 +106,28 @@ local function _paneExistsInDir(dir)
   return false
 end
 
--- Called from vim's SwitchWindow() via `hs` IPC at vim split edges
-function navigateITermPane(dir)
-  if not _paneExistsInDir(dir) then return end  -- no cycle at edges
+-- Debounce state: rapid successive calls keep only the latest direction.
+local _navTimer   = nil
+local _navPending = nil
+
+local function _doNav(dir)
+  _navTimer = nil
+  if not _paneExistsInDir(dir) then return end
   local apps = hs.application.applicationsForBundleID("com.googlecode.iterm2")
   local app  = apps and apps[1]
   if app and _navItems[dir] then
     app:selectMenuItem({"Window", "Split Pane", "Select Split Pane", _navItems[dir]})
-    _cachedUUID = nil  -- pane changed; force re-fetch on next call
+    _cachedUUID = nil
   end
+end
+
+-- Called from the eventtap (shell) and from vim's SwitchWindow() via `hs` IPC.
+-- 50ms debounce: if another call arrives before the timer fires, the previous
+-- direction is discarded and only the latest executes.
+function navigateITermPane(dir)
+  _navPending = dir
+  if _navTimer then _navTimer:stop() end
+  _navTimer = hs.timer.doAfter(0.05, function() _doNav(_navPending) end)
 end
 
 -- Sentinel file written by vim's VimEnter autocommand, named with the bare
