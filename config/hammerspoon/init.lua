@@ -15,20 +15,14 @@ cafWatcher = hs.caffeinate.watcher.new(caffeinateWatcher)
 cafWatcher:start()
 
 -- ── iTerm2 / vim pane navigator ──────────────────────────────────────────────
--- Ctrl+h/j/k/l: navigate iTerm2 split panes from the shell; pass through to
--- vim so SwitchWindow() can navigate vim splits first (crossing to an iTerm2
--- pane at split edges). vim signals edge-crossings via a file instead of
--- spawning hs so the IPC cost drops from ~80ms to ~15ms.
 
 local _navItems   = { h="Select Pane Left", j="Select Pane Below", k="Select Pane Above", l="Select Pane Right" }
 local _ctrlNavMap = { [4]="h", [38]="j", [40]="k", [37]="l" }
 
 -- ── UUID cache ───────────────────────────────────────────────────────────────
--- osascript round-trip is ~50-100ms; cache aggressively and pre-warm during
--- the post-navigation cooldown so the next keypress never waits for it.
 local _cachedUUID = nil
 local _cacheTime  = 0
-local _UUID_TTL   = 2.0  -- seconds; proactive refresh keeps it fresh in practice
+local _UUID_TTL   = 2.0
 
 local function _refreshUUID()
   local raw = hs.execute(
@@ -45,15 +39,31 @@ local function _getUUID()
   return _cachedUUID
 end
 
--- ── Pane layout cache ────────────────────────────────────────────────────────
--- Walking the AXSplitGroup tree costs ~30-60ms (many cross-process IPC calls).
--- The frame list only changes when the user creates or removes splits — not when
--- navigating — so we keep it across navigations and only recompute when pane
--- count changes.
-local _paneFrames = nil   -- [{x,y,w,h}, …] for every AXScrollArea in the tab
--- Invalidate every 5s to pick up splits added/removed without restarting.
-hs.timer.doEvery(5, function() _paneFrames = nil end)
+-- ── Pane geometry cache ───────────────────────────────────────────────────────
+-- _paneFrames:      all AXScrollArea frames in the tab (expensive to collect)
+-- _currentPaneFrame: the focused pane's frame (tracked in-memory after warm-up)
+--
+-- Hot path after warm-up: zero IPC calls — pure Lua table comparison.
+-- Cold path (first press, or after 5s expiry): one _findCurrentPane call +
+-- one _collectFrames call, then the cache is warm for all subsequent presses.
 
+local _paneFrames      = nil
+local _currentPaneFrame = nil
+
+-- Invalidate every 5s to pick up splits added/removed.
+hs.timer.doEvery(5, function()
+  _paneFrames       = nil
+  _currentPaneFrame = nil
+end)
+
+local function _iterm2App()
+  local apps = hs.application.applicationsForBundleID("com.googlecode.iterm2")
+  return apps and apps[1]
+end
+
+-- Walk focused element up to its AXScrollArea (the real pane container).
+-- When vim is running the focused element is vim's virtual buffer with a
+-- garbage frame; the AXScrollArea ancestor has the physical screen frame.
 local function _findCurrentPane(app)
   local focused = hs.axuielement.applicationElement(app):attributeValue("AXFocusedUIElement")
   if not focused then return nil end
@@ -67,9 +77,10 @@ local function _findCurrentPane(app)
   return nil
 end
 
+-- Collect every AXScrollArea frame in the outermost AXSplitGroup.
 local function _collectFrames(paneEl)
   local el = paneEl
-  local sg  = nil
+  local sg = nil
   for _ = 1, 10 do
     el = el:attributeValue("AXParent")
     if not el then break end
@@ -91,64 +102,85 @@ local function _collectFrames(paneEl)
   return frames
 end
 
--- Returns {h,j,k,l} booleans — whether a neighbour pane exists in each dir.
-local function _paneLayout(app)
-  local paneEl = _findCurrentPane(app)
-  if not paneEl then return nil end
-  local ff = paneEl:attributeValue("AXFrame")
-  if not ff then return nil end
+local TOL = 10
 
-  if not _paneFrames then
+-- After navigating in direction dir, advance _currentPaneFrame without any
+-- IPC by looking up the adjacent frame in the already-cached _paneFrames.
+local function _advancePaneFrame(dir)
+  if not _currentPaneFrame or not _paneFrames then return end
+  local fx, fy, fw, fh = _currentPaneFrame.x, _currentPaneFrame.y,
+                          _currentPaneFrame.w, _currentPaneFrame.h
+  for _, f in ipairs(_paneFrames) do
+    local sx, sy, sw, sh = f.x, f.y, f.w, f.h
+    if math.abs(sx-fx) > 1 or math.abs(sy-fy) > 1 then
+      if dir=="h" and math.abs((sx+sw)-fx)<TOL and sy<fy+fh and sy+sh>fy then _currentPaneFrame=f; return end
+      if dir=="l" and math.abs(sx-(fx+fw))<TOL and sy<fy+fh and sy+sh>fy then _currentPaneFrame=f; return end
+      if dir=="k" and math.abs((sy+sh)-fy)<TOL and sx<fx+fw and sx+sw>fx then _currentPaneFrame=f; return end
+      if dir=="j" and math.abs(sy-(fy+fh))<TOL and sx<fx+fw and sx+sw>fx then _currentPaneFrame=f; return end
+    end
+  end
+  _currentPaneFrame = nil   -- advance failed; force AX re-query next time
+end
+
+-- Returns {h,j,k,l} booleans. Hot path: pure in-memory after warm-up.
+local function _paneLayout(app)
+  local ff = _currentPaneFrame
+  if not ff then
+    -- Cold: hit the accessibility API once to find the current pane.
+    local paneEl = _findCurrentPane(app)
+    if not paneEl then return nil end
+    local frame = paneEl:attributeValue("AXFrame")
+    if not frame then return nil end
+    ff = {x=frame.x, y=frame.y, w=frame.w, h=frame.h}
+    _currentPaneFrame = ff
+    if not _paneFrames then
+      _paneFrames = _collectFrames(paneEl)
+    end
+  elseif not _paneFrames then
+    local paneEl = _findCurrentPane(app)
+    if not paneEl then return nil end
     _paneFrames = _collectFrames(paneEl)
   end
   if not _paneFrames then return nil end
 
-  local L = {h=false, j=false, k=false, l=false}
-  local tol = 10
+  local L  = {h=false, j=false, k=false, l=false}
   local fx, fy, fw, fh = ff.x, ff.y, ff.w, ff.h
   for _, f in ipairs(_paneFrames) do
     local sx, sy, sw, sh = f.x, f.y, f.w, f.h
     if math.abs(sx-fx) > 1 or math.abs(sy-fy) > 1 then
-      if math.abs((sx+sw)-fx) < tol and sy < fy+fh and sy+sh > fy then L.h = true end
-      if math.abs(sx-(fx+fw)) < tol and sy < fy+fh and sy+sh > fy then L.l = true end
-      if math.abs((sy+sh)-fy) < tol and sx < fx+fw and sx+sw > fx then L.k = true end
-      if math.abs(sy-(fy+fh)) < tol and sx < fx+fw and sx+sw > fx then L.j = true end
+      if math.abs((sx+sw)-fx)<TOL and sy<fy+fh and sy+sh>fy then L.h=true end
+      if math.abs(sx-(fx+fw))<TOL and sy<fy+fh and sy+sh>fy then L.l=true end
+      if math.abs((sy+sh)-fy)<TOL and sx<fx+fw and sx+sw>fx then L.k=true end
+      if math.abs(sy-(fy+fh))<TOL and sx<fx+fw and sx+sw>fx then L.j=true end
     end
   end
   return L
 end
 
--- ── Cooldown ─────────────────────────────────────────────────────────────────
--- Replaces the old 50ms debounce. First press executes immediately (zero
--- latency); further presses within _COOLDOWN seconds are discarded, which
--- prevents stale queued commands after rapid key-repeat bursts.
-local _navCooldown = false
-local _COOLDOWN    = 0.15  -- 150ms
+-- ── Per-direction cooldown ────────────────────────────────────────────────────
+-- Each direction has an independent 150ms cooldown so pressing k then l in
+-- quick succession works (different cooldowns), while rapid same-direction
+-- key-repeat events are discarded (same cooldown).
+local _cooldown = {h=false, j=false, k=false, l=false}
+local _COOLDOWN = 0.15
 
--- Called from the eventtap (shell) and from the pathwatcher (vim edge cross).
 function navigateITermPane(dir)
-  if _navCooldown then return end
-  local apps = hs.application.applicationsForBundleID("com.googlecode.iterm2")
-  local app  = apps and apps[1]
+  if _cooldown[dir] then return end
+  local app = _iterm2App()
   if not app then return end
   local layout = _paneLayout(app)
   if not layout or not layout[dir] then return end
   app:selectMenuItem({"Window", "Split Pane", "Select Split Pane", _navItems[dir]})
-  -- Invalidate caches (pane changed)
-  _cachedUUID = nil
-  -- Keep _paneFrames — the layout of panes is unchanged; only focus moved.
-  -- Start cooldown and pre-warm UUID mid-way so the next keypress is instant.
-  _navCooldown = true
-  hs.timer.doAfter(0.07, _refreshUUID)
-  hs.timer.doAfter(_COOLDOWN, function() _navCooldown = false end)
+  _advancePaneFrame(dir)          -- update current pane frame in-memory
+  _cachedUUID = nil               -- force UUID re-fetch (session changed)
+  _cooldown[dir] = true
+  hs.timer.doAfter(0.07, _refreshUUID)                            -- pre-warm UUID
+  hs.timer.doAfter(_COOLDOWN, function() _cooldown[dir] = false end)
 end
 
 -- ── vim → navigator IPC via pathwatcher ──────────────────────────────────────
--- vim's SwitchWindow() writes the direction to a file instead of spawning
--- `hs -c ...`. A writefile() call costs ~1ms; FSEvents delivers in ~10-30ms.
--- Total vim→iTerm2 IPC: ~15ms vs ~80ms for the old shell-spawn approach.
 local _NAV_FILE = "/tmp/.hs_nav_request"
-io.open(_NAV_FILE, "w"):close()   -- must exist before pathwatcher starts
+io.open(_NAV_FILE, "w"):close()
 
 _navWatcher = hs.pathwatcher.new(_NAV_FILE, function()
   local fa = hs.application.frontmostApplication()
@@ -162,7 +194,6 @@ end)
 _navWatcher:start()
 
 -- ── Sentinel / vim detection ─────────────────────────────────────────────────
--- vim's VimEnter writes /tmp/.vim_iterm_<UUID>; VimLeave deletes it.
 local function vimInCurrentPane()
   local id = _getUUID()
   if not id or id == "" then return false end
@@ -170,10 +201,10 @@ local function vimInCurrentPane()
   return os.execute("ls /tmp/.vim_iterm_*" .. id .. " > /dev/null 2>&1") == true
 end
 
--- Warm UUID cache when iTerm2 gains focus (switching from another app)
 local _appWatcher = hs.application.watcher.new(function(name, event, _)
   if event == hs.application.watcher.activated and name == "iTerm2" then
     _refreshUUID()
+    _currentPaneFrame = nil   -- pane focus may have changed while away
   end
 end)
 _appWatcher:start()
@@ -186,8 +217,8 @@ ctrlNavTap = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(event)
   if not dir then return false end
   local fa = hs.application.frontmostApplication()
   if not fa or fa:bundleID() ~= "com.googlecode.iterm2" then return false end
-  if vimInCurrentPane() then return false end  -- vim handles it; edge cross via _NAV_FILE
-  if _navCooldown then return true end          -- consume, discard during cooldown
+  if vimInCurrentPane() then return false end
+  if _cooldown[dir] then return true end      -- consume; per-direction cooldown
   navigateITermPane(dir)
   return true
 end)
