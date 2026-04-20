@@ -139,7 +139,9 @@ function! SwitchWindow(dir)
   let l:prev = winnr()
   execute 'wincmd ' . a:dir
   if winnr() == l:prev
-    call system('/opt/homebrew/bin/hs -c ''navigateITermPane("' . a:dir . '")'' &')
+    " Write direction to file; Hammerspoon pathwatcher picks it up in ~15ms.
+    " Much faster than spawning shell+hs+IPC (~80ms).
+    silent! call writefile([a:dir], '/tmp/.hs_nav_request')
   endif
 endfunction
 " Set in VimEnter so these load after plugins (vim-move claims <C-j/k>).
