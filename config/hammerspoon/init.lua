@@ -99,12 +99,24 @@ local TOL = 10
 
 -- Returns {h,j,k,l} booleans.
 -- _findCurrentPane (~5-10ms) is called every press — always correct.
--- _collectFrames (~20-40ms) is cached for 5s — only runs after splits change.
+-- _collectFrames (~20-40ms) is cached for 5s — only runs when needed.
 local function _paneLayout(app)
   local paneEl = _findCurrentPane(app)
   if not paneEl then return nil end
   local ff = paneEl:attributeValue("AXFrame")
   if not ff then return nil end
+
+  -- Validate cache: if the current pane's frame isn't in _paneFrames, the
+  -- layout changed (new split, resize, new tab/window) — recompute.
+  if _paneFrames then
+    local found = false
+    for _, f in ipairs(_paneFrames) do
+      if math.abs(f.x - ff.x) <= 2 and math.abs(f.y - ff.y) <= 2 then
+        found = true; break
+      end
+    end
+    if not found then _paneFrames = nil end
+  end
   if not _paneFrames then
     _paneFrames = _collectFrames(paneEl)
   end
@@ -170,6 +182,7 @@ end
 local _appWatcher = hs.application.watcher.new(function(name, event, _)
   if event == hs.application.watcher.activated and name == "iTerm2" then
     _refreshUUID()
+    _paneFrames = nil   -- layout may have changed while in another app
   end
 end)
 _appWatcher:start()
