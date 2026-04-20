@@ -121,37 +121,6 @@ vnoremap Q i'
 vnoremap aq a"
 vnoremap aQ a'
 
-" iTerm2 navigator: sentinel file (UUID-only) for fast per-pane vim detection.
-" ITERM_SESSION_ID format is "wXtXpX:UUID" — extract just the UUID part so
-" Hammerspoon can do a direct hs.fs.attributes() stat instead of a shell glob.
-let s:iterm_uuid = matchstr($ITERM_SESSION_ID, '[^:]\+$')
-if !empty(s:iterm_uuid)
-  augroup itermNavigator
-    autocmd!
-    autocmd VimEnter * silent! call writefile([], '/tmp/.vim_iterm_' . s:iterm_uuid)
-    autocmd VimLeave * silent! call delete('/tmp/.vim_iterm_' . s:iterm_uuid)
-  augroup END
-endif
-
-" Navigate vim splits; at edge call Hammerspoon to switch the iTerm2 pane.
-" The & backgrounds the hs IPC call so vim isn't blocked.
-function! SwitchWindow(dir)
-  let l:prev = winnr()
-  execute 'wincmd ' . a:dir
-  if winnr() == l:prev
-    " Write direction to file; Hammerspoon pathwatcher picks it up in ~15ms.
-    " Much faster than spawning shell+hs+IPC (~80ms).
-    silent! call writefile([a:dir], '/tmp/.hs_nav_request')
-  endif
-endfunction
-" Set in VimEnter so these load after plugins (vim-move claims <C-j/k>).
-augroup switchWindow
-  autocmd!
-  autocmd VimEnter * nnoremap <silent> <C-h> :call SwitchWindow('h')<CR>
-  autocmd VimEnter * nnoremap <silent> <C-j> :call SwitchWindow('j')<CR>
-  autocmd VimEnter * nnoremap <silent> <C-k> :call SwitchWindow('k')<CR>
-  autocmd VimEnter * nnoremap <silent> <C-l> :call SwitchWindow('l')<CR>
-augroup END
 
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
