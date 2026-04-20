@@ -111,7 +111,7 @@ local function _paneLayout(app)
   if _paneFrames then
     local found = false
     for _, f in ipairs(_paneFrames) do
-      if math.abs(f.x - ff.x) <= 2 and math.abs(f.y - ff.y) <= 2 then
+      if math.abs(f.x-ff.x)<=2 and math.abs(f.y-ff.y)<=2 and math.abs(f.w-ff.w)<=2 and math.abs(f.h-ff.h)<=2 then
         found = true; break
       end
     end
