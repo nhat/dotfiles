@@ -14,8 +14,8 @@ endif
 
 " Navigate vim splits; at edge write to file so Hammerspoon switches the iTerm2
 " pane via pathwatcher (~15ms vs ~80ms for spawning shell+hs+IPC).
-" SwitchWindow must be global — switch.py calls it by name via escape sequence.
-function! SwitchWindow(dir)
+" No-op at edges if Hammerspoon is not running — vim split navigation still works.
+function! s:SwitchWindow(dir)
   let l:prev = winnr()
   execute 'wincmd ' . a:dir
   if winnr() == l:prev
@@ -26,10 +26,10 @@ endfunction
 " Bound in VimEnter so these load after plugins (vim-move claims <C-j/k>).
 augroup itermNavigatorKeys
   autocmd!
-  autocmd VimEnter * nnoremap <silent> <C-h> :call SwitchWindow('h')<CR>
-  autocmd VimEnter * nnoremap <silent> <C-j> :call SwitchWindow('j')<CR>
-  autocmd VimEnter * nnoremap <silent> <C-k> :call SwitchWindow('k')<CR>
-  autocmd VimEnter * nnoremap <silent> <C-l> :call SwitchWindow('l')<CR>
+  autocmd VimEnter * nnoremap <silent> <C-h> :call <SID>SwitchWindow('h')<CR>
+  autocmd VimEnter * nnoremap <silent> <C-j> :call <SID>SwitchWindow('j')<CR>
+  autocmd VimEnter * nnoremap <silent> <C-k> :call <SID>SwitchWindow('k')<CR>
+  autocmd VimEnter * nnoremap <silent> <C-l> :call <SID>SwitchWindow('l')<CR>
 augroup END
 
 let &cpo = s:save_cpo | unlet s:save_cpo
