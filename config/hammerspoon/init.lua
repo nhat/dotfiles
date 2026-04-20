@@ -47,8 +47,49 @@ local function _getUUID()
   return _cachedUUID
 end
 
+-- Returns true if an adjacent pane exists in dir from the current session.
+-- Uses frame geometry (Cocoa Y-up: origin = bottom-left):
+--   h left:  neighbor's right (sx+sw) ≈ current left (cx)
+--   l right: neighbor's left  (sx)    ≈ current right (cx+cw)
+--   k above: neighbor's bottom (sy)   ≈ current top   (cy+ch)
+--   j below: neighbor's top (sy+sh)   ≈ current bottom (cy)
+local function _paneExistsInDir(dir)
+  local as = ([[
+tell application "iTerm2"
+  try
+    tell current tab of current window
+      set curId to unique id of current session
+      set curF to frame of current session
+      set cx to item 1 of origin of curF
+      set cy to item 2 of origin of curF
+      set cw to item 1 of size of curF
+      set ch to item 2 of size of curF
+      repeat with s in sessions
+        if unique id of s is not curId then
+          set sf to frame of s
+          set sx to item 1 of origin of sf
+          set sy to item 2 of origin of sf
+          set sw to item 1 of size of sf
+          set sh to item 2 of size of sf
+          if "DIR" is "h" and (sx+sw-cx)>=-10 and (sx+sw-cx)<=10 then return "true"
+          if "DIR" is "l" and (sx-cx-cw)>=-10 and (sx-cx-cw)<=10 then return "true"
+          if "DIR" is "k" and (sy-cy-ch)>=-10 and (sy-cy-ch)<=10 then return "true"
+          if "DIR" is "j" and (sy+sh-cy)>=-10 and (sy+sh-cy)<=10 then return "true"
+        end if
+      end repeat
+      return "false"
+    end tell
+  on error
+    return "false"
+  end try
+end tell]]):gsub("DIR", dir)
+  local result = hs.execute("osascript <<'__EOF__'\n" .. as .. "\n__EOF__\n 2>/dev/null")
+  return result:gsub("%s+", "") == "true"
+end
+
 -- Called from vim's SwitchWindow() via `hs` IPC at vim split edges
 function navigateITermPane(dir)
+  if not _paneExistsInDir(dir) then return end  -- no cycle at edges
   local apps = hs.application.applicationsForBundleID("com.googlecode.iterm2")
   local app  = apps and apps[1]
   if app and _navItems[dir] then
