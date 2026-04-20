@@ -285,9 +285,9 @@ if exists("g:gui_vimr")
     " rollback chunk
     nmap <M-D-z> <Leader>hu
 
-    " vim move, move line up/down with ctrl+j/k
-    let g:move_key_modifier = 'C'
-    let g:move_key_modifier_visualmode = 'C'
+    " vim move, move line up/down with shift+ctrl+j/k
+    let g:move_key_modifier = 'C-S'
+    let g:move_key_modifier_visualmode = 'C-S'
 endif
 
 " make current file or oil folder the working directory

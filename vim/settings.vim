@@ -142,10 +142,14 @@ function! SwitchWindow(dir)
     call system('/opt/homebrew/bin/hs -c ''navigateITermPane("' . a:dir . '")'' &')
   endif
 endfunction
-nnoremap <silent> <C-h> :call SwitchWindow('h')<CR>
-nnoremap <silent> <C-j> :call SwitchWindow('j')<CR>
-nnoremap <silent> <C-k> :call SwitchWindow('k')<CR>
-nnoremap <silent> <C-l> :call SwitchWindow('l')<CR>
+" Set in VimEnter so these load after plugins (vim-move claims <C-j/k>).
+augroup switchWindow
+  autocmd!
+  autocmd VimEnter * nnoremap <silent> <C-h> :call SwitchWindow('h')<CR>
+  autocmd VimEnter * nnoremap <silent> <C-j> :call SwitchWindow('j')<CR>
+  autocmd VimEnter * nnoremap <silent> <C-k> :call SwitchWindow('k')<CR>
+  autocmd VimEnter * nnoremap <silent> <C-l> :call SwitchWindow('l')<CR>
+augroup END
 
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
