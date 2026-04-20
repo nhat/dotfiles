@@ -7,7 +7,6 @@ BASE_PATH="$HOME/.config/hammerspoon"
 echo "Installing Hammerspoon configuration..."
 mkdir -p "$BASE_PATH"
 ln -sf "$DOTFILES_ROOT/config/hammerspoon/init.lua" "$BASE_PATH/init.lua"
-ln -sf "$DOTFILES_ROOT/config/hammerspoon/Spoons/ITermPaneNavigator.spoon" "$BASE_PATH/Spoons/ITermPaneNavigator.spoon"
 
 # Make Hammerspoon use the config file in ~/.config/hammerspoon
 echo "Setting Hammerspoon config file path to $BASE_PATH/"
@@ -23,6 +22,7 @@ spoons=(
   "Marginator.spoon"
   "MoveWindow.spoon"
   "MoveSpace.spoon"
+  "ITermPaneNavigator.spoon"
 )
 
 for spoon in "${spoons[@]}"; do
