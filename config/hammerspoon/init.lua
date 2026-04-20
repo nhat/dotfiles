@@ -40,21 +40,14 @@ local function _getUUID()
 end
 
 -- ── Pane geometry cache ───────────────────────────────────────────────────────
--- _paneFrames:      all AXScrollArea frames in the tab (expensive to collect)
--- _currentPaneFrame: the focused pane's frame (tracked in-memory after warm-up)
---
--- Hot path after warm-up: zero IPC calls — pure Lua table comparison.
--- Cold path (first press, or after 5s expiry): one _findCurrentPane call +
--- one _collectFrames call, then the cache is warm for all subsequent presses.
+-- _paneFrames caches all AXScrollArea frames for the tab (the expensive part).
+-- The current pane's frame is always fetched live via _findCurrentPane so the
+-- layout check is never based on stale position data.
 
-local _paneFrames      = nil
-local _currentPaneFrame = nil
+local _paneFrames = nil
 
 -- Invalidate every 5s to pick up splits added/removed.
-hs.timer.doEvery(5, function()
-  _paneFrames       = nil
-  _currentPaneFrame = nil
-end)
+hs.timer.doEvery(5, function() _paneFrames = nil end)
 
 local function _iterm2App()
   local apps = hs.application.applicationsForBundleID("com.googlecode.iterm2")
@@ -104,41 +97,15 @@ end
 
 local TOL = 10
 
--- After navigating in direction dir, advance _currentPaneFrame without any
--- IPC by looking up the adjacent frame in the already-cached _paneFrames.
-local function _advancePaneFrame(dir)
-  if not _currentPaneFrame or not _paneFrames then return end
-  local fx, fy, fw, fh = _currentPaneFrame.x, _currentPaneFrame.y,
-                          _currentPaneFrame.w, _currentPaneFrame.h
-  for _, f in ipairs(_paneFrames) do
-    local sx, sy, sw, sh = f.x, f.y, f.w, f.h
-    if math.abs(sx-fx) > 1 or math.abs(sy-fy) > 1 then
-      if dir=="h" and math.abs((sx+sw)-fx)<TOL and sy<fy+fh and sy+sh>fy then _currentPaneFrame=f; return end
-      if dir=="l" and math.abs(sx-(fx+fw))<TOL and sy<fy+fh and sy+sh>fy then _currentPaneFrame=f; return end
-      if dir=="k" and math.abs((sy+sh)-fy)<TOL and sx<fx+fw and sx+sw>fx then _currentPaneFrame=f; return end
-      if dir=="j" and math.abs(sy-(fy+fh))<TOL and sx<fx+fw and sx+sw>fx then _currentPaneFrame=f; return end
-    end
-  end
-  _currentPaneFrame = nil   -- advance failed; force AX re-query next time
-end
-
--- Returns {h,j,k,l} booleans. Hot path: pure in-memory after warm-up.
+-- Returns {h,j,k,l} booleans.
+-- _findCurrentPane (~5-10ms) is called every press — always correct.
+-- _collectFrames (~20-40ms) is cached for 5s — only runs after splits change.
 local function _paneLayout(app)
-  local ff = _currentPaneFrame
-  if not ff then
-    -- Cold: hit the accessibility API once to find the current pane.
-    local paneEl = _findCurrentPane(app)
-    if not paneEl then return nil end
-    local frame = paneEl:attributeValue("AXFrame")
-    if not frame then return nil end
-    ff = {x=frame.x, y=frame.y, w=frame.w, h=frame.h}
-    _currentPaneFrame = ff
-    if not _paneFrames then
-      _paneFrames = _collectFrames(paneEl)
-    end
-  elseif not _paneFrames then
-    local paneEl = _findCurrentPane(app)
-    if not paneEl then return nil end
+  local paneEl = _findCurrentPane(app)
+  if not paneEl then return nil end
+  local ff = paneEl:attributeValue("AXFrame")
+  if not ff then return nil end
+  if not _paneFrames then
     _paneFrames = _collectFrames(paneEl)
   end
   if not _paneFrames then return nil end
@@ -171,7 +138,6 @@ function navigateITermPane(dir)
   local layout = _paneLayout(app)
   if not layout or not layout[dir] then return end
   app:selectMenuItem({"Window", "Split Pane", "Select Split Pane", _navItems[dir]})
-  _advancePaneFrame(dir)          -- update current pane frame in-memory
   _cachedUUID = nil               -- force UUID re-fetch (session changed)
   _cooldown[dir] = true
   hs.timer.doAfter(0.07, _refreshUUID)                            -- pre-warm UUID
@@ -204,7 +170,6 @@ end
 local _appWatcher = hs.application.watcher.new(function(name, event, _)
   if event == hs.application.watcher.activated and name == "iTerm2" then
     _refreshUUID()
-    _currentPaneFrame = nil   -- pane focus may have changed while away
   end
 end)
 _appWatcher:start()
