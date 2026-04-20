@@ -59,22 +59,34 @@ local function _paneExistsInDir(dir)
   local app  = apps and apps[1]
   if not app then return false end
 
-  local appEl  = hs.axuielement.applicationElement(app)
+  local appEl   = hs.axuielement.applicationElement(app)
   local focused = appEl:attributeValue("AXFocusedUIElement")
   if not focused then return false end
 
-  local ff = focused:attributeValue("AXFrame")
+  -- Walk up from the focused element to the AXScrollArea (the pane container).
+  -- When vim is running, the focused element is vim's virtual text buffer whose
+  -- AXFrame is the scrollable coordinate space (e.g. y=-279919, h=280841) —
+  -- not the physical screen position. The AXScrollArea ancestor has the real frame.
+  local paneEl = focused
+  for _ = 1, 10 do
+    if paneEl:attributeValue("AXRole") == "AXScrollArea" then break end
+    local parent = paneEl:attributeValue("AXParent")
+    if not parent then break end
+    paneEl = parent
+  end
+
+  local ff = paneEl:attributeValue("AXFrame")
   if not ff then return false end
 
-  -- Walk up to the outermost AXSplitGroup (the tab's pane container)
-  local el = focused
+  -- Walk up from the pane to the outermost AXSplitGroup (the tab's pane container)
+  local el = paneEl
   local splitGroup = nil
   for _ = 1, 10 do
     el = el:attributeValue("AXParent")
     if not el then break end
     local role = el:attributeValue("AXRole")
     if role == "AXSplitGroup" then splitGroup = el end
-    if role == "AXGroup"      then break end   -- reached the tab container
+    if role == "AXGroup"      then break end
   end
   if not splitGroup then return false end
 
