@@ -59,37 +59,32 @@ end
 
 -- Sentinel file written by vim's VimEnter autocommand, named with the bare
 -- session UUID. hs.fs.attributes is a direct stat — no shell spawn.
+-- Also accepts old-format files (wXtXpX:UUID) for sessions not yet restarted.
 local function vimInCurrentPane()
   local id = _getUUID()
   if not id or id == "" then return false end
-  return hs.fs.attributes("/tmp/.vim_iterm_" .. id) ~= nil
+  if hs.fs.attributes("/tmp/.vim_iterm_" .. id) then return true end
+  -- backward compat: old sentinel format used full ITERM_SESSION_ID as filename
+  return os.execute("ls /tmp/.vim_iterm_*" .. id .. " > /dev/null 2>&1") == true
 end
 
--- Track frontmost bundle ID so the eventtap never calls frontmostApplication()
--- on the hot path (called on every single keydown system-wide).
-local _frontmost = ""
-do
-  local fa = hs.application.frontmostApplication()
-  if fa then _frontmost = fa:bundleID() or "" end
-end
-
-local _appWatcher = hs.application.watcher.new(function(name, event, app)
-  if event == hs.application.watcher.activated then
-    _frontmost = app:bundleID() or ""
-    if name == "iTerm2" then _refreshUUID() end  -- warm cache on app focus switch
+-- Warm UUID cache when iTerm2 gains focus
+local _appWatcher = hs.application.watcher.new(function(name, event, _app)
+  if event == hs.application.watcher.activated and name == "iTerm2" then
+    _refreshUUID()
   end
 end)
 _appWatcher:start()
-
--- Remove any old-format sentinel files left from a previous config version
-os.execute("rm -f /tmp/.vim_iterm_w*t*p* 2>/dev/null")
 
 ctrlNavTap = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(event)
   local flags = event:getFlags()
   if not flags.ctrl or flags.alt or flags.cmd or flags.shift then return false end
   local dir = _ctrlNavMap[event:getKeyCode()]
   if not dir then return false end
-  if _frontmost ~= "com.googlecode.iterm2" then return false end
+  -- Direct call — frontmostApplication() is a fast native call (~1ms),
+  -- caching it caused stale state after Hammerspoon reloads.
+  local fa = hs.application.frontmostApplication()
+  if not fa or fa:bundleID() ~= "com.googlecode.iterm2" then return false end
   if vimInCurrentPane() then return false end
   navigateITermPane(dir)
   return true
