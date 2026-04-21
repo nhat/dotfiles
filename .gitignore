@@ -8,3 +8,6 @@
 
 # zsh compiled bytecode (version-specific, generated locally)
 **/*.zwc
+
+# AddToRecent compiled binary (built locally from AddToRecent.swift)
+macos/AddToRecent

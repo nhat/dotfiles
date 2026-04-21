@@ -263,11 +263,10 @@ function! AddToRecentIfNeeded(filepath) abort
     endif
   endfor
 
-  " Construct the full app path
-  let l:app_path = expand('$HOME') . '/.dotfiles/macos/AddToRecent.app'
-
-  " Call the system command
-  call system('open -a ' . shellescape(l:app_path) . ' ' . shellescape(a:filepath))
+  let l:bin_path = expand('$HOME') . '/.dotfiles/macos/AddToRecent'
+  if executable(l:bin_path)
+    call jobstart([l:bin_path, a:filepath])
+  endif
 endfunction
 
 autocmd BufReadPost * call AddToRecentIfNeeded(expand('%:p'))

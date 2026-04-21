@@ -48,6 +48,14 @@ fi
 echo "Installing SF Mono font..."
 cp -R /System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/ /Library/Fonts/
 
+# Build AddToRecent Swift tool
+echo "Building AddToRecent..."
+if swiftc "$DOTFILES_ROOT/macos/AddToRecent.swift" -o "$DOTFILES_ROOT/macos/AddToRecent" 2>/dev/null; then
+  echo "  AddToRecent built successfully"
+else
+  echo "  Failed to build AddToRecent" >&2
+fi
+
 # Allow apps downloaded from anywhere
 echo "Allowing apps downloaded from anywhere..."
 sudo spctl --master-disable
