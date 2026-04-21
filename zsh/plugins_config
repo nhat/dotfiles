@@ -21,11 +21,11 @@ bindkey '^[OA' history-substring-search-up
 zle -N history-substring-search-down
 bindkey '^[OB' history-substring-search-down
 
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=11"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=11,fg=black"
 HISTORY_SUBSTRING_SEARCH_FUZZY="true"
 
 # history search multi word
-zstyle ":history-search-multi-word" highlight-color "bg=11"
+zstyle ":history-search-multi-word" highlight-color "bg=11,fg=black"
 zstyle ":plugin:history-search-multi-word" active "bg=237,fg=255"
 zstyle ":plugin:history-search-multi-word" check-paths "no"
 # Wrap HSMW to fix a zsh 5.9 bug: it deletes zle-line-pre-redraw on entry and
