@@ -92,7 +92,6 @@ function! s:UpdateSeparatorColor() abort
     else
         highlight WinSeparator guifg=#D5D4D4 guibg=#FAFAFA
     endif
-    highlight BufTabLineCurrent guifg=NONE guibg=NONE gui=NONE cterm=NONE
     highlight Normal guibg=NONE
     if exists('*lightline#colorscheme')
         runtime! autoload/lightline/colorscheme/one.vim
