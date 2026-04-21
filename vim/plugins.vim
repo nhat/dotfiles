@@ -85,6 +85,22 @@ highlight PmenuSel guibg=#4078f2 guifg=white
 highlight NormalFloat guibg=none
 highlight FloatBorder guifg=#A0A0A8
 
+" match iTerm2 pane divider color
+function! s:UpdateSeparatorColor() abort
+    if &background ==# 'dark'
+        highlight WinSeparator guifg=#474C53 guibg=#282C34
+    else
+        highlight WinSeparator guifg=#D5D4D4 guibg=#FAFAFA
+    endif
+endfunction
+augroup SeparatorColor
+    autocmd!
+    autocmd User LumenDark  call s:UpdateSeparatorColor()
+    autocmd User LumenLight call s:UpdateSeparatorColor()
+    autocmd ColorScheme *   call s:UpdateSeparatorColor()
+    autocmd VimEnter *      call s:UpdateSeparatorColor()
+augroup END
+
 " colorscheme for terminal
 let g:terminal_color_0 = '#3c3c3c'
 let g:terminal_color_1 = '#e45649'
