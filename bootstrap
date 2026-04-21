@@ -2,7 +2,7 @@
 #
 # initial setup
 
-export DOTFILES_ROOT=$(pwd)
+export DOTFILES_ROOT="${0:A:h}"
 
 set -e
 

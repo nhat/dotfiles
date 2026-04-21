@@ -23,7 +23,7 @@ packages=(
   git-delta
   fzf
   neovim
-  getantibody/tap/antibody
+  antidote
   source-highlight
   switchaudio-osx
   thaw
