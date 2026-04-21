@@ -1859,6 +1859,10 @@
 			<true/>
 			<key>Ambiguous Double Width</key>
 			<false/>
+			<key>Animate Movement</key>
+			<false/>
+			<key>Animate Movement Only in Interactive Apps</key>
+			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Alpha Component</key>
