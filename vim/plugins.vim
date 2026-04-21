@@ -92,6 +92,11 @@ function! s:UpdateSeparatorColor() abort
     else
         highlight WinSeparator guifg=#D5D4D4 guibg=#FAFAFA
     endif
+    if exists('*lightline#colorscheme')
+        runtime! autoload/lightline/colorscheme/one.vim
+        silent! call lightline#colorscheme()
+        silent! call lightline#update()
+    endif
 endfunction
 augroup SeparatorColor
     autocmd!
