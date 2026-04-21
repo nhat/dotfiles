@@ -333,7 +333,9 @@ require("nvim-autopairs").setup {}
 require("oil").setup({
   delete_to_trash = true,
   keymaps = {
-    ["<C-p>"] = false
+    ["<C-p>"] = false,
+    ["<C-h>"] = false,
+    ["<C-l>"] = false,
   }
 })
 
