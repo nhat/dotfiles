@@ -6,35 +6,30 @@ else
   git="/usr/bin/git"
 fi
 
-# Cached prompt fragments — populated once per command in precmd hooks,
-# then read cheaply via ${variable} in PROMPT with zero subprocess cost.
-_git_prompt_info=""
-_kube_prompt_info=""
-_zmx_prompt_info=""
+# Cached prompt fragments. _git_prompt_info is updated asynchronously via
+# zle -F so the prompt appears instantly and git info fills in behind it.
+typeset -g _git_prompt_info=""
+typeset -g _git_prompt_fd=0
+typeset -g _kube_prompt_info=""
+typeset -g _zmx_prompt_info=""
 
-_update_git_prompt() {
-  # Fast bail when not in a git repo
-  $git rev-parse --git-dir &>/dev/null || { _git_prompt_info=""; return }
+# Runs in a subshell (process substitution). Prints one line to stdout.
+_compute_git_info() {
+  $git rev-parse --git-dir &>/dev/null || return
 
-  # One call covers branch name, dirty status, and ahead/behind —
-  # replaces the old git status + git rev-parse + git cherry trio.
   local status_output
-  status_output=$($git status -sb 2>/dev/null) || { _git_prompt_info=""; return }
+  status_output=$($git status -sb 2>/dev/null) || return
 
-  # First line: "## branch" or "## branch...upstream [ahead N, behind M]"
   local first_line="${status_output%%$'\n'*}"
   local branch="${first_line#\#\# }"
 
-  # Detect unpushed commits from "[ahead N]" — no extra git call needed
   local suffix=""
   if [[ $branch == *"[ahead"* ]]; then
     suffix=" with %{$fg_bold[magenta]%}unpushed%{$reset_color%}"
   fi
 
-  # Strip "...upstream [ahead N]" — keep only the branch name
   branch="${branch%%...*}"
 
-  # Rebase in progress: git reports "HEAD (no branch)"
   if [[ $branch == "HEAD (no branch)"* ]]; then
     local rebase_branch
     rebase_branch=$($git branch 2>/dev/null | grep ' rebasing')
@@ -44,24 +39,54 @@ _update_git_prompt() {
     fi
   fi
 
-  # WIP check — --pretty=%s avoids reading the full commit blob
   if $git log -n 1 --pretty=%s 2>/dev/null | grep -q -- '--wip--'; then
     suffix=" with %{$fg_bold[yellow]%}WIP%{$reset_color%}"
   fi
 
-  # Dirty when there is any output after the first status line
   local dirty="${status_output#*$'\n'}"
   if [[ -z $dirty ]]; then
-    _git_prompt_info=" on %{$fg_bold[green]%}${branch}%{$reset_color%}${suffix}"
+    print -r -- " on %{$fg_bold[green]%}${branch}%{$reset_color%}${suffix}"
   else
-    _git_prompt_info=" on %{$fg_bold[red]%}${branch}%{$reset_color%}${suffix}"
+    print -r -- " on %{$fg_bold[red]%}${branch}%{$reset_color%}${suffix}"
+  fi
+}
+
+# Called by zle -F when the background computation's pipe becomes readable.
+_git_prompt_callback() {
+  local fd=$1
+  zle -F "$fd"                       # deregister — one-shot
+  IFS= read -r _git_prompt_info <&"$fd"
+  exec {fd}>&-
+  _git_prompt_fd=0
+  zle reset-prompt                   # redraw prompt with updated git info
+}
+
+# Called in precmd: starts async git computation, registers the fd handler.
+# The prompt appears immediately using the previous _git_prompt_info value;
+# _git_prompt_callback fires once the background subshell finishes.
+_update_git_prompt() {
+  # Cancel any in-flight computation from the previous Enter
+  if (( _git_prompt_fd )); then
+    zle -F "$_git_prompt_fd" 2>/dev/null
+    exec {_git_prompt_fd}>&-
+    _git_prompt_fd=0
+  fi
+
+  # Fork the computation into a subshell; capture its stdout via a pipe
+  exec {_git_prompt_fd}< <(_compute_git_info)
+
+  # Register the fd with ZLE — handler fires when ZLE is active and data ready.
+  # Falls back to synchronous read if called in a context where zle -F fails.
+  if ! zle -F "$_git_prompt_fd" _git_prompt_callback 2>/dev/null; then
+    IFS= read -r _git_prompt_info <&"$_git_prompt_fd"
+    exec {_git_prompt_fd}>&-
+    _git_prompt_fd=0
   fi
 }
 
 _update_kube_prompt() {
   (( $+functions[kube_ps1] )) || return
   local kube_status
-  # sed -E: strip the segment when both context and namespace are N/A
   kube_status=$(kube_ps1 | sed -E 's/^\(.*\}N\/A%.*:.*\}N\/A%.*\)$//')
   _kube_prompt_info="${kube_status:+ $kube_status}"
 }
@@ -78,11 +103,6 @@ _update_zmx_prompt() {
 precmd_functions+=(_update_git_prompt _update_kube_prompt _update_zmx_prompt)
 
 set_prompt() {
-  # Color escapes are expanded once here (static); ${_git_prompt_info} etc.
-  # are re-read at each render via PROMPT_SUBST at zero subprocess cost.
-  # %1~  = last path component (zsh built-in)
-  # %(?:X:Y) = conditional on last exit status (zsh built-in)
-  # ${VAR:+text} = expand only when VAR is set (parameter expansion)
   export PROMPT="
 %(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}\${_kube_prompt_info}
 "
