@@ -23,13 +23,14 @@ function! s:SwitchWindow(dir)
   endif
 endfunction
 
-" Bound in VimEnter so these load after plugins (vim-move claims <C-j/k>).
+" Bound in VimEnter so these load after plugins.
+" <M-h/j/k/l> = Opt+h/j/k/l (matches Hammerspoon eventtap modifier).
 augroup itermNavigatorKeys
   autocmd!
-  autocmd VimEnter * nnoremap <silent> <C-h> :call <SID>SwitchWindow('h')<CR>
-  autocmd VimEnter * nnoremap <silent> <C-j> :call <SID>SwitchWindow('j')<CR>
-  autocmd VimEnter * nnoremap <silent> <C-k> :call <SID>SwitchWindow('k')<CR>
-  autocmd VimEnter * nnoremap <silent> <C-l> :call <SID>SwitchWindow('l')<CR>
+  autocmd VimEnter * nnoremap <silent> <M-h> :call <SID>SwitchWindow('h')<CR>
+  autocmd VimEnter * nnoremap <silent> <M-j> :call <SID>SwitchWindow('j')<CR>
+  autocmd VimEnter * nnoremap <silent> <M-k> :call <SID>SwitchWindow('k')<CR>
+  autocmd VimEnter * nnoremap <silent> <M-l> :call <SID>SwitchWindow('l')<CR>
 augroup END
 
 let &cpo = s:save_cpo | unlet s:save_cpo

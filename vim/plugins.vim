@@ -89,8 +89,10 @@ highlight FloatBorder guifg=#A0A0A8
 function! s:UpdateSeparatorColor() abort
     if &background ==# 'dark'
         highlight WinSeparator guifg=#474C53 guibg=#282C34
+        highlight BufTabLineHidden guifg=#9DA5B4
     else
         highlight WinSeparator guifg=#D5D4D4 guibg=#FAFAFA
+        highlight BufTabLineHidden guifg=#555965
     endif
     highlight Normal guibg=NONE
     if exists('*lightline#colorscheme')
