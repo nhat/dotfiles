@@ -1,5 +1,4 @@
 autoload colors && colors
-# kube-ps1 is loaded via antidote in ~/.zsh/.zsh_plugins — no need to source again here
 
 if (( $+commands[git] )); then
   git="$commands[git]"
@@ -7,68 +6,84 @@ else
   git="/usr/bin/git"
 fi
 
-git_dirty() {
-  if [[ $($git status -s) == "" ]]; then
-    echo " on %{$fg_bold[green]%}$(git_branch)%{$reset_color%}"
+# Cached prompt fragments — populated once per command in precmd hooks,
+# then read cheaply via ${variable} in PROMPT with zero subprocess cost.
+_git_prompt_info=""
+_kube_prompt_info=""
+_zmx_prompt_info=""
+
+_update_git_prompt() {
+  # Fast bail when not in a git repo
+  $git rev-parse --git-dir &>/dev/null || { _git_prompt_info=""; return }
+
+  # One call covers branch name, dirty status, and ahead/behind —
+  # replaces the old git status + git rev-parse + git cherry trio.
+  local status_output
+  status_output=$($git status -sb 2>/dev/null) || { _git_prompt_info=""; return }
+
+  # First line: "## branch" or "## branch...upstream [ahead N, behind M]"
+  local first_line="${status_output%%$'\n'*}"
+  local branch="${first_line#\#\# }"
+
+  # Detect unpushed commits from "[ahead N]" — no extra git call needed
+  local suffix=""
+  if [[ $branch == *"[ahead"* ]]; then
+    suffix=" with %{$fg_bold[magenta]%}unpushed%{$reset_color%}"
+  fi
+
+  # Strip "...upstream [ahead N]" — keep only the branch name
+  branch="${branch%%...*}"
+
+  # Rebase in progress: git reports "HEAD (no branch)"
+  if [[ $branch == "HEAD (no branch)"* ]]; then
+    local rebase_branch
+    rebase_branch=$($git branch 2>/dev/null | grep ' rebasing')
+    if [[ -n $rebase_branch ]]; then
+      branch=$(printf '%s\n' "$rebase_branch" | cut -d ' ' -f 5 | tr -d ')')
+      suffix=" with %{$fg_bold[yellow]%}rebase in progress%{$reset_color%}"
+    fi
+  fi
+
+  # WIP check — --pretty=%s avoids reading the full commit blob
+  if $git log -n 1 --pretty=%s 2>/dev/null | grep -q -- '--wip--'; then
+    suffix=" with %{$fg_bold[yellow]%}WIP%{$reset_color%}"
+  fi
+
+  # Dirty when there is any output after the first status line
+  local dirty="${status_output#*$'\n'}"
+  if [[ -z $dirty ]]; then
+    _git_prompt_info=" on %{$fg_bold[green]%}${branch}%{$reset_color%}${suffix}"
   else
-    echo " on %{$fg_bold[red]%}$(git_branch)%{$reset_color%}"
+    _git_prompt_info=" on %{$fg_bold[red]%}${branch}%{$reset_color%}${suffix}"
   fi
 }
 
-git_branch() {
-  branch=$($git rev-parse --abbrev-ref HEAD 2>/dev/null)
-
-  if [[ $branch == "HEAD" ]] && [[ $(git branch | grep rebasing) ]]; then
-      echo $(git branch | grep rebasing | cut -d " " -f 5 | tr -d ")")
-  else
-      echo $branch
-  fi
+_update_kube_prompt() {
+  (( $+functions[kube_ps1] )) || return
+  local kube_status
+  # sed -E: strip the segment when both context and namespace are N/A
+  kube_status=$(kube_ps1 | sed -E 's/^\(.*\}N\/A%.*:.*\}N\/A%.*\)$//')
+  _kube_prompt_info="${kube_status:+ $kube_status}"
 }
 
-need_push_or_wip() {
-  if $($git log -n 1 2>/dev/null | grep -q -c "\-\-wip\-\-"); then
-    echo " with %{$fg_bold[yellow]%}WIP%{$reset_color%}"
-  elif [[ $($git cherry -v @{upstream} 2>/dev/null) != "" ]]; then
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%}"
-  elif [[ -n $($git branch 2>/dev/null | grep "rebasing") ]]; then
-    echo " with %{$fg_bold[yellow]%}rebase in progress%{$reset_color%}"
-  else
-    echo ""
-  fi
-}
-
-git_status() {
-  if [[ -n $($git rev-parse --abbrev-ref HEAD 2>/dev/null) ]]; then
-    echo "$(git_dirty)$(need_push_or_wip)"
-  fi
-}
-
-directory_name() {
-  if [[ $(PWD) == $HOME ]]; then
-    echo "%{$fg_bold[blue]%}%1~%{$reset_color%}"
-  else
-    echo "%{$fg_bold[blue]%}%1/%{$reset_color%}"
-  fi
-}
-
-kube_ps1_autohide() {
-  kube_status=$(kube_ps1 | sed 's/^(.*}N\/A%.*:.*}N\/A%.*)$//')
-  if [[ $kube_status != "" ]]; then
-    echo " $kube_status"
-  else
-    echo ""
-  fi
-}
-
-zmx_session() {
+_update_zmx_prompt() {
   if [[ -n $ZMX_SESSION ]]; then
-    echo "%{$fg_bold[cyan]%}[$ZMX_SESSION]%{$reset_color%} "
+    _zmx_prompt_info="%{$fg_bold[cyan]%}[$ZMX_SESSION]%{$reset_color%} "
+  else
+    _zmx_prompt_info=""
   fi
 }
 
-local ret_status="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s)"
+# Run before each prompt, alongside window.zsh's precmd()
+precmd_functions+=(_update_git_prompt _update_kube_prompt _update_zmx_prompt)
 
 set_prompt() {
-  export PROMPT=$'\n${ret_status} $(zmx_session)$(directory_name)$(git_status)$(kube_ps1_autohide)\n'
+  # Color escapes are expanded once here (static); ${_git_prompt_info} etc.
+  # are re-read at each render via PROMPT_SUBST at zero subprocess cost.
+  # %1~  = last path component (zsh built-in)
+  # %(?:X:Y) = conditional on last exit status (zsh built-in)
+  # ${VAR:+text} = expand only when VAR is set (parameter expansion)
+  export PROMPT="
+%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}\${_kube_prompt_info}
+"
 }
-
