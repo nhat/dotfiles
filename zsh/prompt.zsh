@@ -10,6 +10,7 @@ fi
 # zle -F so the prompt appears instantly and git info fills in behind it.
 typeset -g _git_prompt_info=""
 typeset -g _git_prompt_fd=0
+typeset -g _git_prompt_pid=0
 typeset -g _kube_prompt_info=""
 typeset -g _zmx_prompt_info=""
 
@@ -59,22 +60,27 @@ _git_prompt_callback() {
   IFS= read -r _git_prompt_info <&"$fd"
   exec {fd}>&-
   _git_prompt_fd=0
+  _git_prompt_pid=0
   zle reset-prompt                   # redraw prompt with updated git info
 }
 
 # Called in precmd: starts async git computation, registers the fd handler.
-# The prompt appears immediately using the previous _git_prompt_info value;
-# _git_prompt_callback fires once the background subshell finishes.
+# Circuit breaker: kills any in-flight subshell so rapid Enter presses only
+# trigger one reset-prompt (for the last prompt), not one per Enter.
 _update_git_prompt() {
-  # Cancel any in-flight computation from the previous Enter
+  # Kill the previous in-flight computation if still running
   if (( _git_prompt_fd )); then
     zle -F "$_git_prompt_fd" 2>/dev/null
     exec {_git_prompt_fd}>&-
     _git_prompt_fd=0
   fi
+  (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
+  _git_prompt_pid=0
 
-  # Fork the computation into a subshell; capture its stdout via a pipe
+  # Fork the computation into a subshell; capture its stdout via a pipe.
+  # $! gives the subshell PID so we can kill it on the next Enter if needed.
   exec {_git_prompt_fd}< <(_compute_git_info)
+  _git_prompt_pid=$!
 
   # Register the fd with ZLE — handler fires when ZLE is active and data ready.
   # Falls back to synchronous read if called in a context where zle -F fails.
@@ -82,6 +88,7 @@ _update_git_prompt() {
     IFS= read -r _git_prompt_info <&"$_git_prompt_fd"
     exec {_git_prompt_fd}>&-
     _git_prompt_fd=0
+    _git_prompt_pid=0
   fi
 }
 
