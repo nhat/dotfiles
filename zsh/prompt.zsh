@@ -43,7 +43,8 @@ _compute_git_info() {
     suffix=" with %{$fg_bold[yellow]%}WIP%{$reset_color%}"
   fi
 
-  local dirty="${status_output#*$'\n'}"
+  local dirty=""
+  [[ $status_output == *$'\n'* ]] && dirty="${status_output#*$'\n'}"
   if [[ -z $dirty ]]; then
     print -r -- " on %{$fg_bold[green]%}${branch}%{$reset_color%}${suffix}"
   else
