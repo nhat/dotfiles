@@ -1644,7 +1644,7 @@
 	<key>DisableFullscreenTransparency</key>
 	<true/>
 	<key>DisableMetalWhenIdle</key>
-	<true/>
+	<false/>
 	<key>DisableWindowSizeSnap</key>
 	<true/>
 	<key>DoubleClickPerformsSmartSelection</key>
@@ -1822,6 +1822,8 @@
 	<false/>
 	<key>Mark Alert Action</key>
 	<string>Post Notification</string>
+	<key>MetalSlowFrameRate</key>
+	<real>30</real>
 	<key>MinimalTabStyleOutlineStrength</key>
 	<real>0.10000000149011612</real>
 	<key>NeverWarnAboutMeta</key>
@@ -3890,7 +3892,7 @@ Open Autocomplete…</string>
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SlowFrameRate</key>
-	<real>30</real>
+	<real>60</real>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SoundForEsc</key>
