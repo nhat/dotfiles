@@ -8,23 +8,20 @@ else
   git="/usr/bin/git"
 fi
 
-# Cached prompt fragments — updated asynchronously (git, kube) or in precmd (zmx).
+# Cached prompt fragments — updated in precmd (git, zmx) or async (kube).
 typeset -g _git_prompt_info=""
-typeset -g _git_prompt_fd=0
-typeset -g _git_prompt_pid=0
 typeset -g _git_prompt_last_pwd=""
-typeset -g _git_prompt_last_time=0.0
 typeset -g _git_prompt_dir=""       # .git path for _git_prompt_last_pwd
 typeset -g _git_prompt_repo_root="" # repo root (parent of .git) for fast cd detection
-typeset -g _git_prompt_idx_mt=0     # .git/index mtime at last spawn
-typeset -g _git_prompt_head_mt=0    # .git/HEAD mtime at last spawn
+typeset -g _git_prompt_idx_mt=0     # .git/index mtime at last run
+typeset -g _git_prompt_head_mt=0    # .git/HEAD mtime at last run
 typeset -g _kube_prompt_info=""
 typeset -g _kube_prompt_fd=0
 typeset -g _kube_prompt_pid=0
 typeset -g _kube_prompt_last_time=0.0
 typeset -g _zmx_prompt_info=""
 
-# --- Git (async) ---
+# --- Git (sync, mtime-gated) ---
 
 # Walk up from $PWD to find the .git directory — no subprocess needed.
 _git_find_dir() {
@@ -80,16 +77,6 @@ _compute_git_info() {
   fi
 }
 
-_git_prompt_callback() {
-  local fd=$1
-  zle -F "$fd"
-  IFS= read -r _git_prompt_info <&"$fd"
-  exec {fd}>&-
-  _git_prompt_fd=0
-  _git_prompt_pid=0
-  zle reset-prompt
-}
-
 _update_git_prompt() {
   # Re-resolve .git dir when directory changes.
   if [[ $PWD != $_git_prompt_last_pwd ]]; then
@@ -112,8 +99,8 @@ _update_git_prompt() {
     return
   fi
 
-  # Skip spawn if index and HEAD are unchanged since the last spawn.
-  # Require idx_mt != 0 so a zstat failure never falsely suppresses spawning.
+  # Skip if index and HEAD are unchanged — mtime check is ~0.1ms.
+  # Require idx_mt != 0 so a zstat failure never falsely suppresses the run.
   local idx_mt=0 head_mt=0
   zstat -A idx_mt  +mtime "$_git_prompt_dir/index" 2>/dev/null
   zstat -A head_mt +mtime "$_git_prompt_dir/HEAD"  2>/dev/null
@@ -121,36 +108,12 @@ _update_git_prompt() {
     return
   fi
 
-  # State changed — debounce rapid consecutive changes (e.g. git add + commit).
-  # Don't commit the new mtimes yet: leave them stale so the next call retries.
-  if (( EPOCHREALTIME - _git_prompt_last_time < 0.3 )); then
-    return
-  fi
-
   _git_prompt_idx_mt=$idx_mt
   _git_prompt_head_mt=$head_mt
-  _git_prompt_last_time=$EPOCHREALTIME
-
-  if (( _git_prompt_fd )); then
-    zle -F "$_git_prompt_fd" 2>/dev/null
-    exec {_git_prompt_fd}>&-
-    _git_prompt_fd=0
-  fi
-  (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
-  _git_prompt_pid=0
-
-  exec {_git_prompt_fd}< <(_compute_git_info)
-  _git_prompt_pid=$!
-
-  if ! zle -F "$_git_prompt_fd" _git_prompt_callback 2>/dev/null; then
-    IFS= read -r _git_prompt_info <&"$_git_prompt_fd"
-    exec {_git_prompt_fd}>&-
-    _git_prompt_fd=0
-    _git_prompt_pid=0
-  fi
+  _git_prompt_info=$(_compute_git_info)
 }
 
-# --- Kube (async) ---
+# --- Kube (async — kube_ps1 can be slow) ---
 
 _compute_kube_info() {
   (( $+functions[kube_ps1] )) || return
@@ -205,8 +168,6 @@ _update_zmx_prompt() {
   fi
 }
 
-# Emit blank line before prompt statically so zle reset-prompt never has to redraw it.
-# (Putting \n inside PROMPT causes spurious blank lines when reset-prompt fires async.)
 _print_prompt_newline() { print }
 
 precmd_functions+=(_print_prompt_newline _update_git_prompt _update_kube_prompt _update_zmx_prompt)
