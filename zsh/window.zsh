@@ -3,8 +3,9 @@ title() {
   # escape '%' chars in $1, make nonprintables visible
   local a=${(V)1//\%/\%\%}
 
-  # truncate command, and join lines.
-  a=$(print -Pn "%90>...>$a" | tr -d "\n")
+  # truncate command, join lines without forking tr
+  a=$(print -Pn "%90>...>$a")
+  a=${a//$'\n'/}
 
   case $TERM in
   screen*)
@@ -16,11 +17,8 @@ title() {
   esac
 }
 
-precmd() {
-  title "zsh" "%m:%35<...<%~"
-}
+_window_precmd()  { title "zsh" "%m:%35<...<%~" }
+_window_preexec() { title "$1"  "%m:%35<...<%~" }
 
-preexec() {
-  title "$1" "%m:%35<...<%~"
-}
-
+precmd_functions+=(_window_precmd)
+preexec_functions+=(_window_preexec)

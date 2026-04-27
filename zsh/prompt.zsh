@@ -116,11 +116,10 @@ _kube_prompt_callback() {
 }
 
 _update_kube_prompt() {
-  # Skip if same directory and last spawn was < 5s ago — kube context rarely changes.
-  if [[ $PWD == $_kube_prompt_last_pwd ]] && (( EPOCHREALTIME - _kube_prompt_last_time < 5.0 )); then
+  # Skip if last spawn was < 5s ago — kube context is global, not per-directory.
+  if (( EPOCHREALTIME - _kube_prompt_last_time < 5.0 )); then
     return
   fi
-  _kube_prompt_last_pwd=$PWD
   _kube_prompt_last_time=$EPOCHREALTIME
 
   if (( _kube_prompt_fd )); then
