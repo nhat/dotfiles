@@ -90,11 +90,20 @@ function! s:UpdateSeparatorColor() abort
     if &background ==# 'dark'
         highlight WinSeparator guifg=#474C53 guibg=#282C34
         highlight BufTabLineHidden guifg=#9DA5B4
+        if exists('g:neovide') || exists('g:gui_vimr')
+            highlight Normal guibg=#282C34
+        else
+            highlight Normal guibg=NONE
+        endif
     else
         highlight WinSeparator guifg=#D5D4D4 guibg=#FAFAFA
         highlight BufTabLineHidden guifg=#555965
+        if exists('g:neovide') || exists('g:gui_vimr')
+            highlight Normal guibg=#FAFAFA
+        else
+            highlight Normal guibg=NONE
+        endif
     endif
-    highlight Normal guibg=NONE
     if exists('*lightline#colorscheme')
         runtime! autoload/lightline/colorscheme/one.vim
         silent! call lightline#colorscheme()
