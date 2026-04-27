@@ -18,7 +18,6 @@ title() {
 
 precmd() {
   title "zsh" "%m:%35<...<%~"
-  set_prompt
 }
 
 preexec() {

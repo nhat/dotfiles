@@ -6,15 +6,17 @@ else
   git="/usr/bin/git"
 fi
 
-# Cached prompt fragments. _git_prompt_info is updated asynchronously via
-# zle -F so the prompt appears instantly and git info fills in behind it.
+# Cached prompt fragments — updated asynchronously (git, kube) or in precmd (zmx).
 typeset -g _git_prompt_info=""
 typeset -g _git_prompt_fd=0
 typeset -g _git_prompt_pid=0
 typeset -g _kube_prompt_info=""
+typeset -g _kube_prompt_fd=0
+typeset -g _kube_prompt_pid=0
 typeset -g _zmx_prompt_info=""
 
-# Runs in a subshell (process substitution). Prints one line to stdout.
+# --- Git (async) ---
+
 _compute_git_info() {
   $git rev-parse --git-dir &>/dev/null || return
 
@@ -53,22 +55,17 @@ _compute_git_info() {
   fi
 }
 
-# Called by zle -F when the background computation's pipe becomes readable.
 _git_prompt_callback() {
   local fd=$1
-  zle -F "$fd"                       # deregister — one-shot
+  zle -F "$fd"
   IFS= read -r _git_prompt_info <&"$fd"
   exec {fd}>&-
   _git_prompt_fd=0
   _git_prompt_pid=0
-  zle reset-prompt                   # redraw prompt with updated git info
+  zle reset-prompt
 }
 
-# Called in precmd: starts async git computation, registers the fd handler.
-# Circuit breaker: kills any in-flight subshell so rapid Enter presses only
-# trigger one reset-prompt (for the last prompt), not one per Enter.
 _update_git_prompt() {
-  # Kill the previous in-flight computation if still running
   if (( _git_prompt_fd )); then
     zle -F "$_git_prompt_fd" 2>/dev/null
     exec {_git_prompt_fd}>&-
@@ -77,13 +74,9 @@ _update_git_prompt() {
   (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
   _git_prompt_pid=0
 
-  # Fork the computation into a subshell; capture its stdout via a pipe.
-  # $! gives the subshell PID so we can kill it on the next Enter if needed.
   exec {_git_prompt_fd}< <(_compute_git_info)
   _git_prompt_pid=$!
 
-  # Register the fd with ZLE — handler fires when ZLE is active and data ready.
-  # Falls back to synchronous read if called in a context where zle -F fails.
   if ! zle -F "$_git_prompt_fd" _git_prompt_callback 2>/dev/null; then
     IFS= read -r _git_prompt_info <&"$_git_prompt_fd"
     exec {_git_prompt_fd}>&-
@@ -92,12 +85,46 @@ _update_git_prompt() {
   fi
 }
 
-_update_kube_prompt() {
+# --- Kube (async) ---
+
+_compute_kube_info() {
   (( $+functions[kube_ps1] )) || return
   local kube_status
   kube_status=$(kube_ps1 | sed -E 's/^\(.*\}N\/A%.*:.*\}N\/A%.*\)$//')
-  _kube_prompt_info="${kube_status:+ $kube_status}"
+  print -r -- "${kube_status:+ $kube_status}"
 }
+
+_kube_prompt_callback() {
+  local fd=$1
+  zle -F "$fd"
+  IFS= read -r _kube_prompt_info <&"$fd"
+  exec {fd}>&-
+  _kube_prompt_fd=0
+  _kube_prompt_pid=0
+  zle reset-prompt
+}
+
+_update_kube_prompt() {
+  if (( _kube_prompt_fd )); then
+    zle -F "$_kube_prompt_fd" 2>/dev/null
+    exec {_kube_prompt_fd}>&-
+    _kube_prompt_fd=0
+  fi
+  (( _kube_prompt_pid )) && kill "$_kube_prompt_pid" 2>/dev/null
+  _kube_prompt_pid=0
+
+  exec {_kube_prompt_fd}< <(_compute_kube_info)
+  _kube_prompt_pid=$!
+
+  if ! zle -F "$_kube_prompt_fd" _kube_prompt_callback 2>/dev/null; then
+    IFS= read -r _kube_prompt_info <&"$_kube_prompt_fd"
+    exec {_kube_prompt_fd}>&-
+    _kube_prompt_fd=0
+    _kube_prompt_pid=0
+  fi
+}
+
+# --- ZMX session (sync, just reads an env var) ---
 
 _update_zmx_prompt() {
   if [[ -n $ZMX_SESSION ]]; then
@@ -107,7 +134,6 @@ _update_zmx_prompt() {
   fi
 }
 
-# Run before each prompt, alongside window.zsh's precmd()
 precmd_functions+=(_update_git_prompt _update_kube_prompt _update_zmx_prompt)
 
 set_prompt() {
@@ -115,3 +141,6 @@ set_prompt() {
 %(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}\${_kube_prompt_info}
 "
 }
+
+# Build the prompt template once at startup — precmd only updates the variables.
+set_prompt

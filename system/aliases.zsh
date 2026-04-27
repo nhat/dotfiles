@@ -1,6 +1,6 @@
 # grc overides for ls
 # `brew install coreutils`
-if $(gls &>/dev/null); then
+if (( $+commands[gls] )); then
   alias ls='gls -F --color --group-directories-first'
   alias l='gls -lAh --color --group-directories-first'
   alias ll='gls -lh --color --group-directories-first'
@@ -66,7 +66,7 @@ function take() {
 }
 
 # Use nvim if installed
-if type nvim > /dev/null 2>&1; then
+if (( $+commands[nvim] )); then
   alias vi='nvim'
 fi
 
