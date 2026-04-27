@@ -15,6 +15,7 @@ typeset -g _git_prompt_pid=0
 typeset -g _git_prompt_last_pwd=""
 typeset -g _git_prompt_last_time=0.0
 typeset -g _git_prompt_dir=""       # .git path for _git_prompt_last_pwd
+typeset -g _git_prompt_repo_root="" # repo root (parent of .git) for fast cd detection
 typeset -g _git_prompt_idx_mt=0     # .git/index mtime at last spawn
 typeset -g _git_prompt_head_mt=0    # .git/HEAD mtime at last spawn
 typeset -g _kube_prompt_info=""
@@ -90,16 +91,24 @@ _git_prompt_callback() {
 }
 
 _update_git_prompt() {
-  # Re-resolve .git dir and reset mtime cache when directory changes.
+  # Re-resolve .git dir when directory changes.
   if [[ $PWD != $_git_prompt_last_pwd ]]; then
     _git_prompt_last_pwd=$PWD
-    _git_prompt_dir=$(_git_find_dir)
-    _git_prompt_idx_mt=0
-    _git_prompt_head_mt=0
+    if [[ -n $_git_prompt_repo_root &&
+          ($PWD == $_git_prompt_repo_root || $PWD == $_git_prompt_repo_root/*) ]]; then
+      # Still inside the same repo — git dir is valid, just reset mtimes.
+      _git_prompt_idx_mt=0
+      _git_prompt_head_mt=0
+    else
+      _git_prompt_dir=$(_git_find_dir)
+      _git_prompt_repo_root=${_git_prompt_dir:+${_git_prompt_dir:h}}
+      _git_prompt_idx_mt=0
+      _git_prompt_head_mt=0
+    fi
   fi
 
   if [[ -z $_git_prompt_dir ]]; then
-    _git_prompt_info=""
+    [[ -n $_git_prompt_info ]] && _git_prompt_info=""
     return
   fi
 
