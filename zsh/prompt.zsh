@@ -207,7 +207,19 @@ _update_zmx_prompt() {
 
 # Emit blank line before prompt statically so zle reset-prompt never has to redraw it.
 # (Putting \n inside PROMPT causes spurious blank lines when reset-prompt fires async.)
-_print_prompt_newline() { print }
+_print_prompt_newline() {
+  # Cancel any in-flight async git callback before printing anything.
+  # Without this, the callback can fire between precmd functions and call
+  # zle reset-prompt outside of ZLE context, adding a spurious blank line.
+  if (( _git_prompt_fd )); then
+    zle -F "$_git_prompt_fd" 2>/dev/null
+    exec {_git_prompt_fd}>&-
+    _git_prompt_fd=0
+  fi
+  (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
+  _git_prompt_pid=0
+  print
+}
 
 precmd_functions+=(_print_prompt_newline _update_git_prompt _update_kube_prompt _update_zmx_prompt)
 
