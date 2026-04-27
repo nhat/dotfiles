@@ -1,4 +1,5 @@
 autoload colors && colors
+zmodload zsh/datetime
 
 if (( $+commands[git] )); then
   git="$commands[git]"
@@ -10,16 +11,18 @@ fi
 typeset -g _git_prompt_info=""
 typeset -g _git_prompt_fd=0
 typeset -g _git_prompt_pid=0
+typeset -g _git_prompt_last_pwd=""
+typeset -g _git_prompt_last_time=0.0
 typeset -g _kube_prompt_info=""
 typeset -g _kube_prompt_fd=0
 typeset -g _kube_prompt_pid=0
+typeset -g _kube_prompt_last_pwd=""
+typeset -g _kube_prompt_last_time=0.0
 typeset -g _zmx_prompt_info=""
 
 # --- Git (async) ---
 
 _compute_git_info() {
-  $git rev-parse --git-dir &>/dev/null || return
-
   local status_output
   status_output=$($git status -sb 2>/dev/null) || return
 
@@ -34,16 +37,17 @@ _compute_git_info() {
   branch="${branch%%...*}"
 
   if [[ $branch == "HEAD (no branch)"* ]]; then
-    local rebase_branch
-    rebase_branch=$($git branch 2>/dev/null | grep ' rebasing')
-    if [[ -n $rebase_branch ]]; then
-      branch=$(printf '%s\n' "$rebase_branch" | cut -d ' ' -f 5 | tr -d ')')
+    local git_dir rebase_head=""
+    git_dir=$($git rev-parse --git-dir 2>/dev/null)
+    if [[ -f "$git_dir/rebase-merge/head-name" ]]; then
+      rebase_head=$(<"$git_dir/rebase-merge/head-name")
+    elif [[ -f "$git_dir/rebase-apply/head-name" ]]; then
+      rebase_head=$(<"$git_dir/rebase-apply/head-name")
+    fi
+    if [[ -n $rebase_head ]]; then
+      branch="${rebase_head##refs/heads/}"
       suffix=" with %{$fg_bold[yellow]%}rebase in progress%{$reset_color%}"
     fi
-  fi
-
-  if $git log -n 1 --pretty=%s 2>/dev/null | grep -q -- '--wip--'; then
-    suffix=" with %{$fg_bold[yellow]%}WIP%{$reset_color%}"
   fi
 
   local dirty=""
@@ -66,6 +70,13 @@ _git_prompt_callback() {
 }
 
 _update_git_prompt() {
+  # Skip if same directory and last spawn was < 300ms ago — rapid Enter presses reuse cache.
+  if [[ $PWD == $_git_prompt_last_pwd ]] && (( EPOCHREALTIME - _git_prompt_last_time < 0.3 )); then
+    return
+  fi
+  _git_prompt_last_pwd=$PWD
+  _git_prompt_last_time=$EPOCHREALTIME
+
   if (( _git_prompt_fd )); then
     zle -F "$_git_prompt_fd" 2>/dev/null
     exec {_git_prompt_fd}>&-
@@ -105,6 +116,13 @@ _kube_prompt_callback() {
 }
 
 _update_kube_prompt() {
+  # Skip if same directory and last spawn was < 5s ago — kube context rarely changes.
+  if [[ $PWD == $_kube_prompt_last_pwd ]] && (( EPOCHREALTIME - _kube_prompt_last_time < 5.0 )); then
+    return
+  fi
+  _kube_prompt_last_pwd=$PWD
+  _kube_prompt_last_time=$EPOCHREALTIME
+
   if (( _kube_prompt_fd )); then
     zle -F "$_kube_prompt_fd" 2>/dev/null
     exec {_kube_prompt_fd}>&-
@@ -134,11 +152,14 @@ _update_zmx_prompt() {
   fi
 }
 
-precmd_functions+=(_update_git_prompt _update_kube_prompt _update_zmx_prompt)
+# Emit blank line before prompt statically so zle reset-prompt never has to redraw it.
+# (Putting \n inside PROMPT causes spurious blank lines when reset-prompt fires async.)
+_print_prompt_newline() { print }
+
+precmd_functions+=(_print_prompt_newline _update_git_prompt _update_kube_prompt _update_zmx_prompt)
 
 set_prompt() {
-  export PROMPT="
-%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}\${_kube_prompt_info}
+  export PROMPT="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}\${_kube_prompt_info}
 "
 }
 
