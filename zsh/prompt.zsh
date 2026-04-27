@@ -1,5 +1,6 @@
 autoload colors && colors
 zmodload zsh/datetime
+zmodload zsh/stat
 
 if (( $+commands[git] )); then
   git="$commands[git]"
@@ -13,14 +14,33 @@ typeset -g _git_prompt_fd=0
 typeset -g _git_prompt_pid=0
 typeset -g _git_prompt_last_pwd=""
 typeset -g _git_prompt_last_time=0.0
+typeset -g _git_prompt_dir=""       # .git path for _git_prompt_last_pwd
+typeset -g _git_prompt_idx_mt=0     # .git/index mtime at last spawn
+typeset -g _git_prompt_head_mt=0    # .git/HEAD mtime at last spawn
 typeset -g _kube_prompt_info=""
 typeset -g _kube_prompt_fd=0
 typeset -g _kube_prompt_pid=0
-typeset -g _kube_prompt_last_pwd=""
 typeset -g _kube_prompt_last_time=0.0
 typeset -g _zmx_prompt_info=""
 
 # --- Git (async) ---
+
+# Walk up from $PWD to find the .git directory — no subprocess needed.
+_git_find_dir() {
+  local d=$PWD
+  while [[ $d != / ]]; do
+    if [[ -d $d/.git ]]; then
+      print -- $d/.git
+      return
+    elif [[ -f $d/.git ]]; then
+      local line
+      IFS= read -r line < $d/.git
+      print -- ${line#gitdir: }   # worktree: "gitdir: /real/.git"
+      return
+    fi
+    d=${d:h}
+  done
+}
 
 _compute_git_info() {
   local status_output
@@ -70,11 +90,36 @@ _git_prompt_callback() {
 }
 
 _update_git_prompt() {
-  # Skip if same directory and last spawn was < 300ms ago — rapid Enter presses reuse cache.
-  if [[ $PWD == $_git_prompt_last_pwd ]] && (( EPOCHREALTIME - _git_prompt_last_time < 0.3 )); then
+  # Re-resolve .git dir and reset mtime cache when directory changes.
+  if [[ $PWD != $_git_prompt_last_pwd ]]; then
+    _git_prompt_last_pwd=$PWD
+    _git_prompt_dir=$(_git_find_dir)
+    _git_prompt_idx_mt=0
+    _git_prompt_head_mt=0
+  fi
+
+  if [[ -z $_git_prompt_dir ]]; then
+    _git_prompt_info=""
     return
   fi
-  _git_prompt_last_pwd=$PWD
+
+  # Skip spawn if index and HEAD are unchanged since the last spawn.
+  # Require idx_mt != 0 so a zstat failure never falsely suppresses spawning.
+  local idx_mt=0 head_mt=0
+  zstat -A idx_mt  +mtime "$_git_prompt_dir/index" 2>/dev/null
+  zstat -A head_mt +mtime "$_git_prompt_dir/HEAD"  2>/dev/null
+  if (( idx_mt && idx_mt == _git_prompt_idx_mt && head_mt == _git_prompt_head_mt )); then
+    return
+  fi
+
+  # State changed — debounce rapid consecutive changes (e.g. git add + commit).
+  # Don't commit the new mtimes yet: leave them stale so the next call retries.
+  if (( EPOCHREALTIME - _git_prompt_last_time < 0.3 )); then
+    return
+  fi
+
+  _git_prompt_idx_mt=$idx_mt
+  _git_prompt_head_mt=$head_mt
   _git_prompt_last_time=$EPOCHREALTIME
 
   if (( _git_prompt_fd )); then
