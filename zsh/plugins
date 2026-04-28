@@ -5,7 +5,8 @@
 Tarrasch/zsh-bd
 zdharma/history-search-multi-word
 zsh-users/zsh-completions
-zsh-users/zsh-autosuggestions
-zsh-users/zsh-syntax-highlighting
-zsh-users/zsh-history-substring-search
+romkatv/zsh-defer
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-syntax-highlighting kind:defer
+zsh-users/zsh-history-substring-search kind:defer
 jonmosco/kube-ps1

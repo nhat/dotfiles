@@ -84,7 +84,7 @@ _compute_git_info() {
 
 _git_prompt_callback() {
   local fd=$1
-  zle -F "$fd"
+  zle -F "$fd" 2>/dev/null
   IFS= read -r _git_prompt_info <&"$fd"
   exec {fd}>&-
   _git_prompt_fd=0
@@ -176,7 +176,9 @@ _compute_kube_info() {
 
 _kube_prompt_callback() {
   local fd=$1
-  zle -F "$fd"
+  zle -F "$fd" 2>/dev/null
+  # _print_prompt_newline may have already cleaned this fd up; bail if so.
+  (( _kube_prompt_fd == fd )) || return
   IFS= read -r _kube_prompt_info <&"$fd"
   exec {fd}>&-
   _kube_prompt_fd=0
