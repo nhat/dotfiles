@@ -23,6 +23,7 @@ typeset -g _kube_prompt_fd=0
 typeset -g _kube_prompt_pid=0
 typeset -g _kube_prompt_last_time=0.0
 typeset -g _zmx_prompt_info=""
+typeset -g _zle_editing=0  # set 1 by zle-line-init, 0 by zle-line-finish (config.zsh)
 
 # --- Git (async) ---
 
@@ -87,7 +88,7 @@ _git_prompt_callback() {
   exec {fd}>&-
   _git_prompt_fd=0
   _git_prompt_pid=0
-  zle reset-prompt
+  (( _zle_editing )) && zle reset-prompt
 }
 
 _update_git_prompt() {
@@ -166,7 +167,7 @@ _kube_prompt_callback() {
   exec {fd}>&-
   _kube_prompt_fd=0
   _kube_prompt_pid=0
-  zle reset-prompt
+  (( _zle_editing )) && zle reset-prompt
 }
 
 _update_kube_prompt() {
@@ -205,12 +206,10 @@ _update_zmx_prompt() {
   fi
 }
 
-# Emit blank line before prompt statically so zle reset-prompt never has to redraw it.
-# (Putting \n inside PROMPT causes spurious blank lines when reset-prompt fires async.)
+# Emit blank line before each prompt. The _zle_editing guard on async callbacks
+# is the primary protection against spurious redraws; the fd cancellation here
+# is defense-in-depth that also frees resources early.
 _print_prompt_newline() {
-  # Cancel any in-flight async git callback before printing anything.
-  # Without this, the callback can fire between precmd functions and call
-  # zle reset-prompt outside of ZLE context, adding a spurious blank line.
   if (( _git_prompt_fd )); then
     zle -F "$_git_prompt_fd" 2>/dev/null
     exec {_git_prompt_fd}>&-
@@ -218,6 +217,13 @@ _print_prompt_newline() {
   fi
   (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
   _git_prompt_pid=0
+  if (( _kube_prompt_fd )); then
+    zle -F "$_kube_prompt_fd" 2>/dev/null
+    exec {_kube_prompt_fd}>&-
+    _kube_prompt_fd=0
+  fi
+  (( _kube_prompt_pid )) && kill "$_kube_prompt_pid" 2>/dev/null
+  _kube_prompt_pid=0
   print
 }
 

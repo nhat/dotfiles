@@ -3,8 +3,10 @@ title() {
   # escape '%' chars in $1, make nonprintables visible
   local a=${(V)1//\%/\%\%}
 
-  # truncate command, join lines without forking tr
-  a=$(print -Pn "%90>...>$a")
+  # truncate command without forking — $(print -Pn ...) caused spurious blank lines
+  # on rapid Enter because the blocking fork let async zle -F callbacks fire mid-precmd
+  local _fmt="%90>...>$a"
+  a=${(%)_fmt}
   a=${a//$'\n'/}
 
   case $TERM in

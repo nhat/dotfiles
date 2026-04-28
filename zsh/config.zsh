@@ -73,17 +73,31 @@ bindkey -M menuselect '\033' undo
 bindkey -M menuselect 'o' accept-and-infer-next-history
 bindkey -M menuselect '^M' .accept-line
 
-# put into application mode and validate ${terminfo}
-if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
-  function zle-line-init() {
-    echoti smkx
-  }
-  zle -N zle-line-init
+# ZLE editing-state tracking and application keypad mode.
+#
+# _zle_editing is read by async prompt callbacks (prompt.zsh) to guard
+# `zle reset-prompt` — they skip it when ZLE is not in stable editing mode.
+#
+# smkx is sent in zle-line-init so cursor-key terminfo bindings (\eOA etc.)
+# work correctly.  rmkx used to live in zle-line-finish, but that widget fires
+# *before* ZLE outputs the cursor-advance \n on accept-line; the resulting
+# `\e>\n` byte pair causes a spurious blank line on rapid Enter presses.
+# Moving rmkx to preexec sends it after the cursor is already positioned and
+# only when a real command actually runs (not on bare Enter presses).
+function zle-line-init() {
+  _zle_editing=1
+  (( ${+terminfo[smkx]} )) && echoti smkx
+}
+zle -N zle-line-init
 
-  function zle-line-finish() {
-    echoti rmkx
-  }
-  zle -N zle-line-finish
+function zle-line-finish() {
+  _zle_editing=0
+}
+zle -N zle-line-finish
+
+if (( ${+terminfo[rmkx]} )); then
+  _rmkx_preexec() { echoti rmkx }
+  preexec_functions=(_rmkx_preexec $preexec_functions)
 fi
 
 # home go to beginning of line
