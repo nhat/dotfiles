@@ -3954,8 +3954,6 @@ Open Autocomplete…</string>
 	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
-	<key>com.apple.WebPrivacy.ResourceMonitorURLsVersion</key>
-	<string>qrsAAAGXnXBrwGxMO6s=</string>
 	<key>disableMetalWhenUnplugged</key>
 	<false/>
 	<key>findIgnoreCase_iTerm</key>
