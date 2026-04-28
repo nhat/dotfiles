@@ -18,6 +18,7 @@ typeset -g _git_prompt_dir=""       # .git path for _git_prompt_last_pwd
 typeset -g _git_prompt_repo_root="" # repo root (parent of .git) for fast cd detection
 typeset -g _git_prompt_idx_mt=0     # .git/index mtime at last spawn
 typeset -g _git_prompt_head_mt=0    # .git/HEAD mtime at last spawn
+typeset -g _git_prompt_remote_mt=0  # remote tracking ref mtime at last spawn
 typeset -g _kube_prompt_info=""
 typeset -g _kube_prompt_fd=0
 typeset -g _kube_prompt_pid=0
@@ -100,11 +101,13 @@ _update_git_prompt() {
       # Still inside the same repo — git dir is valid, just reset mtimes.
       _git_prompt_idx_mt=0
       _git_prompt_head_mt=0
+      _git_prompt_remote_mt=0
     else
       _git_prompt_dir=$(_git_find_dir)
       _git_prompt_repo_root=${_git_prompt_dir:+${_git_prompt_dir:h}}
       _git_prompt_idx_mt=0
       _git_prompt_head_mt=0
+      _git_prompt_remote_mt=0
     fi
   fi
 
@@ -113,12 +116,22 @@ _update_git_prompt() {
     return
   fi
 
-  # Skip spawn if index and HEAD are unchanged since the last spawn.
+  # Skip spawn if index, HEAD, and remote tracking refs are unchanged since the last spawn.
   # Require idx_mt != 0 so a zstat failure never falsely suppresses spawning.
-  local idx_mt=0 head_mt=0
+  local idx_mt=0 head_mt=0 remote_mt=0
   zstat -A idx_mt  +mtime "$_git_prompt_dir/index" 2>/dev/null
   zstat -A head_mt +mtime "$_git_prompt_dir/HEAD"  2>/dev/null
-  if (( idx_mt && idx_mt == _git_prompt_idx_mt && head_mt == _git_prompt_head_mt )); then
+
+  # Detect push: read HEAD inline to find the loose remote-tracking ref, also check packed-refs.
+  local head_ref branch_name="" remote_ref_mt=0 packed_mt=0
+  IFS= read -r head_ref <"$_git_prompt_dir/HEAD" 2>/dev/null
+  [[ $head_ref == ref:\ refs/heads/* ]] && branch_name=${head_ref#ref: refs/heads/}
+  [[ -n $branch_name ]] && \
+    zstat -A remote_ref_mt +mtime "$_git_prompt_dir/refs/remotes/origin/$branch_name" 2>/dev/null
+  zstat -A packed_mt +mtime "$_git_prompt_dir/packed-refs" 2>/dev/null
+  remote_mt=$(( remote_ref_mt + packed_mt ))
+
+  if (( idx_mt && idx_mt == _git_prompt_idx_mt && head_mt == _git_prompt_head_mt && remote_mt == _git_prompt_remote_mt )); then
     return
   fi
 
@@ -130,6 +143,7 @@ _update_git_prompt() {
 
   _git_prompt_idx_mt=$idx_mt
   _git_prompt_head_mt=$head_mt
+  _git_prompt_remote_mt=$remote_mt
   _git_prompt_last_time=$EPOCHREALTIME
 
   if (( _git_prompt_fd )); then
