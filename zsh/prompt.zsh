@@ -160,10 +160,17 @@ _update_git_prompt() {
   _git_prompt_pid=$!
 
   if ! zle -F "$_git_prompt_fd" _git_prompt_callback 2>/dev/null; then
-    IFS= read -r _git_prompt_info <&"$_git_prompt_fd"
+    # ZLE not yet active (first precmd at startup) — don't block.
+    # Kill the subprocess, close the fd, and reset all state so the next
+    # precmd (when ZLE is running) retries via the normal async path.
     exec {_git_prompt_fd}>&-
     _git_prompt_fd=0
+    (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
     _git_prompt_pid=0
+    _git_prompt_idx_mt=0
+    _git_prompt_head_mt=0
+    _git_prompt_remote_mt=0
+    _git_prompt_last_time=0
   fi
 }
 
@@ -207,10 +214,13 @@ _update_kube_prompt() {
   _kube_prompt_pid=$!
 
   if ! zle -F "$_kube_prompt_fd" _kube_prompt_callback 2>/dev/null; then
-    IFS= read -r _kube_prompt_info <&"$_kube_prompt_fd"
+    # ZLE not yet active — don't block. Kill subprocess, reset timer so next
+    # precmd retries immediately via the normal async path.
     exec {_kube_prompt_fd}>&-
     _kube_prompt_fd=0
+    (( _kube_prompt_pid )) && kill "$_kube_prompt_pid" 2>/dev/null
     _kube_prompt_pid=0
+    _kube_prompt_last_time=0
   fi
 }
 
@@ -244,6 +254,7 @@ _print_prompt_newline() {
     zle -F "$_kube_prompt_fd" 2>/dev/null
     exec {_kube_prompt_fd}>&-
     _kube_prompt_fd=0
+    _kube_prompt_last_time=0
   fi
   (( _kube_prompt_pid )) && kill "$_kube_prompt_pid" 2>/dev/null
   _kube_prompt_pid=0
