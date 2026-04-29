@@ -15,10 +15,11 @@ typeset -g _git_prompt_pid=0
 typeset -g _git_prompt_last_pwd=""
 typeset -g _git_prompt_last_time=0.0
 typeset -g _git_prompt_dir=""       # .git path for _git_prompt_last_pwd
-typeset -g _git_prompt_repo_root="" # repo root (parent of .git) for fast cd detection
+typeset -g _git_prompt_repo_root="" # working-tree root returned by _git_find_dir for fast cd detection
 typeset -g _git_prompt_idx_mt=0     # .git/index mtime at last spawn
 typeset -g _git_prompt_head_mt=0    # .git/HEAD mtime at last spawn
-typeset -g _git_prompt_remote_mt=0  # remote tracking ref mtime at last spawn
+typeset -g _git_prompt_remote_ref_mt=0 # remote tracking loose ref mtime at last spawn
+typeset -g _git_prompt_packed_mt=0     # .git/packed-refs mtime at last spawn
 typeset -g _kube_prompt_info=""
 typeset -g _kube_prompt_fd=0
 typeset -g _kube_prompt_pid=0
@@ -29,16 +30,22 @@ typeset -g _zle_editing=0  # set 1 by zle-line-init, 0 by zle-line-finish (confi
 # --- Git (async) ---
 
 # Walk up from $PWD to find the .git directory — no subprocess needed.
+# Prints two lines: the git-dir path, then the working-tree root ($d).
+# For normal repos $d/.git is a directory; for worktrees/submodules it is a file
+# whose "gitdir:" line points to the real git dir. In both cases $d is the
+# working-tree root, which is what _git_prompt_repo_root needs.
 _git_find_dir() {
   local d=$PWD
   while [[ $d != / ]]; do
     if [[ -d $d/.git ]]; then
       print -- $d/.git
+      print -- $d
       return
     elif [[ -f $d/.git ]]; then
       local line
       IFS= read -r line < $d/.git
-      print -- ${line#gitdir: }   # worktree: "gitdir: /real/.git"
+      print -- ${line#gitdir: }   # worktree/submodule: "gitdir: /real/.git/..."
+      print -- $d
       return
     fi
     d=${d:h}
@@ -60,8 +67,7 @@ _compute_git_info() {
   branch="${branch%%...*}"
 
   if [[ $branch == "HEAD (no branch)"* ]]; then
-    local git_dir rebase_head=""
-    git_dir=$($git rev-parse --git-dir 2>/dev/null)
+    local git_dir=$_git_prompt_dir rebase_head=""
     if [[ -f "$git_dir/rebase-merge/head-name" ]]; then
       rebase_head=$(<"$git_dir/rebase-merge/head-name")
     elif [[ -f "$git_dir/rebase-apply/head-name" ]]; then
@@ -88,7 +94,7 @@ _git_prompt_callback() {
   # _print_prompt_newline may have already cleaned this fd up; bail if so.
   (( _git_prompt_fd == fd )) || return
   IFS= read -r _git_prompt_info <&"$fd"
-  exec {fd}>&-
+  exec {fd}<&-
   _git_prompt_fd=0
   _git_prompt_pid=0
   (( _zle_editing )) && zle reset-prompt
@@ -103,13 +109,17 @@ _update_git_prompt() {
       # Still inside the same repo — git dir is valid, just reset mtimes.
       _git_prompt_idx_mt=0
       _git_prompt_head_mt=0
-      _git_prompt_remote_mt=0
+      _git_prompt_remote_ref_mt=0
+      _git_prompt_packed_mt=0
     else
-      _git_prompt_dir=$(_git_find_dir)
-      _git_prompt_repo_root=${_git_prompt_dir:+${_git_prompt_dir:h}}
+      local find_output
+      find_output=("${(@f)$(_git_find_dir)}")
+      _git_prompt_dir=$find_output[1]
+      _git_prompt_repo_root=$find_output[2]
       _git_prompt_idx_mt=0
       _git_prompt_head_mt=0
-      _git_prompt_remote_mt=0
+      _git_prompt_remote_ref_mt=0
+      _git_prompt_packed_mt=0
     fi
   fi
 
@@ -120,7 +130,7 @@ _update_git_prompt() {
 
   # Skip spawn if index, HEAD, and remote tracking refs are unchanged since the last spawn.
   # Require idx_mt != 0 so a zstat failure never falsely suppresses spawning.
-  local idx_mt=0 head_mt=0 remote_mt=0
+  local idx_mt=0 head_mt=0
   zstat -A idx_mt  +mtime "$_git_prompt_dir/index" 2>/dev/null
   zstat -A head_mt +mtime "$_git_prompt_dir/HEAD"  2>/dev/null
 
@@ -131,9 +141,8 @@ _update_git_prompt() {
   [[ -n $branch_name ]] && \
     zstat -A remote_ref_mt +mtime "$_git_prompt_dir/refs/remotes/origin/$branch_name" 2>/dev/null
   zstat -A packed_mt +mtime "$_git_prompt_dir/packed-refs" 2>/dev/null
-  remote_mt=$(( remote_ref_mt + packed_mt ))
 
-  if (( idx_mt && idx_mt == _git_prompt_idx_mt && head_mt == _git_prompt_head_mt && remote_mt == _git_prompt_remote_mt )); then
+  if (( idx_mt && idx_mt == _git_prompt_idx_mt && head_mt == _git_prompt_head_mt && remote_ref_mt == _git_prompt_remote_ref_mt && packed_mt == _git_prompt_packed_mt )); then
     return
   fi
 
@@ -145,12 +154,13 @@ _update_git_prompt() {
 
   _git_prompt_idx_mt=$idx_mt
   _git_prompt_head_mt=$head_mt
-  _git_prompt_remote_mt=$remote_mt
+  _git_prompt_remote_ref_mt=$remote_ref_mt
+  _git_prompt_packed_mt=$packed_mt
   _git_prompt_last_time=$EPOCHREALTIME
 
   if (( _git_prompt_fd )); then
     zle -F "$_git_prompt_fd" 2>/dev/null
-    exec {_git_prompt_fd}>&-
+    exec {_git_prompt_fd}<&-
     _git_prompt_fd=0
   fi
   (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
@@ -163,13 +173,14 @@ _update_git_prompt() {
     # ZLE not yet active (first precmd at startup) — don't block.
     # Kill the subprocess, close the fd, and reset all state so the next
     # precmd (when ZLE is running) retries via the normal async path.
-    exec {_git_prompt_fd}>&-
+    (( _git_prompt_fd )) && exec {_git_prompt_fd}<&-
     _git_prompt_fd=0
     (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
     _git_prompt_pid=0
     _git_prompt_idx_mt=0
     _git_prompt_head_mt=0
-    _git_prompt_remote_mt=0
+    _git_prompt_remote_ref_mt=0
+    _git_prompt_packed_mt=0
     _git_prompt_last_time=0
   fi
 }
@@ -189,7 +200,7 @@ _kube_prompt_callback() {
   # _print_prompt_newline may have already cleaned this fd up; bail if so.
   (( _kube_prompt_fd == fd )) || return
   IFS= read -r _kube_prompt_info <&"$fd"
-  exec {fd}>&-
+  exec {fd}<&-
   _kube_prompt_fd=0
   _kube_prompt_pid=0
   (( _zle_editing )) && zle reset-prompt
@@ -204,7 +215,7 @@ _update_kube_prompt() {
 
   if (( _kube_prompt_fd )); then
     zle -F "$_kube_prompt_fd" 2>/dev/null
-    exec {_kube_prompt_fd}>&-
+    exec {_kube_prompt_fd}<&-
     _kube_prompt_fd=0
   fi
   (( _kube_prompt_pid )) && kill "$_kube_prompt_pid" 2>/dev/null
@@ -216,7 +227,7 @@ _update_kube_prompt() {
   if ! zle -F "$_kube_prompt_fd" _kube_prompt_callback 2>/dev/null; then
     # ZLE not yet active — don't block. Kill subprocess, reset timer so next
     # precmd retries immediately via the normal async path.
-    exec {_kube_prompt_fd}>&-
+    (( _kube_prompt_fd )) && exec {_kube_prompt_fd}<&-
     _kube_prompt_fd=0
     (( _kube_prompt_pid )) && kill "$_kube_prompt_pid" 2>/dev/null
     _kube_prompt_pid=0
@@ -240,19 +251,20 @@ _update_zmx_prompt() {
 _print_prompt_newline() {
   if (( _git_prompt_fd )); then
     zle -F "$_git_prompt_fd" 2>/dev/null
-    exec {_git_prompt_fd}>&-
+    exec {_git_prompt_fd}<&-
     _git_prompt_fd=0
     # Callback never fired — reset committed mtimes so next precmd re-spawns.
     _git_prompt_idx_mt=0
     _git_prompt_head_mt=0
-    _git_prompt_remote_mt=0
+    _git_prompt_remote_ref_mt=0
+    _git_prompt_packed_mt=0
     _git_prompt_last_time=0
   fi
   (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
   _git_prompt_pid=0
   if (( _kube_prompt_fd )); then
     zle -F "$_kube_prompt_fd" 2>/dev/null
-    exec {_kube_prompt_fd}>&-
+    exec {_kube_prompt_fd}<&-
     _kube_prompt_fd=0
     _kube_prompt_last_time=0
   fi
@@ -264,7 +276,7 @@ _print_prompt_newline() {
 precmd_functions+=(_print_prompt_newline _update_git_prompt _update_kube_prompt _update_zmx_prompt)
 
 set_prompt() {
-  export PROMPT="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}\${_kube_prompt_info}
+  PROMPT="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}\${_kube_prompt_info}
 "
 }
 
