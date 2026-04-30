@@ -33,6 +33,7 @@ packages=(
   php
   mas
   maven
+  shellcheck
 )
 for package in $packages; do
   brew install --no-quarantine $package
