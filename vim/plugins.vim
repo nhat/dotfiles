@@ -140,6 +140,11 @@ let g:terminal_color_15 = '#fafafa'
 let g:buftabline_show = 1
 let g:buftabline_indicators = 1
 
+augroup BufTablineTabBehavior
+    autocmd!
+    autocmd TabNew * tabonly
+augroup END
+
 " gitgutter
 let g:gitgutter_realtime = 1
 let g:gitgutter_sign_added = '█'
