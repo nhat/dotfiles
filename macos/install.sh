@@ -6,6 +6,9 @@ if ! "$DOTFILES_ROOT/macos/set-defaults.sh"; then
   exit 1
 fi
 
+# Set default file handlers
+"$DOTFILES_ROOT/macos/set-file-handlers.sh"
+
 # Extend default key bindings
 echo "Extending default key bindings..."
 if ! [[ -d "$HOME/Library/KeyBindings" ]]; then
