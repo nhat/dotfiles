@@ -25,27 +25,34 @@ elif [[ -t 0 ]]; then
 else
   content=$(cat)
 fi
-tmp=$(mktemp /tmp/snippet.XXXXXX)
-echo "$content" > "$tmp"
 
-if echo "$content" | grep -qE '^\s*[\{\[]'; then
+if [[ -z "$content" ]]; then
+  echo "snfmt: empty input" >&2
+  exit 1
+fi
+
+tmp=$(mktemp /tmp/snippet.XXXXXX)
+
+if printf '%s\n' "$content" | grep -qE '^\s*[\{\[]'; then
   ext="json"
-elif echo "$content" | grep -qE '^\s*<'; then
+elif printf '%s\n' "$content" | grep -qE '^\s*<'; then
   ext="xml"
-elif echo "$content" | grep -qE '(public class |import java\.|package [a-z])'; then
+elif printf '%s\n' "$content" | grep -qE '(public class |import java\.|package [a-z])'; then
   ext="java"
-elif echo "$content" | grep -qE '(^function |^local |^end$)'; then
+elif printf '%s\n' "$content" | grep -qE '(^function |^local |^end$)'; then
   ext="lua"
-elif echo "$content" | grep -qE '(const |let |var |=>|require\()'; then
+elif printf '%s\n' "$content" | grep -qE '(const |let |var |=>|require\()'; then
   ext="js"
-elif echo "$content" | grep -qE '^(---|[a-z_]+:)'; then
+elif printf '%s\n' "$content" | grep -qE '^(---|[a-z_]+:)'; then
   ext="yaml"
 else
   ext="txt"
 fi
 
-named="/tmp/snippet.$ext"
+named="${tmp}.$ext"
+trap 'rm -f "$tmp" "$named"' EXIT
 mv "$tmp" "$named"
+printf '%s\n' "$content" > "$named"
 
 if [[ "$ext" == "txt" ]]; then
   python3 -c "
@@ -57,10 +64,11 @@ while lines and not lines[-1].strip(): lines.pop()
 print(textwrap.dedent('\n'.join(lines)))
 " < "$named"
 else
-  nvim --headless "$named" \
-    -c 'Neoformat' \
-    -c 'wq!' 2>/dev/null
+  if ! nvim --headless "$named" -c 'Neoformat' -c 'wq!' 2>/dev/null; then
+    echo "snfmt: nvim failed" >&2
+    exit 1
+  fi
   cat "$named"
 fi
-rm "$named"
+
 echo "Detected: $ext" >&2
