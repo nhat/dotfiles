@@ -1,6 +1,9 @@
 frame = "full"
 title-hidden = false
-system-native-tabs = true
+system-native-tabs = false
+system-pinned-hotkey = false
+system-switcher-hotkey = false
+system-quit-hotkey = "cmd+w"
 vsync = true
 idle = true
 fork = true

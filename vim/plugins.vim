@@ -301,6 +301,7 @@ endif
 
 " neovide
 if exists("g:neovide")
+    let g:neovide_hide_mouse_when_typing = v:true
     " fzf
     command! -bang Ag
     \  call fzf#vim#ag(<q-args>,
