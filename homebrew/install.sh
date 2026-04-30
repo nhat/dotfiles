@@ -45,7 +45,7 @@ casks=(
   alfred
   karabiner-elements
   vlc
-  vimr
+  neovide-app
   qlstephen
   syntax-highlight
   appcleaner

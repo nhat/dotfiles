@@ -75,7 +75,7 @@ nmap <silent> <S-f2> <Plug>(ale_previous_wrap)
 colorscheme one
 highlight Normal ctermbg=white
 highlight Directory gui=bold
-highlight Comment gui=italic
+if !exists("g:neovide") | highlight Comment gui=italic | endif
 highlight Search guibg=#EBCB8B guifg=#3C3C3C
 highlight Incsearch gui=none guibg=LightGoldenrod1 guifg=#3C3C3C
 call one#highlight('xmlNamespace', 'e45649', '', 'none')
@@ -90,7 +90,7 @@ function! s:UpdateSeparatorColor() abort
     if &background ==# 'dark'
         highlight WinSeparator guifg=#474C53 guibg=#282C34
         highlight BufTabLineHidden guifg=#9DA5B4
-        if exists('g:neovide') || exists('g:gui_vimr')
+        if exists('g:neovide')
             highlight Normal guibg=#282C34
         else
             highlight Normal guibg=NONE
@@ -98,7 +98,7 @@ function! s:UpdateSeparatorColor() abort
     else
         highlight WinSeparator guifg=#D5D4D4 guibg=#FAFAFA
         highlight BufTabLineHidden guifg=#555965
-        if exists('g:neovide') || exists('g:gui_vimr')
+        if exists('g:neovide')
             highlight Normal guibg=#FAFAFA
         else
             highlight Normal guibg=NONE
@@ -299,8 +299,8 @@ if has('nvim')
         \| autocmd BufLeave <buffer> set laststatus=2 ruler titlestring=%F%a%r%m
 endif
 
-" vimr
-if exists("g:gui_vimr")
+" neovide
+if exists("g:neovide")
     " fzf
     command! -bang Ag
     \  call fzf#vim#ag(<q-args>,
@@ -320,6 +320,10 @@ if exists("g:gui_vimr")
     " vim move, move line up/down with shift+ctrl+j/k
     let g:move_key_modifier = 'C-S'
     let g:move_key_modifier_visualmode = 'C-S'
+
+    " paste
+    inoremap <D-v> <C-r>+
+    cnoremap <D-v> <C-r>+
 endif
 
 " make current file or oil folder the working directory
@@ -382,7 +386,7 @@ vim.keymap.set({'n', 'v'}, "<Leader>q", function()
     vim.cmd("CopilotChatOpen")
 end, { desc = "Open CopilotChat quick chat" })
 
-local open_chat_keymap = vim.g.gui_vimr ~= nil and '<C-S-F19>' or '<C-S-c>'
+local open_chat_keymap = '<C-S-c>'
 vim.keymap.set({'n', 'v', 'i'}, open_chat_keymap, function()
   local pane_width = vim.api.nvim_win_get_width(0)
   local layout = pane_width > 100 and 'vertical' or 'horizontal'

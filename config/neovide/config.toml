@@ -1,0 +1,18 @@
+frame = "full"
+title-hidden = false
+system-native-tabs = true
+vsync = true
+idle = true
+fork = true
+
+[font]
+normal = ["SF Mono"]
+size = 14.0
+
+[[font.italic]]
+family = "JetBrains Mono"
+style = "Italic"
+
+[[font.bold_italic]]
+family = "JetBrains Mono"
+style = "Bold Italic"

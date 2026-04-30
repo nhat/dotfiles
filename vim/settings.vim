@@ -160,8 +160,18 @@ if has("nvim")
     inoremap <silent> <Up> <C-o>gk
 end
 
-" vimr
-if exists("g:gui_vimr")
+" neovide
+if exists("g:neovide")
+    let g:neovide_scroll_animation_length = 0
+    let g:neovide_cursor_animation_length = 0
+    let g:neovide_cursor_trail_size = 0
+
+    let g:neovide_input_macos_option_key_is_meta = 'only_left'
+    let g:neovide_proxy_icon = v:true
+    let g:neovide_confirm_quit = v:true
+    let g:neovide_remember_window_size = v:true
+    let g:neovide_theme = 'auto'
+
     " new line below with cmd+enter
     inoremap <D-CR> <Esc>o
     nnoremap <D-CR> o<Esc>
@@ -179,14 +189,5 @@ if exists("g:gui_vimr")
     " toggle word case
     nnoremap <S-D-u> viw~
     inoremap <S-D-u> <Esc>viw~ea
-
-    " scroll up fix for unknown issue, so it won't delete current line
-    nmap <S-D-e> 20<C-y>
-
-    " move cursor through soft-wrapped lines
-    nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
-    nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-    inoremap <silent> <Down> <C-o>gj
-    inoremap <silent> <Up> <C-o>gk
 endif
 
