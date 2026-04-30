@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Outputs formatted content, or the original unchanged if formatting fails.
+set -uo pipefail
 
-if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
   cat >&2 <<'EOF'
 usage: snfmt
 
@@ -19,7 +20,7 @@ EOF
   exit 0
 fi
 
-if [[ -n "$1" ]]; then
+if [[ -n "${1:-}" ]]; then
   content="$1"
 elif [[ -t 0 ]]; then
   "$0" --help
@@ -28,30 +29,27 @@ else
   content=$(cat)
 fi
 
-[[ -z "$content" ]] && exit 0
+[[ -z "${content:-}" ]] && exit 0
 
-tmp=$(mktemp /tmp/snippet.XXXXXX)
+tmp=$(mktemp "${TMPDIR:-/tmp}/snfmt.XXXXXX")
+trap 'rm -f "$tmp"' EXIT
+printf '%s\n' "$content" > "$tmp"
 
-if printf '%s\n' "$content" | grep -qE '^\s*[\{\[]'; then
+if grep -qE '^\s*[\{\[]' <<< "$content"; then
   ext="json"
-elif printf '%s\n' "$content" | grep -qE '^\s*<'; then
+elif grep -qE '^\s*<' <<< "$content"; then
   ext="xml"
-elif printf '%s\n' "$content" | grep -qE '(public class |import java\.|package [a-z])'; then
+elif grep -qE '(public class |import java\.|package [a-z])' <<< "$content"; then
   ext="java"
-elif printf '%s\n' "$content" | grep -qE '(^function |^local |^end$)'; then
+elif grep -qE '(^function |^local |^end$)' <<< "$content"; then
   ext="lua"
-elif printf '%s\n' "$content" | grep -qE '(const |let |var |=>|require\()'; then
-  ext="js"
-elif printf '%s\n' "$content" | grep -qE '^(---|[a-z_]+:)'; then
+elif grep -qE '(const |let |var |=>|require\()' <<< "$content"; then
+  ext="javascript"
+elif grep -qE '^(---|[a-z_]+:)' <<< "$content"; then
   ext="yaml"
 else
   ext="txt"
 fi
-
-named="${tmp}.$ext"
-trap 'rm -f "$tmp" "$named"' EXIT
-mv "$tmp" "$named"
-printf '%s\n' "$content" > "$named"
 
 if [[ "$ext" == "txt" ]]; then
   python3 -c "
@@ -61,10 +59,10 @@ lines = [l.rstrip() for l in lines]
 while lines and not lines[0].strip(): lines.pop(0)
 while lines and not lines[-1].strip(): lines.pop()
 print(textwrap.dedent('\n'.join(lines)))
-" < "$named"
+" < "$tmp"
 else
-  nvim --headless "$named" -c 'Neoformat' -c 'wq!' 2>/dev/null || true  # cat below outputs original on failure
-  cat "$named"
+  nvim --headless "$tmp" -c "set ft=$ext" -c 'Neoformat' -c 'wq!' 2>/dev/null || true  # cat below outputs original on failure
+  cat "$tmp"
 fi
 
 echo "Detected: $ext" >&2
