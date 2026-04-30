@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  cat >&2 <<'EOF'
+usage: snfmt
+
+Reads from stdin, auto-detects language, formats, and prints to stdout.
+
+  snfmt '{"a":1}'                 format argument directly
+  echo '{"a":1}' | snfmt          format stdin
+  cat file.json  | snfmt          format a file
+  pbpaste        | snfmt | pbcopy format clipboard in place
+
+Supported languages: json, xml, java, lua, javascript, yaml
+Unknown formats: strips trailing whitespace and dedents
+EOF
+  exit 0
+fi
+
+if [[ -n "$1" ]]; then
+  content="$1"
+elif [[ -t 0 ]]; then
+  "$0" --help
+  exit 1
+else
+  content=$(cat)
+fi
+tmp=$(mktemp /tmp/snippet.XXXXXX)
+echo "$content" > "$tmp"
+
+if echo "$content" | grep -qE '^\s*[\{\[]'; then
+  ext="json"
+elif echo "$content" | grep -qE '^\s*<'; then
+  ext="xml"
+elif echo "$content" | grep -qE '(public class |import java\.|package [a-z])'; then
+  ext="java"
+elif echo "$content" | grep -qE '(^function |^local |^end$)'; then
+  ext="lua"
+elif echo "$content" | grep -qE '(const |let |var |=>|require\()'; then
+  ext="js"
+elif echo "$content" | grep -qE '^(---|[a-z_]+:)'; then
+  ext="yaml"
+else
+  ext="txt"
+fi
+
+named="/tmp/snippet.$ext"
+mv "$tmp" "$named"
+
+if [[ "$ext" == "txt" ]]; then
+  python3 -c "
+import sys, textwrap
+lines = sys.stdin.read().splitlines()
+lines = [l.rstrip() for l in lines]
+while lines and not lines[0].strip(): lines.pop(0)
+while lines and not lines[-1].strip(): lines.pop()
+print(textwrap.dedent('\n'.join(lines)))
+" < "$named"
+else
+  nvim --headless "$named" \
+    -c 'Neoformat' \
+    -c 'wq!' 2>/dev/null
+  cat "$named"
+fi
+rm "$named"
+echo "Detected: $ext" >&2
