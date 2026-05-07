@@ -1704,9 +1704,15 @@
 		<key>0x6b-0x100000</key>
 		<dict>
 			<key>Action</key>
-			<integer>13</integer>
+			<integer>5</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>1</integer>
 			<key>Text</key>
 			<string></string>
+			<key>Version</key>
+			<integer>2</integer>
 		</dict>
 		<key>0x9-0x40000</key>
 		<dict>
@@ -1753,13 +1759,6 @@
 		<dict>
 			<key>Action</key>
 			<integer>34</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0xf729-0x100000</key>
-		<dict>
-			<key>Action</key>
-			<integer>5</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>

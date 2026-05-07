@@ -42,7 +42,6 @@ set bg=light
 set fillchars=eob:\ ,fold:\ ,vert:\│   " show blank chars for lines after end of file
 
 filetype indent on
-syntax on
 autocmd FocusGained,BufEnter * silent! checktime                " reload buffer when focus changes
 autocmd FocusLost,Bufleave * silent! wa                         " save buffer when focus changes
 autocmd StdinReadPost * set buftype=nofile
@@ -149,6 +148,9 @@ cnoremap <M-f> <S-Right>
 
 " nvim
 if has("nvim")
+    " highlight code by file type
+    syntax on
+
     " new line below with meta+enter
     inoremap <M-CR> <Esc>o
     nnoremap <M-CR> o<Esc>
