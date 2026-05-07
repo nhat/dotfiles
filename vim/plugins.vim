@@ -51,8 +51,23 @@ imap <silent><C-p> <Esc>:Fzf<CR>
 nmap <silent><Leader><CR> :Buffers<CR>
 nmap <silent><Leader>f :Ag<CR>
 
-command! Fzf
-    \ :FZF --prompt=🔍\  --reverse --no-separator --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:\#625F50,hl+:\#E75544,hl:\#E75544,info:\#FAFAFA --bind change:top
+function! s:FzfColors()
+  if &background ==# 'dark'
+    return 'gutter:#8892a4,bg+:#2d4f6e,fg+:#e8f0fe'
+  else
+    return 'gutter:#8892a4,bg+:#bee3f8,fg+:#1a365d'
+  endif
+endfunction
+
+function! s:RunFzf()
+  call fzf#run(fzf#wrap({
+      \ 'options': '--prompt=🔍  --reverse --no-separator --pointer=  '
+      \          . '--color=spinner:250,' . s:FzfColors() . ',prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA '
+      \          . '--bind change:top'
+      \ }))
+endfunction
+
+command! Fzf call s:RunFzf()
 
 " toggle comment
 nmap <M-/> <Plug>CommentaryLine j0
@@ -310,7 +325,7 @@ if exists("g:neovide")
     " fzf
     command! -bang Ag
     \  call fzf#vim#ag(<q-args>,
-    \    fzf#vim#with_preview({'options': ['--layout=reverse', '--color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA', '--bind=change:top']}),
+    \    fzf#vim#with_preview({'options': ['--layout=reverse', '--pointer= ', '--color=spinner:250,' . s:FzfColors() . ',prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA', '--bind=change:top']}),
     \    <bang>0)
 
     nmap <silent><D-p> :Fzf<CR>

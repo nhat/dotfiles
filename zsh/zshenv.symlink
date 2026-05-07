@@ -14,12 +14,21 @@ export LESS='-iR'
 
 # set defaults for fzf
 export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix'
+
+if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+  _fzf_sel="bg+:#2d4f6e,fg+:#e8f0fe"
+else
+  _fzf_sel="bg+:#bee3f8,fg+:#1a365d"
+fi
+
 export FZF_DEFAULT_OPTS="
     --height 30% --reverse --exit-0 --no-separator
-    --color=spinner:250,pointer:0,fg+:-1,bg+:-1,prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA
+    --pointer=' '
+    --color=spinner:250,gutter:#8892a4,${_fzf_sel},prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA
     --bind change:top
     --prompt='🔍 '
 "
+unset _fzf_sel
 
 # set location for cask to install apps
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"

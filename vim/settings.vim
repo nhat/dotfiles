@@ -1,5 +1,6 @@
 " Settings
 " -------------------------
+let g:java_ignore_markdown = 1         " prevent E28 errors from markdown highlight groups in javadoc
 set clipboard=unnamed
 set number                             " show line numbers
 set cursorline                         " highlight current line
