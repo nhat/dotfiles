@@ -98,6 +98,7 @@ highlight luaFunc guifg=none
 highlight PmenuSel guibg=#4078f2 guifg=white
 highlight NormalFloat guibg=none
 highlight FloatBorder guifg=#A0A0A8
+highlight SignColumn guibg=NONE ctermbg=NONE
 
 " match iTerm2 pane divider color
 function! s:UpdateSeparatorColor() abort
