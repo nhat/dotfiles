@@ -137,9 +137,10 @@ else
 fi
 
 # use fzf to find file or folder
+_fd_excludes=(--exclude .git --exclude .npm --exclude .cache --exclude node_modules --exclude __pycache__ --exclude .venv --exclude venv --exclude target --exclude .gradle --exclude .m2)
 fzf-find-file-or-folder() {
-fd --hidden --strip-cwd-prefix | fzf --header="(Press again to search in home folder)" > /tmp/fzf_selection \
-    --bind 'ctrl-p:execute(fd --hidden . $HOME | fzf --height 100% --prompt="🔍 ${HOME##*/} " > /tmp/fzf_selection)+abort'
+fd --hidden --strip-cwd-prefix $_fd_excludes | fzf --header="(Press again to search in home folder)" > /tmp/fzf_selection \
+    --bind "ctrl-p:execute(fd --hidden $_fd_excludes . $HOME | fzf --height 100% --prompt='🔍 ${HOME##*/} ' > /tmp/fzf_selection)+abort"
   local out=$(cat /tmp/fzf_selection)
 
   # output with full escaped path

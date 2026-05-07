@@ -27,8 +27,7 @@ Plug 'preservim/vim-markdown'
 Plug 'windwp/nvim-autopairs'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'google/vim-searchindex'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'lbrayner/vim-rzip'
 Plug 'w0rp/ale'
@@ -154,6 +153,7 @@ let g:gitgutter_sign_modified_removed = '█'
 
 " fzf
 let g:fzf_layout = { 'down': '~30%' }
+let $FZF_DEFAULT_COMMAND = 'fd --hidden --strip-cwd-prefix --exclude .git --exclude .npm --exclude .cache --exclude node_modules --exclude __pycache__ --exclude .venv --exclude venv --exclude target --exclude .gradle --exclude .m2'
 
 " search files in git root directory
 function! s:find_git_root()
@@ -179,7 +179,6 @@ endfunction
 
 " neoformat
 autocmd FileType javascript,typescript setlocal formatprg=prettier
-    \\ --stdin
     \\ --print-width\ 120
     \\ --single-quote
     \\ --trailing-comma\ es5
@@ -255,7 +254,7 @@ function! Tmpwatch(path, days)
         endfor
     else
         echo "Tmpwatch(): Directory '" . l:path . "' not found and will be created"
-        !mkdir -p l:path
+        execute '!mkdir -p ' . shellescape(l:path)
     endif
 endfunction
 
