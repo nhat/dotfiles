@@ -142,7 +142,13 @@ _update_git_prompt() {
     zstat -A remote_ref_mt +mtime "$_git_prompt_dir/refs/remotes/origin/$branch_name" 2>/dev/null
   zstat -A packed_mt +mtime "$_git_prompt_dir/packed-refs" 2>/dev/null
 
-  if (( idx_mt && idx_mt == _git_prompt_idx_mt && head_mt == _git_prompt_head_mt && remote_ref_mt == _git_prompt_remote_ref_mt && packed_mt == _git_prompt_packed_mt )); then
+  # Force a recheck every 3 s regardless of mtime changes — working-tree edits
+  # (unstaged modifications, new untracked files) don't touch the index or refs,
+  # so mtime guards alone cannot detect the clean↔dirty transition.
+  local force_recheck=0
+  (( EPOCHREALTIME - _git_prompt_last_time >= 3.0 )) && force_recheck=1
+
+  if (( !force_recheck && idx_mt && idx_mt == _git_prompt_idx_mt && head_mt == _git_prompt_head_mt && remote_ref_mt == _git_prompt_remote_ref_mt && packed_mt == _git_prompt_packed_mt )); then
     return
   fi
 
