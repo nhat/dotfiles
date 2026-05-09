@@ -125,6 +125,7 @@ function! s:UpdateSeparatorColor() abort
         silent! call lightline#update()
     endif
 endfunction
+
 augroup SeparatorColor
     autocmd!
     autocmd User LumenDark  call s:UpdateSeparatorColor()
@@ -320,7 +321,23 @@ if has('nvim')
 endif
 
 " neovide
+function! s:NeovideFixStartup() abort
+    for buf in getbufinfo({'buflisted': 1})
+        if !empty(get(buf, 'name', '')) && empty(getbufvar(buf.bufnr, '&filetype'))
+            let winid = bufwinid(buf.bufnr)
+            if winid != -1
+                call win_execute(winid, 'filetype detect')
+            endif
+        endif
+    endfor
+endfunction
+
 if exists("g:neovide")
+    " filetype and syntax can be wiped by the colorscheme reload cascade that
+    " neovide_theme='auto' triggers at UIEnter; re-detect after it settles
+    autocmd UIEnter * call timer_start(0, {_ -> s:NeovideFixStartup()})
+    autocmd BufEnter * if !empty(expand('%')) && empty(&filetype) | filetype detect | endif
+
     let g:neovide_hide_mouse_when_typing = v:true
     nmap <silent><D-w> :confirm qa<CR>
     " fzf
