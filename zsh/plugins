@@ -8,4 +8,4 @@ zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
-jonmosco/kube-ps1
+jonmosco/kube-ps1 kind:defer

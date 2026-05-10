@@ -25,8 +25,8 @@ zstyle ':completion:*' group-name ''
 
 # zmx completions (cached — regenerate when zmx binary changes)
 _zmx_cache="$HOME/.zmx-completion-zsh"
-if command -v zmx &> /dev/null; then
-  if [[ ! -s "$_zmx_cache" || "$(command -v zmx)" -nt "$_zmx_cache" ]]; then
+if (( $+commands[zmx] )); then
+  if [[ ! -s "$_zmx_cache" || $commands[zmx] -nt "$_zmx_cache" ]]; then
     zmx completions zsh >! "$_zmx_cache"
   fi
   source "$_zmx_cache"
@@ -35,7 +35,7 @@ unset _zmx_cache
 
 # zoxide — fast directory jumping (replaces fasd)
 _zoxide_cache="$HOME/.zoxide-init-zsh"
-if [[ ! -s "$_zoxide_cache" || "$(command -v zoxide)" -nt "$_zoxide_cache" ]]; then
+if [[ ! -s "$_zoxide_cache" || $commands[zoxide] -nt "$_zoxide_cache" ]]; then
   zoxide init zsh >! "$_zoxide_cache"
 fi
 source "$_zoxide_cache"

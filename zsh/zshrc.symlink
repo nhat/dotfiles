@@ -1,3 +1,5 @@
+[[ -n $ZSH_PROF ]] && zmodload zsh/zprof
+
 # shortcut to this dotfiles path is $DOTFILES_ROOT
 export DOTFILES_ROOT=$HOME/.dotfiles
 
@@ -5,6 +7,23 @@ export DOTFILES_ROOT=$HOME/.dotfiles
 if [[ -a ~/.localrc ]]; then
   source ~/.localrc
 fi
+
+# FZF options — interactive only, so defaults read stays out of .zshenv subshells
+if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+  _fzf_sel="bg+:#2d4f6e,fg+:#e8f0fe"
+  _fzf_gutter="gutter:#282c34"
+else
+  _fzf_sel="bg+:#bee3f8,fg+:#1a365d"
+  _fzf_gutter="gutter:#fafafa"
+fi
+export FZF_DEFAULT_OPTS="
+    --height 30% --reverse --exit-0 --no-separator
+    --pointer=' '
+    --color=spinner:250,${_fzf_gutter},${_fzf_sel},prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA
+    --bind change:top
+    --prompt='🔍 '
+"
+unset _fzf_sel _fzf_gutter
 
 # all of our zsh files
 typeset -U config_files
@@ -50,4 +69,9 @@ source $DOTFILES_ROOT/zsh/plugins_config
 
 unset config_files
 
-test -e /Users/nnguyen2/.iterm2_shell_integration.zsh && source /Users/nnguyen2/.iterm2_shell_integration.zsh || true
+# Pre-set to avoid hostname -f DNS lookup on every prompt draw — can block for
+# seconds on VPN. Short hostname is sufficient for iTerm2 session tracking.
+[[ -z $iterm2_hostname ]] && iterm2_hostname=$(hostname)
+test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
+
+[[ -n $ZSH_PROF ]] && zprof
