@@ -1,6 +1,5 @@
 " Settings
 " -------------------------
-let g:java_ignore_markdown = 1         " prevent E28 errors from markdown highlight groups in javadoc
 set clipboard=unnamed
 set number                             " show line numbers
 set cursorline                         " highlight current line
@@ -48,6 +47,7 @@ autocmd StdinReadPost * set buftype=nofile
 autocmd BufRead,BufNewFile *.csv set filetype=none              " show plain csv files
 autocmd VimEnter * silent! lcd %:p:h                            " set working directory
 
+let g:java_ignore_markdown = 1         " prevent E28 errors from markdown highlight groups in javadoc
 
 " Key Bindings
 " -------------------------
