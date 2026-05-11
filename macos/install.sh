@@ -21,14 +21,15 @@ echo "  Default key bindings extended successfully"
 
 # Install keyboard without German Umlauts
 # https://github.com/patrick-zippenfenig/us-with-german-umlauts
-# * `option` + `a` => `ä`
-# * `option` + `o` => `ö`
-# * `option` + `u` => `ü`
-# * `option` + `s` => `ß`
-# * `option` + `shift` + `a` => `Ä`
-# * `option` + `shift` + `o` => `Ö`
-# * `option` + `shift` + `u` => `Ü`
-# * `option` + `shift` + `s` => `ẞ`
+# * option + a => ä
+# * option + o => ö
+# * option + u => ü
+# * option + s => ß
+# * option + shift + a => Ä
+# * option + shift + o => Ö
+# * option + shift + u => Ü
+# * option + shift + s => ẞ
+# * option + e => €
 echo "Installing keyboard layout without German Umlauts..."
 if ! [[ -f "/Library/Keyboard Layouts/US-with-German-Umlauts.bundle" ]]; then
   sudo cp -n -r "$DOTFILES_ROOT/macos/US-with-German-Umlauts.bundle" "/Library/Keyboard Layouts/"
