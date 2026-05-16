@@ -63,30 +63,17 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 _zsh_autosuggest_bind_widgets 2>/dev/null
 precmd_functions=(${precmd_functions:#_zsh_autosuggest_start})
 
-# Skip fetch when keys are queued — keeps old suggestion visible during burst typing.
+# Skip reset/fetch when keys are queued — keeps old suggestion visible during burst typing.
+functions[_zsh_autosuggest_highlight_reset_orig]=$functions[_zsh_autosuggest_highlight_reset]
+_zsh_autosuggest_highlight_reset() {
+  (( KEYS_QUEUED_COUNT > 0 )) && return
+  _zsh_autosuggest_highlight_reset_orig "$@"
+}
+
 functions[_zsh_autosuggest_fetch_orig]=$functions[_zsh_autosuggest_fetch]
 _zsh_autosuggest_fetch() {
   (( KEYS_QUEUED_COUNT > 0 )) && return
   _zsh_autosuggest_fetch_orig "$@"
-}
-
-# Make highlight reset a no-op. Cleanup is handled atomically inside
-# _zsh_autosuggest_highlight_apply below, so region_highlight never passes
-# through an empty intermediate state between the old and new suggestion entries.
-_zsh_autosuggest_highlight_reset() { }
-
-# Atomically swap old suggestion entry for new one in a single region_highlight
-# update. Prevents the brief unstyled flash caused by the separate reset + apply cycle.
-functions[_zsh_autosuggest_highlight_apply_orig]=$functions[_zsh_autosuggest_highlight_apply]
-_zsh_autosuggest_highlight_apply() {
-  if [[ -n "$_ZSH_AUTOSUGGEST_LAST_HIGHLIGHT" ]]; then
-    region_highlight=("${(@)region_highlight:#$_ZSH_AUTOSUGGEST_LAST_HIGHLIGHT}")
-    unset _ZSH_AUTOSUGGEST_LAST_HIGHLIGHT
-  fi
-  if (( $#POSTDISPLAY )); then
-    typeset -g _ZSH_AUTOSUGGEST_LAST_HIGHLIGHT="$#BUFFER $(($#BUFFER + $#POSTDISPLAY)) $ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE"
-    region_highlight+=("$_ZSH_AUTOSUGGEST_LAST_HIGHLIGHT")
-  fi
 }
 
 # Remove the intermediate POSTDISPLAY="" clear that causes the suggestion text
