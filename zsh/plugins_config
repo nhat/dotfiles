@@ -52,6 +52,29 @@ HSMW_HIGHLIGHT_STYLES[single-quoted-argument]="fg=green"
 HSMW_HIGHLIGHT_STYLES[double-quoted-argument]="fg=green"
 HSMW_HIGHLIGHT_STYLES[variable]="fg=cyan"
 
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=white
+ZSH_AUTOSUGGEST_STRATEGY=(history)
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+
+# Bind widgets at startup instead of letting _zsh_autosuggest_start run in precmd.
+# Running _zsh_autosuggest_start inside precmd (which calls _zsh_autosuggest_bind_widgets
+# and re-evals/re-registers hundreds of ZLE widgets) contributes to spurious blank lines.
+_zsh_autosuggest_bind_widgets 2>/dev/null
+precmd_functions=(${precmd_functions:#_zsh_autosuggest_start})
+
+# _zsh_autosuggest_widget_clear wraps accept-line. Its `zle -R` call fires while
+# ZLE is exiting accept-line and can produce an extra blank line on rapid Enter.
+# ZLE redraws automatically after widgets, so the explicit -R is not needed.
+_zsh_autosuggest_widget_clear() {
+  local -i retval
+  _zsh_autosuggest_highlight_reset
+  _zsh_autosuggest_clear "$@"
+  retval=$?
+  _zsh_autosuggest_highlight_apply
+  return $retval
+}
+
 # use empty separator for kubernetes status
 KUBE_PS1_SEPARATOR=' '
 
