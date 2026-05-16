@@ -145,7 +145,7 @@ cnoremap <M-f> <S-Right>
 " Other
 " -------------------------
 
-" nvim — has('nvim') is true in nvim and neovide; use has('ide') to detect IdeaVim
+" has('nvim') is true in nvim and neovide; use has('ide') to detect IdeaVim
 if has("nvim")
     " highlight code by file type
     syntax on
