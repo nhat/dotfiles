@@ -20,10 +20,6 @@ typeset -g _git_prompt_idx_mt=0     # .git/index mtime at last spawn
 typeset -g _git_prompt_head_mt=0    # .git/HEAD mtime at last spawn
 typeset -g _git_prompt_remote_ref_mt=0 # remote tracking loose ref mtime at last spawn
 typeset -g _git_prompt_packed_mt=0     # .git/packed-refs mtime at last spawn
-typeset -g _kube_prompt_info=""
-typeset -g _kube_prompt_fd=0
-typeset -g _kube_prompt_pid=0
-typeset -g _kube_prompt_last_time=0.0
 typeset -g _zmx_prompt_info=""
 typeset -g _zle_editing=0  # set 1 by zle-line-init, 0 by zle-line-finish (config.zsh)
 
@@ -191,56 +187,6 @@ _update_git_prompt() {
   fi
 }
 
-# --- Kube (async) ---
-
-_compute_kube_info() {
-  (( $+functions[kube_ps1] )) || return
-  local kube_status
-  kube_status=$(kube_ps1 | sed -E 's/^\(.*\}N\/A%.*:.*\}N\/A%.*\)$//')
-  print -r -- "${kube_status:+ $kube_status}"
-}
-
-_kube_prompt_callback() {
-  local fd=$1
-  zle -F "$fd" 2>/dev/null
-  # _print_prompt_newline may have already cleaned this fd up; bail if so.
-  (( _kube_prompt_fd == fd )) || return
-  IFS= read -r _kube_prompt_info <&"$fd"
-  exec {fd}<&-
-  _kube_prompt_fd=0
-  _kube_prompt_pid=0
-  (( _zle_editing )) && [[ -z $BUFFER ]] && zle reset-prompt
-}
-
-_update_kube_prompt() {
-  # Skip if last spawn was < 5s ago — kube context is global, not per-directory.
-  if (( EPOCHREALTIME - _kube_prompt_last_time < 5.0 )); then
-    return
-  fi
-  _kube_prompt_last_time=$EPOCHREALTIME
-
-  if (( _kube_prompt_fd )); then
-    zle -F "$_kube_prompt_fd" 2>/dev/null
-    exec {_kube_prompt_fd}<&-
-    _kube_prompt_fd=0
-  fi
-  (( _kube_prompt_pid )) && kill "$_kube_prompt_pid" 2>/dev/null
-  _kube_prompt_pid=0
-
-  exec {_kube_prompt_fd}< <(_compute_kube_info)
-  _kube_prompt_pid=$!
-
-  if ! zle -F "$_kube_prompt_fd" _kube_prompt_callback 2>/dev/null; then
-    # ZLE not yet active — don't block. Kill subprocess, reset timer so next
-    # precmd retries immediately via the normal async path.
-    (( _kube_prompt_fd )) && exec {_kube_prompt_fd}<&-
-    _kube_prompt_fd=0
-    (( _kube_prompt_pid )) && kill "$_kube_prompt_pid" 2>/dev/null
-    _kube_prompt_pid=0
-    _kube_prompt_last_time=0
-  fi
-}
-
 # --- ZMX session (sync, just reads an env var) ---
 
 _update_zmx_prompt() {
@@ -268,21 +214,13 @@ _print_prompt_newline() {
   fi
   (( _git_prompt_pid )) && kill "$_git_prompt_pid" 2>/dev/null
   _git_prompt_pid=0
-  if (( _kube_prompt_fd )); then
-    zle -F "$_kube_prompt_fd" 2>/dev/null
-    exec {_kube_prompt_fd}<&-
-    _kube_prompt_fd=0
-    _kube_prompt_last_time=0
-  fi
-  (( _kube_prompt_pid )) && kill "$_kube_prompt_pid" 2>/dev/null
-  _kube_prompt_pid=0
   print
 }
 
-precmd_functions+=(_print_prompt_newline _update_git_prompt _update_kube_prompt _update_zmx_prompt)
+precmd_functions+=(_print_prompt_newline _update_git_prompt _update_zmx_prompt)
 
 set_prompt() {
-  PROMPT="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}\${_kube_prompt_info}
+  PROMPT="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}
 "
 }
 

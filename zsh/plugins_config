@@ -128,8 +128,6 @@ _zsh_autosuggest_widget_clear() {
   return $retval
 }
 
-# use empty separator for kubernetes status
-KUBE_PS1_SEPARATOR=' '
 
 
 
