@@ -405,7 +405,6 @@ require("CopilotChat").setup {
   },
   show_folds = false,
   auto_insert_mode = true, -- Automatically enter insert mode when opening window and on new prompt
-  separator = '',
   mappings = {
     complete = {
       insert = '<C-n>',
