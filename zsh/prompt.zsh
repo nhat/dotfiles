@@ -97,7 +97,7 @@ _git_prompt_callback() {
   exec {fd}<&-
   _git_prompt_fd=0
   _git_prompt_pid=0
-  (( _zle_editing )) && zle reset-prompt
+  (( _zle_editing )) && [[ -z $BUFFER ]] && zle reset-prompt
 }
 
 _update_git_prompt() {
@@ -209,7 +209,7 @@ _kube_prompt_callback() {
   exec {fd}<&-
   _kube_prompt_fd=0
   _kube_prompt_pid=0
-  (( _zle_editing )) && zle reset-prompt
+  (( _zle_editing )) && [[ -z $BUFFER ]] && zle reset-prompt
 }
 
 _update_kube_prompt() {
