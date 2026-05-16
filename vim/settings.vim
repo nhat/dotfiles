@@ -41,9 +41,6 @@ set bg=light
 set fillchars=eob:\ ,fold:\ ,vert:\│   " show blank chars for lines after end of file
 
 filetype indent on
-if !has('ide')
-    autocmd FocusGained,BufEnter * silent! checktime            " reload buffer when focus changes
-endif
 autocmd FocusLost,Bufleave * silent! wa                         " save buffer when focus changes
 autocmd StdinReadPost * set buftype=nofile
 autocmd BufRead,BufNewFile *.csv set filetype=none              " show plain csv files
@@ -152,6 +149,8 @@ cnoremap <M-f> <S-Right>
 if has("nvim")
     " highlight code by file type
     syntax on
+
+    autocmd FocusGained,BufEnter * silent! checktime            " reload buffer when focus changes
 
     " new line below with meta+enter
     inoremap <M-CR> <Esc>o
