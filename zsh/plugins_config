@@ -78,6 +78,46 @@ _zsh_autosuggest_fetch() {
   _zsh_autosuggest_fetch_orig "$@"
 }
 
+# Remove the intermediate POSTDISPLAY="" clear that causes the suggestion text
+# to flash empty before the new suggestion is computed. Instead, run the original
+# widget first with POSTDISPLAY untouched, then replace it atomically via fetch.
+# Safe because history fetch is synchronous — no redraw happens between the widget
+# call and the fetch, so the old suggestion is never shown in an inconsistent state.
+_zsh_autosuggest_modify() {
+  local -i retval
+  local -i KEYS_QUEUED_COUNT
+  local orig_buffer="$BUFFER"
+  local orig_postdisplay="$POSTDISPLAY"
+
+  _zsh_autosuggest_invoke_original_widget $@
+  retval=$?
+
+  emulate -L zsh
+
+  if (( $PENDING > 0 || $KEYS_QUEUED_COUNT > 0 )); then
+    return $retval
+  fi
+
+  if [[ "$BUFFER" = "$orig_buffer"* && "$orig_postdisplay" = "${BUFFER:$#orig_buffer}"* ]]; then
+    POSTDISPLAY="${orig_postdisplay:$(($#BUFFER - $#orig_buffer))}"
+    return $retval
+  fi
+
+  if (( ${+_ZSH_AUTOSUGGEST_DISABLED} )); then
+    return $?
+  fi
+
+  if (( $#BUFFER > 0 )); then
+    if [[ -z "$ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE" ]] || (( $#BUFFER <= $ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE )); then
+      _zsh_autosuggest_fetch
+    fi
+  else
+    POSTDISPLAY=
+  fi
+
+  return $retval
+}
+
 # _zsh_autosuggest_widget_clear wraps accept-line. Its `zle -R` call fires while
 # ZLE is exiting accept-line and can produce an extra blank line on rapid Enter.
 # ZLE redraws automatically after widgets, so the explicit -R is not needed.
