@@ -63,6 +63,21 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 _zsh_autosuggest_bind_widgets 2>/dev/null
 precmd_functions=(${precmd_functions:#_zsh_autosuggest_start})
 
+# Skip suggestion reset/fetch when keys are queued (user is mid-burst typing).
+# Keeps the existing suggestion visible instead of flickering through reset/apply.
+# Same technique as zsh-sage's KEYS_QUEUED_COUNT guard.
+functions[_zsh_autosuggest_highlight_reset_orig]=$functions[_zsh_autosuggest_highlight_reset]
+_zsh_autosuggest_highlight_reset() {
+  (( KEYS_QUEUED_COUNT > 0 )) && return
+  _zsh_autosuggest_highlight_reset_orig "$@"
+}
+
+functions[_zsh_autosuggest_fetch_orig]=$functions[_zsh_autosuggest_fetch]
+_zsh_autosuggest_fetch() {
+  (( KEYS_QUEUED_COUNT > 0 )) && return
+  _zsh_autosuggest_fetch_orig "$@"
+}
+
 # _zsh_autosuggest_widget_clear wraps accept-line. Its `zle -R` call fires while
 # ZLE is exiting accept-line and can produce an extra blank line on rapid Enter.
 # ZLE redraws automatically after widgets, so the explicit -R is not needed.
