@@ -41,7 +41,9 @@ set bg=light
 set fillchars=eob:\ ,fold:\ ,vert:\│   " show blank chars for lines after end of file
 
 filetype indent on
-autocmd FocusGained,BufEnter * silent! checktime                " reload buffer when focus changes
+if !has('ide')
+    autocmd FocusGained,BufEnter * silent! checktime            " reload buffer when focus changes
+endif
 autocmd FocusLost,Bufleave * silent! wa                         " save buffer when focus changes
 autocmd StdinReadPost * set buftype=nofile
 autocmd BufRead,BufNewFile *.csv set filetype=none              " show plain csv files

@@ -22,8 +22,8 @@ Plug 'dbakker/vim-paragraph-motion'
 Plug 'chrisbra/matchit'
 Plug 'justinmk/vim-sneak'
 Plug 'mechatroner/rainbow_csv'
-Plug 'godlygeek/tabular'
-Plug 'preservim/vim-markdown'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'preservim/vim-markdown', { 'for': 'markdown' }
 Plug 'windwp/nvim-autopairs'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'google/vim-searchindex'
@@ -34,7 +34,7 @@ Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
-Plug 'vimpostor/vim-lumen'
+Plug 'vimpostor/vim-lumen', { 'on': [] }   " lazy: loaded after VimEnter via s:LoadLumen()
 Plug 'rakr/vim-one'
 call plug#end()
 
@@ -129,10 +129,29 @@ endfunction
 augroup SeparatorColor
     autocmd!
     autocmd User LumenDark  call s:UpdateSeparatorColor()
+                         \| silent! call writefile(['dark'],  expand('~/.cache/nvim/lumen_bg'))
     autocmd User LumenLight call s:UpdateSeparatorColor()
+                         \| silent! call writefile(['light'], expand('~/.cache/nvim/lumen_bg'))
     autocmd ColorScheme *   call s:UpdateSeparatorColor()
     autocmd VimEnter *      call s:UpdateSeparatorColor()
 augroup END
+
+" Read cached background so we never run system() at startup for theme detection.
+" The cache is written by the LumenLight/LumenDark autocmds below.
+let s:lumen_cache = expand('~/.cache/nvim/lumen_bg')
+if filereadable(s:lumen_cache)
+  let &background = readfile(s:lumen_cache)[0]
+endif
+
+" Load vim-lumen after startup so its system() dark-mode check (~49ms) doesn't
+" block the initial render. lumen#update() is called explicitly because
+" VimEnter will have already fired when plug#load runs.
+function! s:LoadLumen() abort
+    silent! call mkdir(fnamemodify(s:lumen_cache, ':h'), 'p')
+    call plug#load('vim-lumen')
+    silent! call lumen#update()
+endfunction
+autocmd VimEnter * ++once call s:LoadLumen()
 
 " colorscheme for terminal
 let g:terminal_color_0 = '#3c3c3c'
@@ -394,27 +413,31 @@ require("oil").setup({
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
-require("CopilotChat").setup {
-  window = {
-    layout = 'float',
-    relative = 'cursor',
-    width = 1,
-    height = 0.4,
-    row = 1,
-    border = 'rounded',
-  },
-  show_folds = false,
-  auto_insert_mode = true, -- Automatically enter insert mode when opening window and on new prompt
-  mappings = {
-    complete = {
-      insert = '<C-n>',
+-- Defer CopilotChat setup so plenary/treesitter/tiktoken don't load at startup.
+-- By the time the user presses a key the deferred fn has already run.
+vim.defer_fn(function()
+  require("CopilotChat").setup {
+    window = {
+      layout = 'float',
+      relative = 'cursor',
+      width = 1,
+      height = 0.4,
+      row = 1,
+      border = 'rounded',
     },
-    submit_prompt = {
-      normal = '<CR>',
-      insert = '<CR>',
-    },
+    show_folds = false,
+    auto_insert_mode = true, -- Automatically enter insert mode when opening window and on new prompt
+    mappings = {
+      complete = {
+        insert = '<C-n>',
+      },
+      submit_prompt = {
+        normal = '<CR>',
+        insert = '<CR>',
+      },
+    }
   }
-}
+end, 0)
 
 vim.keymap.set({'n', 'v'}, "<Leader>q", function()
     if vim.fn.line('.') > (vim.fn.winheight(0) / 2) then
