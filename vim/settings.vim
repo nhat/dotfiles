@@ -46,8 +46,6 @@ autocmd StdinReadPost * set buftype=nofile
 autocmd BufRead,BufNewFile *.csv set filetype=none              " show plain csv files
 autocmd VimEnter * silent! lcd %:p:h                            " set working directory
 
-let g:java_ignore_markdown = 1         " prevent E28 errors from markdown highlight groups in javadoc
-
 " Key Bindings
 " -------------------------
 
@@ -147,6 +145,9 @@ cnoremap <M-f> <S-Right>
 
 " has('nvim') is true in nvim and neovide; use has('ide') to detect IdeaVim
 if has("nvim")
+    " prevent E28 errors from markdown highlight groups in javadoc
+    let g:java_ignore_markdown = 1
+
     " highlight code by file type
     syntax on
 
