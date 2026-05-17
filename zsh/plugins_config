@@ -10,6 +10,7 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-2]='none'
 ZSH_HIGHLIGHT_STYLES[bracket-level-3]='none'
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#7f848e,italic'
 # pattern highlighter — matches unquoted $VAR and ${VAR}
 # must use += syntax so the key is stored without literal quote characters
 ZSH_HIGHLIGHT_PATTERNS+=('$[a-zA-Z_][a-zA-Z0-9_]#' 'fg=cyan')
@@ -53,7 +54,7 @@ HSMW_HIGHLIGHT_STYLES[double-quoted-argument]="fg=green"
 HSMW_HIGHLIGHT_STYLES[variable]="fg=cyan"
 
 # zsh-autosuggestions
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=white
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#7f848e'
 ZSH_AUTOSUGGEST_STRATEGY=(history)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
