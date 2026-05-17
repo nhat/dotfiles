@@ -188,6 +188,18 @@ transform-current-word-case() {
 zle -N transform-current-word-case
 bindkey '^[u' transform-current-word-case
 
+# jq with syntax highlighting in terminal, plain output in pipes
+jq() {
+    if [[ -z "$@" ]] && [[ -p /dev/stdin ]]; then
+        set -- '.' "${@:2}"
+    fi
+    if [[ -t 1 ]]; then
+        command jq "$@" | source-highlight -f esc -s json --style-file json.style --data-dir=/opt/homebrew/share/source-highlight
+    else
+        command jq "$@"
+    fi
+}
+
 # don't store invalid commands in history
 zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }
 HISTFILE=~/.zsh_history
