@@ -68,5 +68,6 @@ function take() {
 # Use nvim if installed
 if (( $+commands[nvim] )); then
   alias vi='nvim'
+  alias vim='nvim'
 fi
 
