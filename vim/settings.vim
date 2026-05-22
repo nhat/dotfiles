@@ -193,5 +193,11 @@ if exists("g:neovide")
     " toggle word case
     nnoremap <S-D-u> viw~
     inoremap <S-D-u> <Esc>viw~ea
+
+    " macOS copy/paste
+    vnoremap <D-c> "+y
+    nnoremap <D-v> "+p
+    inoremap <D-v> <C-r>+
+    cnoremap <D-v> <C-r>+
 endif
 
