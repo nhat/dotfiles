@@ -58,6 +58,11 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#7f848e'
 ZSH_AUTOSUGGEST_STRATEGY=(history)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
+# Tab completion discards the suggestion instead of trying to extend it.
+# expand-or-complete is in MODIFY_WIDGETS by default; moving it to CLEAR_WIDGETS
+# makes the clear path run first (POSTDISPLAY=''), then invokes the real completion.
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(expand-or-complete expand-or-complete-prefix)
+
 # Bind widgets at startup instead of letting _zsh_autosuggest_start run in precmd.
 # Running _zsh_autosuggest_start inside precmd (which calls _zsh_autosuggest_bind_widgets
 # and re-evals/re-registers hundreds of ZLE widgets) contributes to spurious blank lines.
