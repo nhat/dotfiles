@@ -194,10 +194,33 @@ if exists("g:neovide")
     nnoremap <S-D-u> viw~
     inoremap <S-D-u> <Esc>viw~ea
 
-    " macOS copy/paste
+    " macOS copy/paste/cut
     vnoremap <D-c> "+y
+    nnoremap <D-c> "+yy
+    vnoremap <D-x> "+d
     nnoremap <D-v> "+p
     inoremap <D-v> <C-r>+
     cnoremap <D-v> <C-r>+
+
+    " undo/redo
+    nnoremap <D-z> u
+    inoremap <D-z> <C-o>u
+    nnoremap <S-D-z> <C-r>
+    inoremap <S-D-z> <C-o><C-r>
+
+    " select all
+    nnoremap <D-a> ggVG
+    inoremap <D-a> <Esc>ggVG
+
+    " save
+    nnoremap <D-s> :w<CR>
+    inoremap <D-s> <Esc>:w<CR>a
+    vnoremap <D-s> <Esc>:w<CR>
+
+    " font scaling
+    let g:neovide_scale_factor = 1.0
+    nnoremap <D-=> :let g:neovide_scale_factor += 0.1<CR>
+    nnoremap <D--> :let g:neovide_scale_factor -= 0.1<CR>
+    nnoremap <D-0> :let g:neovide_scale_factor = 1.0<CR>
 endif
 
