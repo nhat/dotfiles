@@ -55,13 +55,13 @@ pb-kill-line () {
 zle -N pb-kill-line
 bindkey '^K' pb-kill-line
 
-# yank and kill whole line
-pb-kill-whole-line () {
-  zle kill-whole-line
+# kill from cursor to start of line
+pb-backward-kill-line () {
+  zle backward-kill-line
   echo -n $CUTBUFFER | pbcopy
 }
-zle -N pb-kill-whole-line
-bindkey '^U' pb-kill-whole-line
+zle -N pb-backward-kill-line
+bindkey '^U' pb-backward-kill-line
 
 # use the vi navigation keys besides cursor keys in menu completion
 zmodload zsh/complist
