@@ -23,6 +23,7 @@ set shortmess+=I                       " hide the launch screen
 set visualbell
 set noshowmode
 set nowrap
+set linebreak
 set scrolloff=2
 set sidescroll=1
 set sidescrolloff=5
