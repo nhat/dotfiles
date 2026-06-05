@@ -6,8 +6,8 @@
 [user]
     name = Nhat
     email = nhat@users.noreply.github.com
-[includeIf "gitdir:~/Developer/*/src/"]
-  path = ~/.gitconfig_work
+[include]
+  path = ~/.gitconfig_workdir_include
 [credential]
     helper = osxkeychain
 [alias]

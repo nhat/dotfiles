@@ -15,7 +15,7 @@ alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 
 alias gd='git diff HEAD'
-alias gp='git push origin HEAD'
+alias gp='git push $(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null | cut -d/ -f1) HEAD'  # push to tracking remote
 alias grh='git reset --hard'
 alias gt='cd "$(git rev-parse --show-toplevel)"'
 alias grm="git status | grep deleted | awk '{\$1=\$2=\"\"; print \$0}' | \
