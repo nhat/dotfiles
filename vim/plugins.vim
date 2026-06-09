@@ -240,7 +240,7 @@ autocmd FileType html,css EmmetInstall
 autocmd FileType html,css imap <silent><expr><tab> emmet#expandAbbrIntelligent("\<tab>")
 
 " copilot
-imap <C-l> <Plug>(copilot-accept-word)
+imap <silent><script><expr> <M-f> copilot#AcceptWord("\<Esc>ea")
 
 " fix whitespace
 autocmd BufEnter * highlight clear ExtraWhitespace      " don't show whitespace
@@ -367,6 +367,9 @@ if exists("g:neovide")
 
     nmap <silent><D-p> :Fzf<CR>
     imap <silent><D-p> <Esc>:Fzf<CR>
+
+    " copilot
+    imap <silent><script><expr> <M-Right> copilot#AcceptWord("\<Esc>ea")
 
     " toggle comment
     nmap <D-S-m> <Plug>CommentaryLine j0

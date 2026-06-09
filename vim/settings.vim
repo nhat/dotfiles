@@ -121,7 +121,6 @@ vnoremap aQ a'
 
 " add macOS shortcuts for editing in insert mode
 inoremap <M-b> <C-Left>
-inoremap <M-f> <Esc>ea
 inoremap <M-BS> <C-w>
 inoremap <M-d> <C-O>de
 inoremap <C-a> <Home>
@@ -183,7 +182,6 @@ if exists("g:neovide")
 
     " add macOS shortcuts for editing in insert mode
     inoremap <M-Left> <C-Left>
-    inoremap <M-Right> <Esc>ea
     inoremap <M-BS> <C-w>
     inoremap <M-DEL> <C-O>de
     inoremap <D-BS> <C-u>
