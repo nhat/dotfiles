@@ -25,9 +25,9 @@
 	<key>AdjustWindowForFontSizeChange</key>
 	<false/>
 	<key>AiMaxTokens</key>
-	<integer>400000</integer>
+	<integer>1050000</integer>
 	<key>AiModel</key>
-	<string>gpt-5.2</string>
+	<string>gpt-5.5</string>
 	<key>AiResponseMaxTokens</key>
 	<integer>128000</integer>
 	<key>AitermURL</key>
@@ -1666,7 +1666,7 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0x6a-0x100000-0x26</key>
+		<key>0x4a-0x120000-0x26</key>
 		<dict>
 			<key>Action</key>
 			<integer>4</integer>
@@ -1679,7 +1679,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0x6b-0x100000</key>
+		<key>0x4b-0x120000-0x28</key>
 		<dict>
 			<key>Action</key>
 			<integer>5</integer>
@@ -3037,88 +3037,6 @@
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
-				<key>0x48-0xa0000</key>
-				<dict>
-					<key>Action</key>
-					<integer>25</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>Move Divider Left
-Resize Split Pane.Move Divider Left</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
-				<key>0x4a-0x120000</key>
-				<dict>
-					<key>Action</key>
-					<integer>28</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>E72805BC-3A57-4384-9584-E3A7C4ECD50B</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
-				<key>0x4a-0xa0000</key>
-				<dict>
-					<key>Action</key>
-					<integer>25</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>Move Divider Down
-Resize Split Pane.Move Divider Down</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
-				<key>0x4b-0xa0000</key>
-				<dict>
-					<key>Action</key>
-					<integer>25</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>Move Divider Up
-Resize Split Pane.Move Divider Up</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
-				<key>0x4c-0x120000</key>
-				<dict>
-					<key>Action</key>
-					<integer>29</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>E72805BC-3A57-4384-9584-E3A7C4ECD50B</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
-				<key>0x4c-0xa0000</key>
-				<dict>
-					<key>Action</key>
-					<integer>25</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>Move Divider Right
-Resize Split Pane.Move Divider Right</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
 				<key>0x5a-0x120000</key>
 				<dict>
 					<key>Action</key>
@@ -3142,34 +3060,6 @@ Resize Split Pane.Move Divider Right</string>
 					<integer>1</integer>
 					<key>Text</key>
 					<string></string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
-				<key>0x6a-0x180000</key>
-				<dict>
-					<key>Action</key>
-					<integer>25</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>Next Mark/Annotation
-Marks and Annotations.Next Mark or Annotation</string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
-				<key>0x6b-0x180000</key>
-				<dict>
-					<key>Action</key>
-					<integer>25</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>Previous Mark/Annotation
-Marks and Annotations.Previous Mark or Annotation</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
