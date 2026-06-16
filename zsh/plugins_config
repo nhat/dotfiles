@@ -63,6 +63,11 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 # makes the clear path run first (POSTDISPLAY=''), then invokes the real completion.
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(expand-or-complete expand-or-complete-prefix)
 
+# bracketed-paste inserts directly into BUFFER without calling self-insert, so it
+# bypasses _zsh_autosuggest_modify entirely and leaves a stale suggestion. Adding it
+# to MODIFY_WIDGETS makes the bind step wrap it so a suggestion fetch runs after paste.
+ZSH_AUTOSUGGEST_MODIFY_WIDGETS+=(bracketed-paste)
+
 # Bind widgets at startup instead of letting _zsh_autosuggest_start run in precmd.
 # Running _zsh_autosuggest_start inside precmd (which calls _zsh_autosuggest_bind_widgets
 # and re-evals/re-registers hundreds of ZLE widgets) contributes to spurious blank lines.
