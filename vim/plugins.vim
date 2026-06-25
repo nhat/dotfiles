@@ -206,6 +206,9 @@ let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 let g:move_key_modifier = 'C-S'
 let g:move_key_modifier_visualmode = 'C-S'
 
+" vim-sneak
+let g:sneak#use_ic_scs = 1
+
 " apply macro to selected lines
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
