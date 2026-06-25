@@ -119,6 +119,8 @@ _zsh_autosuggest_modify() {
   if (( $#BUFFER > 0 )); then
     if [[ -z "$ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE" ]] || (( $#BUFFER <= $ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE )); then
       _zsh_autosuggest_fetch
+    else
+      POSTDISPLAY=
     fi
   else
     POSTDISPLAY=
