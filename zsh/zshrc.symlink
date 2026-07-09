@@ -74,4 +74,6 @@ unset config_files
 [[ -z $iterm2_hostname ]] && iterm2_hostname=$(hostname)
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
 
-[[ -n $ZSH_PROF ]] && zprof
+if [[ -n $ZSH_PROF ]]; then
+  zprof
+fi
