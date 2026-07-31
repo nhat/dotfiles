@@ -152,6 +152,7 @@ if has("nvim")
     syntax on
 
     autocmd FocusGained,BufEnter * silent! checktime            " reload buffer when focus changes
+    autocmd FileType markdown setlocal wrap
 
     " new line below with meta+enter
     inoremap <M-CR> <Esc>o
