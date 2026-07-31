@@ -2,12 +2,15 @@
 title() {
   # escape '%' chars in $1, make nonprintables visible
   local a=${(V)1//\%/\%\%}
+  a=${a//$'\n'/ }
 
-  # truncate command without forking — $(print -Pn ...) caused spurious blank lines
-  # on rapid Enter because the blocking fork let async zle -F callbacks fire mid-precmd
-  local _fmt="%90>...>$a"
-  a=${(%)_fmt}
-  a=${a//$'\n'/}
+  # truncate to ~90 visible chars via plain slicing, not ${(%)} prompt-expansion.
+  # Command text is untrusted: running it through zsh's %-directive parser can throw
+  # "unmatched '" / parse errors when the command happens to contain a sequence that
+  # looks like an unterminated %(...) conditional or %<...< truncation marker (seen
+  # 2026-07-31 reviewing a PR whose diff/body text tripped this). Plain slicing has
+  # no such grammar to misparse.
+  (( ${#a} > 90 )) && a="${a[1,87]}..."
 
   case $TERM in
   screen*)
