@@ -69,12 +69,10 @@ source $DOTFILES_ROOT/zsh/plugins_config
 
 unset config_files
 
-# Pi offline mode — disable all startup network operations (update checks, package update checks, telemetry)
-export PI_OFFLINE=1
-
 # Pre-set to avoid hostname -f DNS lookup on every prompt draw — can block for
 # seconds on VPN. Short hostname is sufficient for iTerm2 session tracking.
 [[ -z $iterm2_hostname ]] && iterm2_hostname=$(hostname)
+
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
 
 if [[ -n $ZSH_PROF ]]; then
