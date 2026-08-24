@@ -34,6 +34,11 @@ iTunes/
 /*.iws
 /out
 
+# Eclipse (JDT LS writes these into a repo root during project import,
+# added for the agent-jdtls-semantic-query-plan.md jdt-query tool, 2026-08-25)
+.project
+.settings/
+
 
 # Other files
 ######################

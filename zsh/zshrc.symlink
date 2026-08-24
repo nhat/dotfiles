@@ -28,7 +28,10 @@ unset _fzf_sel _fzf_gutter
 # all of our zsh files
 typeset -U config_files
 config_files=($DOTFILES_ROOT/**/*.zsh)
-autoload -Uz $DOTFILES_ROOT/functions/*(:t)
+for _dotfiles_fn in $DOTFILES_ROOT/functions/*; do
+  autoload -Uz ${_dotfiles_fn:t}
+done
+unset _dotfiles_fn
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
@@ -78,3 +81,5 @@ test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_int
 if [[ -n $ZSH_PROF ]]; then
   zprof
 fi
+
+export PATH="$HOME/.agent-java/bin:$PATH"
