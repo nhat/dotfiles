@@ -12,12 +12,23 @@ title() {
   # no such grammar to misparse.
   (( ${#a} > 90 )) && a="${a[1,87]}..."
 
+  # The 2026-07-31 fix above only closed half the gap: plain slicing can still cut a
+  # command line mid-quote, leaving $a with an unbalanced quote count. The final
+  # print -P calls below used to re-expand $a through the same %-directive parser
+  # that fix was meant to avoid, so a truncated-mid-quote command (any line over 90
+  # chars with a quoted argument straddling the cut, e.g. a long absolute path in
+  # single quotes) still threw "unmatched '" / parse error (seen 2026-08-25 with a
+  # spawned Claude tab's launch command). Fix: expand only the fixed, known-safe %~
+  # prompt sequence here, once, under our control, then print $a as plain literal
+  # text with no -P at all, so untrusted content is never prompt-parsed again.
+  local dir=${(%):-%~}
+
   case $TERM in
   screen*)
-    print -Pn "\033]0;%~ ⏤ $a\a" # plain xterm title
+    print -n "\033]0;$dir ⏤ $a\a" # plain xterm title
     ;;
   xterm*|rxvt)
-    print -Pn "\033]1;%1~ ⏤ $a\a" # plain xterm tab title
+    print -n "\033]1;$dir ⏤ $a\a" # plain xterm tab title
     ;;
   esac
 }
