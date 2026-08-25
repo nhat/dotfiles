@@ -71,3 +71,6 @@ if (( $+commands[nvim] )); then
   alias vim='nvim'
 fi
 
+# MapView / Claude Code work scripts
+alias myprs='~/.claude/skills/github/scripts/my-prs.py'
+
