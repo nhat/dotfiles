@@ -48,6 +48,33 @@
 	<false/>
 	<key>ClickToSelectCommand</key>
 	<false/>
+	<key>CodeReviewSavedPrompts</key>
+	<data>
+	W3sidGV4dCI6IlJldmlldyB0aGUgcGVuZGluZyBjaGFuZ2VzIGluIHRoaXMgcmVwby4g
+	RmxhZyBpc3N1ZXMgYSBjYXJlZnVsIG1haW50YWluZXIgd291bGQgYmxvY2sgb24gYmVm
+	b3JlIG1lcmdlLCBpbiByb3VnaGx5IHRoaXMgb3JkZXI6XG4gIDEuIENvcnJlY3RuZXNz
+	IOKAlCBsb2dpYyBlcnJvcnMsIGJyb2tlbiBpbnZhcmlhbnRzLCBtaXNzZWQgZWRnZSBj
+	YXNlcywgb2ZmLWJ5LW9uZSwgcmFjZXMsIGxpZmV0aW1lXC9tZW1vcnkgYnVncywgZXJy
+	b3IgcGF0aHMgdGhhdCBzd2FsbG93IGZhaWx1cmVzLlxuICAyLiBTZWN1cml0eSDigJQg
+	aW5qZWN0aW9uLCBhdXRoblwvYXV0aHogbWlzdGFrZXMsIHNlY3JldCBoYW5kbGluZywg
+	dW5zYWZlIGRlc2VyaWFsaXphdGlvbiwgdW5zYWZlIGRlZmF1bHRzLCBUT0NUT1UuXG4g
+	IDMuIFJlbGlhYmlsaXR5ICYgcGVyZm9ybWFuY2Ug4oCUIGJsb2NraW5nIHRoZSB3cm9u
+	ZyB0aHJlYWQsIHVuYm91bmRlZCByZXNvdXJjZSB1c2UsIGFjY2lkZW50YWwgTyhOwrIp
+	LCByZXRyaWVzIHdpdGhvdXQgYmFja29mZiwgc2lsZW50IGZhaWx1cmUgcGF0aHMuXG4g
+	IDQuIENvbnRyYWN0IHJpc2sg4oCUIGJlaGF2aW9yIGNoYW5nZXMgY2FsbGVycyByZWx5
+	IG9uLCBzaWxlbnRseSBjaGFuZ2VkIGRlZmF1bHRzLCBicm9rZW4gYmFja3dhcmQgY29t
+	cGF0aWJpbGl0eSwgbWlzc2luZyBtaWdyYXRpb25zLlxuXG5Gb3IgZWFjaCBmaW5kaW5n
+	IGNpdGUgYGZpbGU6bGluZWAsIGV4cGxhaW4gKndoeSogaXQgaXMgd3JvbmcgKG5vdCB3
+	aGF0IHRoZSBjb2RlIGRvZXMpLCBhbmQgcHJvcG9zZSBhIGNvbmNyZXRlIGZpeCB3aGVu
+	IG9uZSBpcyBvYnZpb3VzLiBCZSBjYWxpYnJhdGVkOiBpZiBhIGZpbmRpbmcgaXMgbm90
+	IGhpZ2gtY29uZmlkZW5jZSwgc2F5IHNvIG9yIHNraXAgaXQuIFZlcmlmeSBjbGFpbXMg
+	YWdhaW5zdCB0aGUgYWN0dWFsIGNvZGUgcmF0aGVyIHRoYW4gaW5mZXJyaW5nIGZyb20g
+	bmFtZXMuXG5cblNraXAgcHVyZSBzdHlsZSwgZm9ybWF0dGluZywgbmFtaW5nLCBhbmQg
+	YW55dGhpbmcgYSBsaW50ZXIgb3IgQ0kgYWxyZWFkeSBlbmZvcmNlcy5cblxuSWYgeW91
+	IGZpbmQgbm90aGluZyB3b3J0aCBmaXhpbmcsIHNheSBzbyBwbGFpbmx5LiIsIm5hbWUi
+	OiJEZWZhdWx0IiwidXVpZCI6IkI4NUE0Qzk1LTRFREEtNDQ2MS1BNEIzLTQyRjEyMzM4
+	RUEwMiJ9XQ==
+	</data>
 	<key>CopyLastNewline</key>
 	<false/>
 	<key>CopySelection</key>
@@ -1654,7 +1681,7 @@
 	<key>EnableDivisionView</key>
 	<true/>
 	<key>EnableProxyIcon</key>
-	<true/>
+	<false/>
 	<key>FlashTabBarInFullscreen</key>
 	<true/>
 	<key>GlobalKeyMap</key>
@@ -7786,9 +7813,7 @@ Open Autocomplete…</string>
 	<key>ThreeFingerEmulates</key>
 	<false/>
 	<key>ToolbeltTools</key>
-	<array>
-		<string>Notes</string>
-	</array>
+	<array/>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>URLHandlersByGuid</key>
@@ -7815,6 +7840,37 @@ Open Autocomplete…</string>
 	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
+	<key>Workgroups</key>
+	<data>
+	W3sibmFtZSI6IkNsYXVkZSBDb2RlIiwic2Vzc2lvbnMiOlt7ImtpbmQiOnsia2luZCI6
+	InJvb3QifSwiZGlzcGxheU5hbWUiOiJDaGF0IiwibW9kZSI6InJlZ3VsYXIiLCJjb21t
+	YW5kIjoiIiwicGVyRmlsZUNvbW1hbmQiOiIiLCJ1bmlxdWVJZGVudGlmaWVyIjoiYnVp
+	bHRpbi5jbGF1ZGVDb2RlLm1haW4iLCJ1cmxTdHJpbmciOiIiLCJ0b29sYmFySXRlbXMi
+	Olt7ImtpbmQiOiJtb2RlU3dpdGNoZXIifSx7ImtpbmQiOiJnaXRTdGF0dXMifSx7Imtp
+	bmQiOiJhdXRvUmVxdWVzdFJldmlld1doZW5JZGxlIn1dfSx7ImtpbmQiOnsia2luZCI6
+	InBlZXIifSwicGFyZW50SUQiOiJidWlsdGluLmNsYXVkZUNvZGUubWFpbiIsImRpc3Bs
+	YXlOYW1lIjoiRGlmZiIsImNvbW1hbmQiOiJnaXQgZGlmZnRvb2wgLXkgLXggdmltZGlm
+	ZiBcXChnaXRCYXNlKSIsIm1vZGUiOiJkaWZmIiwicGVyRmlsZUNvbW1hbmQiOiJnaXQg
+	ZGlmZnRvb2wgLXkgLXggdmltZGlmZiBcXChnaXRCYXNlKSAtLSBcXChmaWxlKSIsInVu
+	aXF1ZUlkZW50aWZpZXIiOiJidWlsdGluLmNsYXVkZUNvZGUuZGlmZiIsInVybFN0cmlu
+	ZyI6IiIsInRvb2xiYXJJdGVtcyI6W3sia2luZCI6Im1vZGVTd2l0Y2hlciJ9LHsia2lu
+	ZCI6ImNoYW5nZWRGaWxlU2VsZWN0b3IifSx7ImtpbmQiOiJnaXRCYXNlU2VsZWN0b3Ii
+	fSx7ImJhY2tTaG9ydGN1dCI6eyJzZXJpYWxpemVkIjoiMHhmNzAyLTB4MzQwMDAwLTB4
+	N2IifSwicmVsb2FkU2hvcnRjdXQiOnsic2VyaWFsaXplZCI6IjB4NzItMHgxMDAwMDAt
+	MHhmIn0sImtpbmQiOiJuYXZpZ2F0aW9uIiwiZm9yd2FyZFNob3J0Y3V0Ijp7InNlcmlh
+	bGl6ZWQiOiIweGY3MDMtMHgzNDAwMDAtMHg3YyJ9fV19LHsia2luZCI6eyJraW5kIjoi
+	cGVlciJ9LCJwYXJlbnRJRCI6ImJ1aWx0aW4uY2xhdWRlQ29kZS5tYWluIiwiZGlzcGxh
+	eU5hbWUiOiJDb2RlIFJldmlldyIsImNvbW1hbmQiOiJjbGF1ZGUgXFwoY29kZVJldmll
+	d1Byb21wdCkgLS1hcHBlbmQtc3lzdGVtLXByb21wdC1maWxlICdcXChjb2RlUmV2aWV3
+	U3lzdGVtUHJvbXB0RmlsZSknIC0tc2V0dGluZ3MgJ1xcKGl0ZXJtMi5hcHBCdW5kbGVQ
+	YXRoKVwvQ29udGVudHNcL1Jlc291cmNlc1wvY29kZS1yZXZpZXctc2V0dGluZ3MudHh0
+	JyIsIm1vZGUiOiJjb2RlUmV2aWV3IiwicGVyRmlsZUNvbW1hbmQiOiIiLCJ1bmlxdWVJ
+	ZGVudGlmaWVyIjoiYnVpbHRpbi5jbGF1ZGVDb2RlLnJldmlldyIsInVybFN0cmluZyI6
+	IiIsInRvb2xiYXJJdGVtcyI6W3sia2luZCI6Im1vZGVTd2l0Y2hlciJ9LHsia2luZCI6
+	InJlbG9hZCIsInNob3J0Y3V0Ijp7InNlcmlhbGl6ZWQiOiIweDcyLTB4MTAwMDAwLTB4
+	ZiJ9fSx7ImtpbmQiOiJhdXRvU2VuZENsaXBwaW5nc1doZW5JZGxlIn1dfV0sInVuaXF1
+	ZUlkZW50aWZpZXIiOiJidWlsdGluLmNsYXVkZUNvZGUifV0=
+	</data>
 	<key>com.apple.WebPrivacy.ResourceMonitorURLsVersion</key>
 	<string>qrsAAAGXnXBrwGxMO6s=</string>
 	<key>disableMetalWhenUnplugged</key>
