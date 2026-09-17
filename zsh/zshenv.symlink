@@ -24,9 +24,3 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # To update: run `/usr/libexec/java_home -v 17` and replace the path below
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
 
-# load corp proxy vars (http_proxy/https_proxy/no_proxy) if present, so every
-# shell (including non-interactive ones, e.g. Claude Code's Bash tool) has
-# them without needing to `source ~/.proxyrc` per-command. Credential itself
-# stays only in ~/.proxyrc, not committed here, so rotation needs no dotfiles edit.
-[[ -f "$HOME/.proxyrc" ]] && source "$HOME/.proxyrc"
-
