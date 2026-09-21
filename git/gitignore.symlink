@@ -50,5 +50,7 @@ iTunes/
 node_modules/
 *.class
 tmp/
-.claude/
+.claude/CLAUDE.md
+.claude/settings.local.json
+CLAUDE.local.md
 
