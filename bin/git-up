@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC1083
 #
 # Usage: git-up
 #
@@ -13,18 +14,21 @@
 
 set -e
 
-git pull --prune --rebase $@
+git pull --prune --rebase "${@[@]}"
 
 # show diffstat of all changes if we're pulling with --rebase. not
 # sure why git-pull only does this when merging.
-diff=$(git --no-pager diff --shortstat HEAD@{1}.. | sed 's/^ //')
-if [ "$diff" != "" ]; then
+diff=$(git --no-pager diff --shortstat HEAD@{1}.. 2>/dev/null | sed 's/^ //')
+if [ -n "$diff" ]; then
     echo "Diff: $diff"
 fi
 
 # show an abbreviated commit log of stuff that was just merged.
-logs=$(git log --color --pretty=format:"* %C(yellow)%h%Creset %<(40,trunc)%s %<(15,trunc)%Cblue%an %<(15,trunc)%Cgreen%ar%Creset" --abbrev-commit HEAD@{1}..)
-if [ "$logs" != "" ]; then
-  echo "Log\n$logs\n ... (more shown in git log)"
+if git rev-parse --verify -q HEAD@{1} >/dev/null 2>&1; then
+  logs=$(git log --color --pretty=format:"* %C(yellow)%h%Creset %<(40,trunc)%s %<(15,trunc)%Cblue%an %<(15,trunc)%Cgreen%ar%Creset" --abbrev-commit HEAD@{1}.. 2>/dev/null)
+  if [ -n "$logs" ]; then
+    echo "Log
+$logs
+ ... (more shown in git log)"
+  fi
 fi
-
