@@ -38,6 +38,8 @@ iTunes/
 # added for the agent-jdtls-semantic-query-plan.md jdt-query tool, 2026-08-25)
 .project
 .settings/
+.classpath
+.factorypath
 
 
 # Other files
@@ -52,5 +54,6 @@ node_modules/
 tmp/
 .claude/CLAUDE.md
 .claude/settings.local.json
+.claude/worktrees/
 CLAUDE.local.md
 
