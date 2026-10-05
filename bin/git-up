@@ -14,7 +14,7 @@
 
 set -e
 
-git pull --prune --rebase "${@[@]}"
+git pull --prune --rebase "$@"
 
 # show diffstat of all changes if we're pulling with --rebase. not
 # sure why git-pull only does this when merging.
