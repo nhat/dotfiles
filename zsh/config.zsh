@@ -26,7 +26,7 @@ bindkey '^Q' push-line-or-edit
 # edit current command in editor
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey '^[[13;5u' edit-command-line
+bindkey '^G' edit-command-line
 
 # insert new line below
 bindkey '^[^M' self-insert-unmeta
