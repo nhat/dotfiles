@@ -82,5 +82,5 @@ if [[ -n $ZSH_PROF ]]; then
   zprof
 fi
 
-export PATH="$HOME/.agent-java/bin:$PATH"
+export PATH="$HOME/.agent-toolkit/bin:$PATH"
 
