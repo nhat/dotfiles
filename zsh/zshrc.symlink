@@ -81,6 +81,3 @@ test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_int
 if [[ -n $ZSH_PROF ]]; then
   zprof
 fi
-
-export PATH="$HOME/.agent-toolkit/bin:$PATH"
-
