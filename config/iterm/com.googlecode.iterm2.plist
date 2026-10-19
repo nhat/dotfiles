@@ -1693,7 +1693,7 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0x4a-0x120000-0x26</key>
+		<key>0x4a-0x120000-0x26-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>4</integer>
@@ -1706,7 +1706,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0x4b-0x120000-0x28</key>
+		<key>0x4b-0x120000-0x28-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>5</integer>
@@ -1719,7 +1719,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0x6a-0x180000-0x26</key>
+		<key>0x6a-0x180000-0x26-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
@@ -1733,7 +1733,7 @@ Marks and Annotations.Next Mark</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0x6b-0x180000-0x28</key>
+		<key>0x6b-0x180000-0x28-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
@@ -1754,7 +1754,7 @@ Marks and Annotations.Previous Mark</string>
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xd-0x20000-0x24</key>
+		<key>0xd-0x20000-0x24-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>12</integer>
@@ -2923,7 +2923,7 @@ Marks and Annotations.Previous Mark</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
-				<key>0x2f-0x100000-0x2c</key>
+				<key>0x2f-0x100000-0x2c-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
@@ -3526,6 +3526,8 @@ Open Autocomplete…</string>
 				<string></string>
 			</dict>
 			<key>Send Code When Idle</key>
+			<false/>
+			<key>Send Session Ended Alert</key>
 			<false/>
 			<key>Session Close Undo Timeout</key>
 			<integer>60</integer>
@@ -4835,7 +4837,7 @@ Open Autocomplete…</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
-				<key>0x2f-0x100000-0x2c</key>
+				<key>0x2f-0x100000-0x2c-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
@@ -6805,7 +6807,7 @@ Open Autocomplete…</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
-				<key>0x2f-0x100000-0x2c</key>
+				<key>0x2f-0x100000-0x2c-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>10</integer>
@@ -7737,6 +7739,8 @@ Open Autocomplete…</string>
 	<false/>
 	<key>ShowPaneTitles</key>
 	<false/>
+	<key>ShowSessionStatusInTabSubtitle</key>
+	<false/>
 	<key>SlowFrameRate</key>
 	<real>60</real>
 	<key>SmartPlacement</key>
@@ -7747,6 +7751,8 @@ Open Autocomplete…</string>
 	<real>0.10000000000000001</real>
 	<key>StatusBarPosition</key>
 	<integer>1</integer>
+	<key>StatusMergeWorkgroups</key>
+	<false/>
 	<key>StretchTabsToFillBar</key>
 	<true/>
 	<key>SuppressRestartAnnouncement</key>
@@ -7774,7 +7780,9 @@ Open Autocomplete…</string>
 	<key>ThreeFingerEmulates</key>
 	<false/>
 	<key>ToolbeltTools</key>
-	<array/>
+	<array>
+		<string>Session Status</string>
+	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>URLHandlersByGuid</key>
