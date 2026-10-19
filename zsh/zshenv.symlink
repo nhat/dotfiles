@@ -24,7 +24,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export PI_SKIP_VERSION_CHECK=1
 
 # set location and version for Java JDK (hardcoded for performance)
-# Homebrew openjdk@25 is keg-only; the opt symlink survives patch upgrades.
-# Switch per shell with java11/java17/java25 (defined in ~/.localrc).
-export JAVA_HOME="/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home"
+# Default stays 17: most eBay repos target 17, and JaCoCo/Lombok pins break on newer JDKs.
+# ltsvc and rttsvc need 25: run java25 (defined in ~/.localrc) per shell.
+# To update: run `/usr/libexec/java_home -v 17` and replace the path below
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
 
