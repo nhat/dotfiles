@@ -220,8 +220,8 @@ _print_prompt_newline() {
 precmd_functions+=(_print_prompt_newline _update_git_prompt _update_zmx_prompt)
 
 set_prompt() {
-  PROMPT="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s) \${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}
-"
+  PROMPT="\${_zmx_prompt_info}%{$fg_bold[blue]%}%1~%{$reset_color%}\${_git_prompt_info}
+%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯%s)%{$reset_color%} "
 }
 
 # Build the prompt template once at startup — precmd only updates the variables.
