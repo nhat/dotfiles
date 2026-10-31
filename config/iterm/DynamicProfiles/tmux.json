@@ -4,6 +4,9 @@
       "Name": "tmux",
       "Guid": "1078EF79-7BD9-41D7-8B2A-F4200374B406",
       "Dynamic Profile Parent Name": "Default",
+      "Prompt Before Closing 2": 0,
+      "Columns": 148,
+      "Rows": 42,
       "Custom Command": "Yes",
       "Command": "/bin/zsh -l -c 'exec /opt/homebrew/bin/tmux -CC new -A -s main'"
     }
