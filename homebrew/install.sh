@@ -34,6 +34,7 @@ packages=(
   mas
   maven
   shellcheck
+  tmux
 )
 for package in $packages; do
   brew install --no-quarantine $package
