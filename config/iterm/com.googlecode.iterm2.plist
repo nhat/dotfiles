@@ -1681,7 +1681,7 @@
 	<key>DisableMetalWhenIdle</key>
 	<false/>
 	<key>DisableTmuxWindowResizing</key>
-	<false/>
+	<true/>
 	<key>DisableTopRightIndicators</key>
 	<false/>
 	<key>DisableWindowSizeSnap</key>
