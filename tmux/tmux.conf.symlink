@@ -11,5 +11,9 @@ set -s escape-time 10
 # (started by macos/com.nnguyen2.tmux-server.plist). A server first started
 # from ssh has no keychain access, which breaks claude and pi.
 set -s exit-empty off
+# Recreate session main whenever it closes, so attach-only ssh clients always
+# find it in this server. Absolute path: the launchd-started server's PATH has
+# no /opt/homebrew/bin.
+set-hook -g session-closed "run-shell '/opt/homebrew/bin/tmux -S \"#{socket_path}\" has -t =main 2>/dev/null || /opt/homebrew/bin/tmux -S \"#{socket_path}\" new -d -s main'"
 set -g status off
 set-environment -g ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX 1
