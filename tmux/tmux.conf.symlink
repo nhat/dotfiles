@@ -5,5 +5,9 @@ set -g set-clipboard on
 set -g mouse on
 set -g history-limit 50000
 set -s escape-time 10
+# Keep the server alive with no sessions so it stays in the GUI login context
+# (started by macos/com.nnguyen2.tmux-server.plist). A server first started
+# from ssh has no keychain access, which breaks claude and pi.
+set -s exit-empty off
 set -g status off
 set-environment -g ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX 1

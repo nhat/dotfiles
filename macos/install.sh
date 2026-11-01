@@ -65,6 +65,13 @@ else
 	echo "  Failed to build AddToRecent" >&2
 fi
 
+# Start the tmux server at GUI login so ssh tmux sessions keep keychain access
+echo "Installing tmux server LaunchAgent..."
+mkdir -p "$HOME/Library/LaunchAgents"
+cp "$DOTFILES_ROOT/macos/com.nnguyen2.tmux-server.plist" "$HOME/Library/LaunchAgents/"
+launchctl bootout "gui/$(id -u)/com.nnguyen2.tmux-server" 2>/dev/null
+launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.nnguyen2.tmux-server.plist"
+
 # Allow apps downloaded from anywhere
 echo "Allowing apps downloaded from anywhere..."
 sudo spctl --master-disable
