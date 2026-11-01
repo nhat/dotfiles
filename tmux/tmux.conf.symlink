@@ -16,4 +16,5 @@ set -s exit-empty off
 # no /opt/homebrew/bin.
 set-hook -g session-closed "run-shell '/opt/homebrew/bin/tmux -S \"#{socket_path}\" has -t =main 2>/dev/null || /opt/homebrew/bin/tmux -S \"#{socket_path}\" new -d -s main'"
 set -g status off
+set -g automatic-rename-format '#{?#{==:#{pane_title},#{host}},#{pane_current_command},#{pane_title}}'
 set-environment -g ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX 1
