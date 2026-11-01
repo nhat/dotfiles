@@ -4,12 +4,16 @@
 <dict>
 	<key>Label</key>
 	<string>com.nnguyen2.tmux-server</string>
-	<!-- Start the tmux server at GUI login so ssh sessions attach to a server
+	<!-- Start the tmux server and session "main" at GUI login so ssh clients
+	     that only run `tmux attach` find a session, in a server
 	     that has keychain access. Needs `set -s exit-empty off` in tmux.conf. -->
 	<key>ProgramArguments</key>
 	<array>
 		<string>/opt/homebrew/bin/tmux</string>
-		<string>start-server</string>
+		<string>new-session</string>
+		<string>-d</string>
+		<string>-s</string>
+		<string>main</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
