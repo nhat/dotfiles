@@ -9794,5 +9794,7 @@ Open Autocomplete…</string>
 	<false/>
 	<key>metalMaximizeThroughput</key>
 	<false/>
+	<key>tabTitlesUseSmartTruncation</key>
+	<false/>
 </dict>
 </plist>

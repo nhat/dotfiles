@@ -17,4 +17,5 @@ set -s exit-empty off
 set-hook -g session-closed "run-shell '/opt/homebrew/bin/tmux -S \"#{socket_path}\" has -t =main 2>/dev/null || /opt/homebrew/bin/tmux -S \"#{socket_path}\" new -d -s main -c /Users/nnguyen2/Downloads'"
 set -g status off
 set -g automatic-rename-format '#{?#{==:#{pane_title},#{host}},#{pane_current_command},#{pane_title}}'
+set-hook -g pane-title-changed 'if -F "#{&&:#{@claude_busy},#{m:✳ *,#{pane_title}}}" { select-pane -T "◐ #{s/^✳ //:pane_title}" }'
 set-environment -g ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX 1
