@@ -14,7 +14,11 @@
 		<string>-d</string>
 		<string>-s</string>
 		<string>main</string>
+		<string>-c</string>
+		<string>/Users/nnguyen2/Downloads</string>
 	</array>
+	<key>WorkingDirectory</key>
+	<string>/Users/nnguyen2/Downloads</string>
 	<key>RunAtLoad</key>
 	<true/>
 	<key>AbandonProcessGroup</key>
