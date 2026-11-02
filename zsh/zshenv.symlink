@@ -1,10 +1,10 @@
 # preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
-elif [[ -n ${NVIM_LISTEN_ADDRESS+x} ]]; then
+if [[ -n ${NVIM_LISTEN_ADDRESS+x} ]]; then
     export EDITOR='nvr'
-else
+elif [[ -x /opt/homebrew/bin/nvim ]] || (( $+commands[nvim] )); then
     export EDITOR='nvim'
+else
+    export EDITOR='vim'
 fi
 
 [[ $TMUX = "" ]] && export TERM="xterm-256color"
