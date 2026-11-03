@@ -19,7 +19,17 @@ function! s:SwitchWindow(dir)
   let l:prev = winnr()
   execute 'wincmd ' . a:dir
   if winnr() == l:prev
-    silent! call writefile([a:dir], '/tmp/.hs_nav_request')
+    if !empty($REX_SESSION) && !empty($REX_BLOCK)
+      let l:command = ['rex', 'do', '-s', $REX_SESSION, '-b', $REX_BLOCK,
+            \ 'hs_pane_navigate', 'dir=' . a:dir]
+      if has('nvim')
+        call jobstart(l:command)
+      elseif exists('*job_start')
+        call job_start(l:command)
+      endif
+    else
+      silent! call writefile([a:dir], '/tmp/.hs_nav_request')
+    endif
   endif
 endfunction
 
