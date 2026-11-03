@@ -7,7 +7,8 @@ else
     export EDITOR='vim'
 fi
 
-[[ $TMUX = "" ]] && export TERM="xterm-256color"
+# keep xterm-rex: Rex terminals set it, and the ssh guard from `rex terminfo setup` reads it
+[[ $TMUX = "" && $TERM != xterm-rex ]] && export TERM="xterm-256color"
 
 export LANG=en_US.UTF-8
 export LESS='-iR'
