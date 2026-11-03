@@ -20,6 +20,7 @@ function! s:SwitchWindow(dir)
   execute 'wincmd ' . a:dir
   if winnr() == l:prev
     if !empty($REX_SESSION) && !empty($REX_BLOCK)
+      if !executable('rex') | return | endif
       let l:command = ['rex', 'do', '-s', $REX_SESSION, '-b', $REX_BLOCK,
             \ 'hs_pane_navigate', 'dir=' . a:dir]
       if has('nvim')
