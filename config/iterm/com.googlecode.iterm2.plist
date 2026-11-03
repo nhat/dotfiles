@@ -1759,6 +1759,20 @@ Marks and Annotations.Previous Mark</string>
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
+		<key>0x6e-0x180000-0x2d-0x1</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>Move Tab to New Window
+moveTabToNewWindow:</string>
+			<key>Version</key>
+			<integer>2</integer>
+		</dict>
 		<key>0x9-0x40000</key>
 		<dict>
 			<key>Action</key>
@@ -3127,19 +3141,6 @@ Marks and Annotations.Previous Mark</string>
 					<integer>1</integer>
 					<key>Text</key>
 					<string></string>
-					<key>Version</key>
-					<integer>2</integer>
-				</dict>
-				<key>0x70-0x100000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Apply Mode</key>
-					<integer>0</integer>
-					<key>Escaping</key>
-					<integer>1</integer>
-					<key>Text</key>
-					<string>0x10</string>
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
@@ -9713,6 +9714,8 @@ Open Autocomplete…</string>
 	<false/>
 	<key>TmuxSyncClipboard</key>
 	<true/>
+	<key>TmuxTitlePrefix</key>
+	<string></string>
 	<key>TmuxVariableWindowSizesSupported</key>
 	<false/>
 	<key>ToolbeltTools</key>
