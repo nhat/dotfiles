@@ -18,7 +18,7 @@ else
 fi
 export FZF_DEFAULT_OPTS="
     --height 30% --reverse --exit-0 --no-separator
-    --pointer=' '
+    --pointer=' ' --gutter=' '
     --color=spinner:250,${_fzf_gutter},${_fzf_sel},prompt:#625F50,hl+:#E75544,hl:#E75544,info:#FAFAFA
     --bind change:top
     --prompt='🔍 '
