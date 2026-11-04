@@ -52,7 +52,7 @@ class Picker:
                 HOME=str(root / "home"),
                 TERM="xterm-256color",
                 SHELL="/bin/zsh",
-                FZF_DEFAULT_OPTS="--height=100% --reverse",
+                FZF_DEFAULT_OPTS="--height=100% --reverse --exit-0 --no-separator",
                 FZF_DEFAULT_OPTS_FILE="",
                 PICKER_WIDGET=str(widget),
                 PICKER_BUFFER=buffer,
@@ -157,6 +157,15 @@ class PickerTests(unittest.TestCase):
         _, events = picker.finish()
         self.assert_command(events, "e", self.root / "home" / "pick.txt")
 
+    def test_home_switch_with_no_matches(self):
+        picker = self.picker()
+        picker.output.clear()
+        picker.send(b"no-such-path")
+        picker.wait_for("0/1")
+        picker.switch_home()
+        _, events = picker.finish()
+        self.assert_command(events, "e", self.root / "home" / "pick.txt")
+
     def test_directory(self):
         (self.root / "local" / "pick.txt").unlink()
         directory = self.root / "local" / "pick dir"
@@ -181,19 +190,40 @@ class PickerTests(unittest.TestCase):
         _, events = picker.finish(b"\x1b")
         self.assertEqual(events, [b"redisplay", b"cat ", b"cat "])
 
+    def assert_producers_stopped(self, picker, pids=None):
+        for pid in pids or picker.pids.read_text().splitlines():
+            with self.assertRaises(ProcessLookupError, msg=f"Producer {pid} survived the picker"):
+                os.kill(int(pid), 0)
+
     def test_slow_local_producer(self):
-        elapsed, events = self.picker(slow=True).finish()
+        picker = self.picker(slow=True)
+        elapsed, events = picker.finish()
         self.assert_command(events, "e", (self.root / "local" / "pick.txt").resolve())
         self.assertLess(elapsed, 1, f"Acceptance waited for producer: {elapsed:.3f}s")
+        self.assert_producers_stopped(picker)
         print(f"local accept: {elapsed:.3f}s", flush=True)
 
     def test_slow_home_producer(self):
         picker = self.picker(slow=True)
+        local_pids = picker.pids.read_text().splitlines()
         picker.switch_home()
+        self.assert_producers_stopped(picker, local_pids)
         elapsed, events = picker.finish()
         self.assert_command(events, "e", self.root / "home" / "pick.txt")
         self.assertLess(elapsed, 1, f"Acceptance waited for producer: {elapsed:.3f}s")
+        self.assert_producers_stopped(picker)
         print(f"home accept: {elapsed:.3f}s", flush=True)
+
+    def test_slow_producer_cancellation(self):
+        for home in (False, True):
+            with self.subTest(home=home):
+                picker = self.picker(slow=True, buffer="cat ", name=f"cancel-{home}")
+                if home:
+                    picker.switch_home()
+                elapsed, events = picker.finish(b"\x1b")
+                self.assertEqual(events, [b"redisplay", b"cat ", b"cat "])
+                self.assertLess(elapsed, 1)
+                self.assert_producers_stopped(picker)
 
     def test_newline_filename(self):
         (self.root / "local" / "pick.txt").unlink()

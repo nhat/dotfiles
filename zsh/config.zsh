@@ -148,7 +148,7 @@ fzf-find-file-or-folder() {
     FZF_DEFAULT_COMMAND="$fd_command --strip-cwd-prefix" \
       fzf --read0 --print0 --no-multi --expect=ctrl-p \
         --header="(Press again to search in home folder)" < /dev/tty
-  )}") || { zle redisplay; return 0; }
+  )}") || [[ $selection[1] == ctrl-p ]] || { zle redisplay; return 0; }
 
   if [[ $selection[1] == ctrl-p ]]; then
     selection=("${(@0)$(
