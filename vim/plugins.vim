@@ -119,6 +119,9 @@ function! s:UpdateSeparatorColor() abort
             highlight Normal guibg=NONE
         endif
     endif
+    if exists('g:neovide')
+        highlight Cursor gui=NONE guifg=#282C34 guibg=#A6C18F
+    endif
     if exists('*lightline#colorscheme')
         runtime! autoload/lightline/colorscheme/one.vim
         silent! call lightline#colorscheme()
