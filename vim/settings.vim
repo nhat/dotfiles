@@ -167,8 +167,8 @@ end
 " neovide
 if exists("g:neovide")
     let g:neovide_scroll_animation_length = 0
-    let g:neovide_cursor_animation_length = 0.150
-    let g:neovide_cursor_trail_size = 1.0
+    let g:neovide_cursor_animation_length = 0.100
+    let g:neovide_cursor_trail_size = 0.5
     set guicursor+=a:Cursor
 
     let g:neovide_input_macos_option_key_is_meta = 'only_left'
