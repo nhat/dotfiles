@@ -139,34 +139,41 @@ fi
 # use fzf to find file or folder
 _fd_excludes=(--exclude .git --exclude .npm --exclude .cache --exclude node_modules --exclude __pycache__ --exclude .venv --exclude venv --exclude target --exclude .gradle --exclude .m2)
 fzf-find-file-or-folder() {
-fd --hidden --strip-cwd-prefix $_fd_excludes | fzf --header="(Press again to search in home folder)" > /tmp/fzf_selection \
-    --bind "ctrl-p:execute(fd --hidden $_fd_excludes . $HOME | fzf --height 100% --prompt='🔍 ${HOME##*/} ' > /tmp/fzf_selection)+abort"
-  local out=$(cat /tmp/fzf_selection)
+  local fd_command="fd --hidden --print0 ${(j: :)${(@q)_fd_excludes}}"
+  local -a selection
+  local out result
 
-  # output with full escaped path
-  local result="$(printf "%q\n" "$(pwd)")/${(q)out}"
-  if [[ $out == /* ]]; then
-    result=${(q)out}
+  # Let fzf own fd so accepting or cancelling also stops an unfinished scan.
+  selection=("${(@0)$(
+    FZF_DEFAULT_COMMAND="$fd_command --strip-cwd-prefix" \
+      fzf --read0 --print0 --no-multi --expect=ctrl-p \
+        --header="(Press again to search in home folder)" < /dev/tty
+  )}") || { zle redisplay; return 0; }
+
+  if [[ $selection[1] == ctrl-p ]]; then
+    selection=("${(@0)$(
+      FZF_DEFAULT_COMMAND="$fd_command . ${(q)HOME}" \
+        fzf --read0 --print0 --no-multi --height 100% --prompt="🔍 ${HOME##*/} " < /dev/tty
+    )}") || { zle redisplay; return 0; }
+    out=$selection[1]
+  else
+    out=$selection[2]
   fi
 
-  if [[ $BUFFER == "" ]]; then
-    # open file or folder
-    if [[ -f $out ]]; then
-      BUFFER="e $result"
-    elif [[ -d $out ]]; then
-      BUFFER="cd $result"
-    else
-      return 0
-    fi
+  [[ -n $out ]] || { zle redisplay; return 0; }
+  [[ $out == /* ]] || out="$PWD/$out"
+  result=${(q)out}
 
-    zle accept-line
-  elif [[ $out != "" ]]; then
-    # append to current buffer
+  if [[ -n $BUFFER ]]; then
     LBUFFER+="$result"
-
     zle redisplay
+  elif [[ -f $out ]]; then
+    BUFFER="e $result"
+    zle accept-line
+  elif [[ -d $out ]]; then
+    BUFFER="cd $result"
+    zle accept-line
   else
-    # do nothing
     zle redisplay
   fi
 }
