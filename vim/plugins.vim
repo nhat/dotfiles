@@ -411,7 +411,15 @@ endfunction
 
 lua << EOF
 require("nvim-autopairs").setup {}
-require("neoscroll").setup {}
+local neoscroll = require("neoscroll")
+neoscroll.setup {}
+
+vim.keymap.set({ "n", "v", "x" }, "<C-u>", function()
+  neoscroll.ctrl_u({ duration = 100 })
+end)
+vim.keymap.set({ "n", "v", "x" }, "<C-d>", function()
+  neoscroll.ctrl_d({ duration = 100 })
+end)
 
 require("oil").setup({
   delete_to_trash = true,
