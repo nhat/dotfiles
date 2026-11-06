@@ -144,6 +144,8 @@ cnoremap <M-f> <S-Right>
 
 " has('nvim') is true in nvim and neovide; use has('ide') to detect IdeaVim
 if has("nvim")
+    set mousescroll=ver:3,hor:0
+
     " prevent E28 errors from markdown highlight groups in javadoc
     let g:java_ignore_markdown = 1
 
