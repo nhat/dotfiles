@@ -25,6 +25,7 @@ Plug 'mechatroner/rainbow_csv'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'preservim/vim-markdown', { 'for': 'markdown' }
 Plug 'windwp/nvim-autopairs'
+Plug 'karb94/neoscroll.nvim'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'google/vim-searchindex'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -410,6 +411,7 @@ endfunction
 
 lua << EOF
 require("nvim-autopairs").setup {}
+require("neoscroll").setup {}
 
 require("oil").setup({
   delete_to_trash = true,
