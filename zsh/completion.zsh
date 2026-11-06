@@ -41,6 +41,16 @@ fi
 source "$_zoxide_cache"
 unset _zoxide_cache
 
+function z() {
+  __zoxide_doctor
+  if (( $# == 0 )); then
+    __zoxide_cd ~
+  else
+    local result
+    result="$(command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")" && __zoxide_cd "$result"
+  fi
+}
+
 # load smart urls if available
 autoload -Uz is-at-least
 for d in $fpath; do
