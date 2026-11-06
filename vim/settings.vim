@@ -166,8 +166,8 @@ end
 
 " neovide
 if exists("g:neovide")
-    let g:neovide_scroll_animation_length = 0
-    let g:neovide_cursor_animation_length = 0.100
+    let g:neovide_scroll_animation_length = 0.05
+    let g:neovide_cursor_animation_length = 0.05
     let g:neovide_cursor_trail_size = 0.5
     set guicursor+=a:Cursor
 
