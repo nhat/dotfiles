@@ -45,6 +45,8 @@ function z() {
   __zoxide_doctor
   if (( $# == 0 )); then
     __zoxide_cd ~
+  elif (( $# == 1 )) && [[ "$1" == - || "$1" =~ ^[-+][0-9]+$ ]]; then
+    __zoxide_cd "$1"
   else
     local result
     result="$(command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")" && __zoxide_cd "$result"
