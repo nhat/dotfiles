@@ -6,16 +6,10 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 ZSHRC = ROOT / "zsh" / "zshrc.symlink"
-UI_EVENTS = {
-    "defaults",
-    "compinit",
-    "completion-file",
-    "plugins",
-    "plugins-config",
-    "hostname",
-    "iterm-integration",
-}
-RESULT_COMMAND = """print -r -- \"RESULT:${TEST_LOCALRC_LOADED-unset}:${TEST_PATH_MODULE-unset}:${TEST_ENV_MODULE-unset}:${ZSH_SKIP_PROMPT_SETUP-unset}:${FZF_DEFAULT_OPTS:+present}:$(command -v claude)\"
+SKIPPED_UI_EVENTS = {"plugins", "plugins-config", "hostname", "iterm-integration"}
+PRESERVED_SETUP_EVENTS = {"defaults", "compinit", "completion-file"}
+RESULT_COMMAND = """print -rn -- \"FZF:${FZF_DEFAULT_OPTS}\"$'\\0'
+print -r -- \"RESULT:${TEST_LOCALRC_LOADED-unset}:${TEST_PATH_MODULE-unset}:${TEST_ENV_MODULE-unset}:${ZSH_SKIP_PROMPT_SETUP-unset}:${LS_COLORS-unset}:${ZOXIDE_INIT-unset}:$(if (( ${FPATH[(Ie)/opt/homebrew/share/zsh/site-functions]} )); then print present; else print missing; fi):$(command -v claude)\"
 fixture-function
 """
 
@@ -70,6 +64,8 @@ class StartupFixture:
         )
         (modules / "completion.zsh").write_text(
             'print -r -- completion-file >> "$TEST_STARTUP_EVENTS"\n'
+            'export LS_COLORS=fixture-colors\n'
+            'export ZOXIDE_INIT=fixture-zoxide\n'
         )
         (completion_functions / "compinit").write_text(
             'compinit() {\n'
@@ -86,6 +82,7 @@ class StartupFixture:
         (self.home / ".iterm2_shell_integration.zsh").write_text(
             'print -r -- iterm-integration >> "$TEST_STARTUP_EVENTS"\n'
         )
+        self._command("brew", "exit 0\n")
         self._command(
             "defaults",
             'printf \'defaults\\n\' >> "$TEST_STARTUP_EVENTS"\n'
@@ -141,7 +138,14 @@ class LauncherShellStartupTests(unittest.TestCase):
 
     def assert_full_ui_setup(self):
         events = set(self.fixture.event_list())
-        self.assertTrue(UI_EVENTS <= events, f"Missing startup events: {UI_EVENTS - events}")
+        self.assertTrue(
+            SKIPPED_UI_EVENTS <= events,
+            f"Missing startup events: {SKIPPED_UI_EVENTS - events}",
+        )
+        self.assertTrue(
+            PRESERVED_SETUP_EVENTS <= events,
+            f"Missing preserved startup events: {PRESERVED_SETUP_EVENTS - events}",
+        )
 
     def assert_regular_setup(self, result):
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -150,7 +154,7 @@ class LauncherShellStartupTests(unittest.TestCase):
         self.assertIn("fpath-module", self.fixture.event_list())
         self.assertIn("marker-consumed", self.fixture.event_list())
         self.assertNotIn("marker-visible", self.fixture.event_list())
-        self.assertIn("RESULT:loaded:loaded:loaded:unset:", result.stdout)
+        self.assertIn("RESULT:loaded:loaded:loaded:unset:fixture-colors:fixture-zoxide:present:", result.stdout)
         self.assertIn(f":{self.fixture.bin / 'claude'}", result.stdout)
         self.assertIn("autoload-function", self.fixture.event_list())
 
@@ -164,8 +168,32 @@ class LauncherShellStartupTests(unittest.TestCase):
         result = self.run_shell(["-lic"], marker="1", command=RESULT_COMMAND)
         self.assert_regular_setup(result)
         events = set(self.fixture.event_list())
-        self.assertTrue(UI_EVENTS.isdisjoint(events), f"UI setup still ran: {UI_EVENTS & events}")
-        self.assertNotIn("present", result.stdout)
+        self.assertTrue(
+            SKIPPED_UI_EVENTS.isdisjoint(events),
+            f"Skipped UI setup still ran: {SKIPPED_UI_EVENTS & events}",
+        )
+        self.assertTrue(PRESERVED_SETUP_EVENTS <= events)
+        self.assertIn("present", result.stdout)
+        normal = self.run_shell(["-lic"], command=RESULT_COMMAND)
+        self.assertEqual(normal.returncode, 0, normal.stderr)
+        self.assertEqual(result.stdout.split("\0", 1)[0], normal.stdout.split("\0", 1)[0])
+
+    def test_inherited_execution_string_does_not_opt_in_without_c_command(self):
+        env = self.fixture.environment(marker="1")
+        env["ZSH_EXECUTION_STRING"] = "inherited command text"
+        result = subprocess.run(
+            ["/bin/zsh", "-il"],
+            input='print -r -- "RESULT:${ZSH_SKIP_PROMPT_SETUP-unset}:${FZF_DEFAULT_OPTS:+present}"\nexit\n',
+            text=True,
+            capture_output=True,
+            check=False,
+            timeout=15,
+            env=env,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assert_full_ui_setup()
+        self.assertIn("marker-consumed", self.fixture.event_list())
+        self.assertIn("RESULT:unset:present", result.stdout)
 
     def test_marked_interactive_shell_without_command_loads_full_setup(self):
         result = self.run_shell(["-il"], marker="1", input_text="exit\n")
@@ -189,8 +217,8 @@ class LauncherShellStartupTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("PARENT:unset", result.stdout)
         self.assertIn(f"FALLBACK:unset:{self.fixture.bin / 'claude'}", result.stdout)
-        self.assertEqual(self.fixture.event_list().count("defaults"), 1)
-        self.assertEqual(self.fixture.event_list().count("completion-file"), 1)
+        self.assertEqual(self.fixture.event_list().count("defaults"), 2)
+        self.assertEqual(self.fixture.event_list().count("completion-file"), 2)
         self.assertEqual(self.fixture.event_list().count("plugins"), 1)
 
 
