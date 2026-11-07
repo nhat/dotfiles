@@ -20,6 +20,15 @@ spoon.Marginator:start()
 hs.loadSpoon("MoveWindow")
 spoon.MoveWindow:start()
 
+for key, direction in pairs({h = "Left", l = "Right"}) do
+  hs.hotkey.bind({"alt", "shift"}, key, function()
+    local app = hs.application.frontmostApplication()
+    if app then
+      app:selectMenuItem({"Window", "Move & Resize", direction})
+    end
+  end)
+end
+
 hs.loadSpoon("MoveSpace")
 spoon.MoveSpace:start()
 
