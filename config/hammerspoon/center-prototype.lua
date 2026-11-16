@@ -103,7 +103,7 @@ function prototype.preview(index, showLabel)
   return frame
 end
 
-prototype.hotkey = hs.hotkey.bind({"ctrl", "alt", "cmd", "shift"}, "m", function()
+prototype.hotkey = hs.hotkey.bind({"ctrl", "cmd", "shift"}, "m", function()
   prototype.preview()
 end)
 centerPrototype = prototype
