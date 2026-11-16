@@ -18,8 +18,14 @@ hs.loadSpoon("Marginator")
 spoon.Marginator:start()
 
 hs.loadSpoon("MoveWindow")
-spoon.MoveWindow.animationDuration = 0.12
 spoon.MoveWindow:start()
+
+hs.hotkey.bind({"alt"}, "f", function()
+  local app = hs.application.frontmostApplication()
+  if app then
+    app:selectMenuItem({"Window", "Center"})
+  end
+end)
 
 hs.hotkey.bind({"alt", "shift"}, "f", function()
   local app = hs.application.frontmostApplication()
