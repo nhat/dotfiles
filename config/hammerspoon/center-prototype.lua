@@ -1,8 +1,20 @@
 if centerPrototype then centerPrototype.stop() end
 
-local prototype = {duration = 0.08}
+local prototype = {duration = 0.12, interval = 1 / 120}
+local axes = {"x", "y", "w", "h"}
+
+local function cancelAnimation(finish)
+  local animation = prototype.animation
+  if not animation then return end
+  prototype.animation = nil
+  animation.timer:stop()
+  if finish and animation.window:id() and not animation.window:isFullScreen() then
+    animation.window:setFrame(animation.target, 0)
+  end
+end
 
 function prototype.stop()
+  cancelAnimation(true)
   if prototype.hotkey then
     prototype.hotkey:delete()
     prototype.hotkey = nil
@@ -27,7 +39,36 @@ function prototype.preview()
     w = width,
     h = height
   }
-  win:setFrame(target, prototype.duration)
+
+  local previous = prototype.animation
+  cancelAnimation(previous and previous.window ~= win)
+  local start = win:frame()
+  local unchanged = true
+  for _, axis in ipairs(axes) do
+    if start[axis] ~= target[axis] then unchanged = false end
+  end
+  if unchanged then return target end
+
+  local animation = {window = win, target = target, started = hs.timer.absoluteTime()}
+  prototype.animation = animation
+  animation.timer = hs.timer.doEvery(prototype.interval, function()
+    if prototype.animation ~= animation then return end
+    if not win:id() or win:isFullScreen() then
+      cancelAnimation(false)
+      return
+    end
+    local progress = math.min(1, (hs.timer.absoluteTime() - animation.started) / (prototype.duration * 1000000000))
+    if progress >= 1 then
+      cancelAnimation(true)
+      return
+    end
+    local eased = progress * progress * (3 - 2 * progress)
+    local nextFrame = {}
+    for _, axis in ipairs(axes) do
+      nextFrame[axis] = start[axis] + (target[axis] - start[axis]) * eased
+    end
+    win:setFrame(nextFrame, 0)
+  end)
   return target
 end
 
