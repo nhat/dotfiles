@@ -18,7 +18,7 @@ hs.loadSpoon("Marginator")
 spoon.Marginator:start()
 
 hs.loadSpoon("MoveWindow")
-spoon.MoveWindow.animationDuration = 0.35
+spoon.MoveWindow.animationDuration = 0.12
 spoon.MoveWindow:start()
 
 hs.hotkey.bind({"alt", "shift"}, "f", function()
