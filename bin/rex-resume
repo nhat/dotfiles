@@ -10,16 +10,20 @@ usage() {
 }
 
 blocks() {
-  local sess
-  for sess in $(rex ls --json | jq -r '.sessions[].session_id'); do
+  local sess sessions
+  sessions=$(rex ls --json | jq -r '.sessions[].session_id')
+  for sess in $sessions; do
     rex block ls -s "$sess" --json |
       jq -r --arg s "$sess" '.blocks[] | select(.flavor | endswith(".terminal.shell")) | "\($s) \(.block_id)"'
   done
 }
 
 save() {
-  local tmp agents sess block id info pid argv0 cwd sid
+  local list agents sess block id info pid argv0 cwd sid
   tmp=$(mktemp -d)
+  trap 'rm -rf "$tmp"' EXIT
+  list=$(blocks)
+  [[ -n $list ]] || { echo "no Rex panes found, keeping previous snapshot" >&2; exit 1; }
   agents=$(claude agents --json 2>/dev/null || echo '[]')
   while read -r sess block; do
     id=${block#block:}
@@ -27,11 +31,12 @@ save() {
     pid=$(jq -r '.foreground.pid // empty' <<<"$info")
     argv0=$(jq -r '.foreground.argv0 // .foreground.name // empty' <<<"$info")
     cwd=$(jq -r '.foreground.cwd // empty' <<<"$info")
-    [[ -n $cwd ]] || cwd=$(rex block call -s "$sess" -b "$block" pwd | jq -r '.pwd // empty')
+    [[ -n $cwd ]] || cwd=$(rex block call -s "$sess" -b "$block" pwd 2>/dev/null | jq -r '.pwd // empty') || true
+    [[ -n $cwd ]] || continue
     mkdir -p "$tmp/$id"
     printf '%s\n' "$cwd" >"$tmp/$id/cwd"
     printf '%s\n' "$sess" >"$tmp/$id/session"
-    sid=$(jq -r --argjson p "${pid:-0}" '.[] | select(.pid == $p) | .sessionId' <<<"$agents")
+    sid=$(jq -r --argjson p "${pid:-0}" 'first(.[] | select(.pid == $p) | .sessionId)' <<<"$agents")
     case "${argv0##*/}" in
       claude)
         if [[ -n $sid ]]; then
@@ -41,24 +46,29 @@ save() {
         fi
         ;;
       nvim | vim)
+        ps -ww -o args= -p "$pid" >"$tmp/$id/arg" || continue
         echo nvim >"$tmp/$id/kind"
-        ps -o args= -p "$pid" >"$tmp/$id/arg"
         continue
         ;;
     esac
     echo shell >"$tmp/$id/kind"
     rex capture -s "$sess" -b "$block" --trim | tail -n "$LINES_KEPT" >"$tmp/$id/screen.txt"
-  done < <(blocks)
+  done <<<"$list"
   mkdir -p "$(dirname "$STATE")"
-  rm -rf "$STATE"
+  rm -rf "$STATE.old"
+  [[ ! -d $STATE ]] || mv "$STATE" "$STATE.old"
   mv "$tmp" "$STATE"
+  rm -rf "$STATE.old"
+  trap - EXIT
   for d in "$STATE"/*/; do
     printf '%s %s %s\n' "$(basename "$d")" "$(cat "$d/kind")" "$(cat "$d/cwd")"
   done
 }
 
 restore() {
-  local dry=${1:-} live d id sess kind cwd cmd
+  local dry=${1:-} live d id sess kind cwd cmd w
+  local -a words
+  [[ -z $dry || $dry == -n ]] || usage
   [[ -d $STATE ]] || { echo "nothing saved in $STATE" >&2; exit 1; }
   live=$(blocks)
   for d in "$STATE"/*/; do
@@ -69,7 +79,11 @@ restore() {
     cwd=$(cat "$d/cwd")
     case $kind in
       claude) cmd="cd $(printf %q "$cwd") && claude --resume $(cat "$d/arg")" ;;
-      nvim) cmd="cd $(printf %q "$cwd") && $(cat "$d/arg")" ;;
+      nvim)
+        read -ra words <"$d/arg"
+        cmd="cd $(printf %q "$cwd") &&"
+        for w in "${words[@]}"; do cmd+=" $(printf %q "$w")"; done
+        ;;
       *) cmd="cat $(printf %q "$d/screen.txt")" ;;
     esac
     if [[ $dry == -n ]]; then
