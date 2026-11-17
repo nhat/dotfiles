@@ -52,7 +52,7 @@ save() {
         ;;
     esac
     echo shell >"$tmp/$id/kind"
-    rex capture -s "$sess" -b "$block" --trim | tail -n "$LINES_KEPT" >"$tmp/$id/screen.txt"
+    rex capture -s "$sess" -b "$block" --format=vt --trim | tail -n "$LINES_KEPT" >"$tmp/$id/screen.txt"
   done <<<"$list"
   mkdir -p "$(dirname "$STATE")"
   rm -rf "$STATE.old"
@@ -66,11 +66,16 @@ save() {
 }
 
 restore() {
-  local dry=${1:-} live d id sess kind cwd cmd w
+  local dry=${1:-} live server d id sess kind cwd cmd w
   local -a words
   [[ -z $dry || $dry == -n ]] || usage
   [[ -d $STATE ]] || { echo "nothing saved in $STATE" >&2; exit 1; }
   live=$(blocks)
+  server=$(rex whoami --json | jq -r .instance_id)
+  if [[ -z $dry && -f $STATE/.restored && $(cat "$STATE/.restored") == "$server" ]]; then
+    echo "already restored on this server run, nothing to do" >&2
+    return 0
+  fi
   for d in "$STATE"/*/; do
     d=${d%/}
     id=$(basename "$d")
@@ -84,7 +89,7 @@ restore() {
         cmd="cd $(printf %q "$cwd") &&"
         for w in "${words[@]}"; do cmd+=" $(printf %q "$w")"; done
         ;;
-      *) cmd="cat $(printf %q "$d/screen.txt")" ;;
+      *) cmd="clear; cat $(printf %q "$d/screen.txt")" ;;
     esac
     if [[ $dry == -n ]]; then
       printf 'block:%s  %s\n' "$id" "$cmd"
@@ -97,6 +102,7 @@ restore() {
       rex send-key -s "$sess" -b "block:$id" enter
     fi
   done
+  [[ -n $dry ]] || printf '%s\n' "$server" >"$STATE/.restored"
 }
 
 case "${1:-}" in
