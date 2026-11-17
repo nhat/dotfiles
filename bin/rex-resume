@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}/rex-resume"
+LINES_KEPT=200
+
+usage() {
+  echo "usage: rex-resume save | restore [-n]" >&2
+  exit 2
+}
+
+blocks() {
+  local sess
+  for sess in $(rex ls --json | jq -r '.sessions[].session_id'); do
+    rex block ls -s "$sess" --json |
+      jq -r --arg s "$sess" '.blocks[] | select(.flavor | endswith(".terminal.shell")) | "\($s) \(.block_id)"'
+  done
+}
+
+save() {
+  local tmp agents sess block id info pid argv0 cwd sid
+  tmp=$(mktemp -d)
+  agents=$(claude agents --json 2>/dev/null || echo '[]')
+  while read -r sess block; do
+    id=${block#block:}
+    info=$(rex block call -s "$sess" -b "$block" process 2>/dev/null) || continue
+    pid=$(jq -r '.foreground.pid // empty' <<<"$info")
+    argv0=$(jq -r '.foreground.argv0 // .foreground.name // empty' <<<"$info")
+    cwd=$(jq -r '.foreground.cwd // empty' <<<"$info")
+    [[ -n $cwd ]] || cwd=$(rex block call -s "$sess" -b "$block" pwd | jq -r '.pwd // empty')
+    mkdir -p "$tmp/$id"
+    printf '%s\n' "$cwd" >"$tmp/$id/cwd"
+    printf '%s\n' "$sess" >"$tmp/$id/session"
+    sid=$(jq -r --argjson p "${pid:-0}" '.[] | select(.pid == $p) | .sessionId' <<<"$agents")
+    case "${argv0##*/}" in
+      claude)
+        if [[ -n $sid ]]; then
+          echo claude >"$tmp/$id/kind"
+          printf '%s\n' "$sid" >"$tmp/$id/arg"
+          continue
+        fi
+        ;;
+      nvim | vim)
+        echo nvim >"$tmp/$id/kind"
+        ps -o args= -p "$pid" >"$tmp/$id/arg"
+        continue
+        ;;
+    esac
+    echo shell >"$tmp/$id/kind"
+    rex capture -s "$sess" -b "$block" --trim | tail -n "$LINES_KEPT" >"$tmp/$id/screen.txt"
+  done < <(blocks)
+  mkdir -p "$(dirname "$STATE")"
+  rm -rf "$STATE"
+  mv "$tmp" "$STATE"
+  for d in "$STATE"/*/; do
+    printf '%s %s %s\n' "$(basename "$d")" "$(cat "$d/kind")" "$(cat "$d/cwd")"
+  done
+}
+
+restore() {
+  local dry=${1:-} live d id sess kind cwd cmd
+  [[ -d $STATE ]] || { echo "nothing saved in $STATE" >&2; exit 1; }
+  live=$(blocks)
+  for d in "$STATE"/*/; do
+    d=${d%/}
+    id=$(basename "$d")
+    sess=$(cat "$d/session")
+    kind=$(cat "$d/kind")
+    cwd=$(cat "$d/cwd")
+    case $kind in
+      claude) cmd="cd $(printf %q "$cwd") && claude --resume $(cat "$d/arg")" ;;
+      nvim) cmd="cd $(printf %q "$cwd") && $(cat "$d/arg")" ;;
+      *) cmd="cat $(printf %q "$d/screen.txt")" ;;
+    esac
+    if [[ $dry == -n ]]; then
+      printf 'block:%s  %s\n' "$id" "$cmd"
+    elif ! grep -qx "$sess block:$id" <<<"$live"; then
+      echo "skip block:$id, pane no longer exists" >&2
+    elif ! rex block call -s "$sess" -b "block:$id" process | jq -e '.foreground.name | test("^(zsh|bash|fish|sh)$")' >/dev/null; then
+      echo "skip block:$id, pane is not at a shell prompt" >&2
+    else
+      rex send -s "$sess" -b "block:$id" "$cmd"
+      rex send-key -s "$sess" -b "block:$id" enter
+    fi
+  done
+}
+
+case "${1:-}" in
+  save) save ;;
+  restore) restore "${2:-}" ;;
+  *) usage ;;
+esac
