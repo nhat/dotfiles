@@ -20,25 +20,6 @@ spoon.Marginator:start()
 hs.loadSpoon("MoveWindow")
 spoon.MoveWindow:start()
 
-hs.hotkey.bind({"alt"}, "f", function()
-  local win = hs.window.focusedWindow()
-  if not win or not win:isStandard() or win:isFullScreen() then return end
-  local screen = win:screen()
-  if not screen then return end
-
-  local frame = screen:frame()
-  local margin = spoon.MoveWindow.margin
-  local ratio = spoon.MoveWindow.centerRatio
-  local width = math.floor((frame.w - 2 * margin) * ratio.w)
-  local height = math.floor((frame.h - 2 * margin) * ratio.h)
-  win:setFrame({
-    x = math.floor(frame.x + (frame.w - width) / 2),
-    y = math.floor(frame.y + (frame.h - height) / 2),
-    w = width,
-    h = height
-  }, 0)
-end)
-
 hs.hotkey.bind({"alt", "shift"}, "f", function()
   local app = hs.application.frontmostApplication()
   if app then
