@@ -33,6 +33,7 @@ bindkey '^[^M' self-insert-unmeta
 
 # insert parameter last command
 bindkey '^[[13;2u' insert-last-word
+bindkey '^[[27;2;13~' insert-last-word
 
 # binds hex 0x18 0x7f with deleting everything to the left of the cursor
 bindkey '^X\x7f' backward-kill-line
