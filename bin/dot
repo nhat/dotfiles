@@ -20,4 +20,5 @@ $DOTFILES_ROOT/vim/install.sh
 # Setup config files
 $DOTFILES_ROOT/config/hammerspoon/install.sh
 $DOTFILES_ROOT/config/karabiner/install.sh
+$DOTFILES_ROOT/config/rex/install.sh
 $DOTFILES_ROOT/config/source-highlight/install.sh
