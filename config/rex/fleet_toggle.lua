@@ -1,6 +1,6 @@
 local TERM = "com.superlogical.terminal"
 local LABEL = "fleet"
-local LOOP = "f=~/.claude/assistant/bin/assistant-fleet-loop; [ -x $f ] && exec $f 5 2>/dev/null; while :; do clear; ~/.claude/assistant/bin/assistant-board --no-seen; sleep 15; done"
+local LOOP = "f=~/.claude/assistant/bin/assistant-fleet-loop; [ -x $f ] && exec $f 5 2>/dev/null; while :; do clear; ~/.claude/assistant/bin/assistant-board --no-seen --tree 2>/dev/null || ~/.claude/assistant/bin/assistant-board --no-seen; sleep 15; done"
 
 local function must(res, err)
   if err ~= nil then error(err, 0) end
