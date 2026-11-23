@@ -51,8 +51,8 @@ end):start()
 
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, "b", function()
   if previousApp and previousApp:isRunning() then
-    local target = previousApp
-    previousApp, currentApp = currentApp, target
-    target:activate()
+    previousApp:activate()
+  else
+    previousApp = nil
   end
 end)
