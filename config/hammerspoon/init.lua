@@ -41,3 +41,18 @@ spoon.MoveSpace:start()
 
 hs.loadSpoon("ITermPaneNavigator")
 spoon.ITermPaneNavigator:start()
+
+local previousApp, currentApp = nil, hs.application.frontmostApplication()
+appWatcher = hs.application.watcher.new(function(_, event, app)
+  if event == hs.application.watcher.activated and app and app ~= currentApp then
+    previousApp, currentApp = currentApp, app
+  end
+end):start()
+
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "b", function()
+  if previousApp and previousApp:isRunning() then
+    local target = previousApp
+    previousApp, currentApp = currentApp, target
+    target:activate()
+  end
+end)
